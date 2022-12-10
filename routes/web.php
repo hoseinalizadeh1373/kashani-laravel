@@ -6,8 +6,8 @@ use App\VTiger\CrmMethods;
 
 
 Route::get('/',[VtigerFormsController::class,"index"]);
-Route::get('/test',"VtigerFormsController@test");
-Route::post('/register',"VtigerFormsController@register");
+Route::get('/test',[VtigerFormsController::class,"test"]);
+Route::post('/register',[VtigerFormsController::class,"register"]);
 
 Route::get('/describe',function(){
     dd((new CrmMethods)->describe());

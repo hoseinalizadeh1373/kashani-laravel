@@ -8,6 +8,7 @@
         <form id="__vtigerWebForm" name="ثبت نام مراقب" action="https://www.google.com" autocomplete="off" method="get" accept-charset="utf-8" enctype="multipart/form-data">
 -->
            <form id="__vtigerWebForm" name="ثبت نام مراقب" action="/register" autocomplete="off" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+            @csrf
           <div style="position:relative;z-index:999999999;display:block;min-width:100%;background-color:white">
             <img src="./img/1.png" class="mimg">
 

@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\VTiger\CrmMethods;
-use Exception;
-use \Nette\Http\RequestFactory;
-use Rakit\Validation\Validator;
 
 class VtigerFormsController extends Controller
 {
@@ -54,28 +51,17 @@ class VtigerFormsController extends Controller
     }
 
 
-    public function register()
+    public function register(Request $request)
     {
-        $validator = new Validator;
-        $validation = $validator->make($_POST, [
+        $this->validate($request, [
             'cf_pcf_irc_1122'=> 'required|numeric',
         ]);
 
-        // then validate
-        $validation->validate();
-        if ($validation->fails()) {
-            // handling errors
-            $errors = $validation->errors();
-            echo "<pre>";
-            print_r($errors->firstOfAll());
-            echo "</pre>";
-            exit;
-        }
-
         try{
             $vtiger = new CrmMethods;
-            $contact = $vtiger->getContactByNationalCode(Request::post("cf_pcf_irc_1122"));
-            $data = $_POST;
+            $contact = $vtiger->getContactByNationalCode($request["cf_pcf_irc_1122"]);
+            $data = $request->all();
+
             $mode = "";
             if ($contact) {
                 $data["id"]=$contact->id;
@@ -83,7 +69,7 @@ class VtigerFormsController extends Controller
                 $storedContact = $vtiger->updateContactInformation($data);
             } else {
                 $mode = "create";
-                $storedContact = $vtiger->createNewContact($_POST);
+                $storedContact = $vtiger->createNewContact($request->all());
             }
     
             if(!$storedContact){
@@ -108,7 +94,7 @@ class VtigerFormsController extends Controller
             ];
         }
 
-        jsonResponse($data);
+        return response()->json($data);
        
     }
 }
