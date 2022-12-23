@@ -18,3 +18,6 @@ Route::get('/me',function(){
 Route::get('/hsy',function(){
     dd((new CrmMethods)->getContactByNationalCode("5729906803"));
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
