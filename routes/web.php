@@ -21,3 +21,16 @@ Route::get('/hsy',function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get("/entrance/{token}",[App\Http\Controllers\CrmEntranceContoller::class,"entrance"]);
+
+Route::middleware("auth")->prefix("client")->as("client.")->group(function(){
+
+    Route::get("verification",[App\Http\Controllers\VerificationController::class,"verification"])->name("verification");
+    
+    Route::middleware("fullVerified")->group(function(){
+    
+    });
+
+});
