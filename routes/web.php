@@ -34,3 +34,7 @@ Route::middleware("auth")->prefix("client")->as("client.")->group(function(){
     });
 
 });
+
+Route::get("/test",function(App\Services\Sms\SmsInterface $sms){
+    $sms->send("salam"); 
+});
