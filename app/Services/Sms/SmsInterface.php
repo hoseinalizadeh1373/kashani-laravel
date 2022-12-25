@@ -4,5 +4,6 @@ namespace App\Services\Sms;
 
 interface SmsInterface
 {
-    public function send($message);
+    public function credit();
+    public function send($message,$to);
 }

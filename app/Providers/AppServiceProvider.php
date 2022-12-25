@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
+use App\Services\Sms\FakeSmsPanel;
+use App\Services\Sms\IppanelSms;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Sms\SmsInterface;
-use App\Services\Sms\Sms;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(SmsInterface::class, Sms::class);
+        $this->app->bind(SmsInterface::class,FakeSmsPanel::class);
     }
 
     /**
