@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\VtigerFormsController;
+use App\Services\ContactVerifier;
 use Illuminate\Support\Facades\Route;
 use App\VTiger\CrmMethods;
 
@@ -18,10 +19,10 @@ Route::get('/me',function(){
 Route::get('/hsy',function(){
     dd((new CrmMethods)->getContactByNationalCode("5729906803"));
 });
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 
 Route::get("/entrance/{token}",[App\Http\Controllers\CrmEntranceContoller::class,"entrance"]);
 
@@ -35,6 +36,4 @@ Route::middleware("auth")->prefix("client")->as("client.")->group(function(){
 
 });
 
-Route::get("/test",function(App\Services\Sms\SmsInterface $sms){
-    $sms->send("salam"); 
-});
+Route::get("/test","TestController@test");

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Services\Sms\SmsInterface;
 use Illuminate\Http\Request;
 
 class verificationController
@@ -16,8 +17,8 @@ class verificationController
 
     }
 
-    public function sendMobileVerificationSms(){
-
+    public function sendMobileVerificationSms(SmsInterface $sms){
+        
     }
 
     public function checkMobileVerificationSms(){

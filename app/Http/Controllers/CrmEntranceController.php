@@ -12,7 +12,7 @@ class CrmEntranceController extends Controller
         
         $contact = $this->getCrmContactWithToken($token);
         
-        $user = User::registerContact($contact);
+        $user = User::selectOrRegisterContact($contact);
 
         $user->login();
 
