@@ -1,8 +1,13 @@
 // Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
-@import 'bootstrap/scss/bootstrap';
+@import "./vendor/bootstrap.rtl.min.css";
+
+@import "vazir-font/dist/font-face.css";
+
+body{
+    font-family: "Vazir";
+}
