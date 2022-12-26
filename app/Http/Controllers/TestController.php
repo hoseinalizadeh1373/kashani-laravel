@@ -12,10 +12,15 @@ class TestController extends Controller
     public function test(){
         $user = User::find(1);
         
+
+        if(!$user->doMobileVerification(70726)){
+            dd("code wrong");
+        }
+
         if($user->isVerified())
             dd("verified");
         
-        $user->sendVerificationCode();
+        $user->sendMobileVerificationCode();
         
         // $user->verifyMobile(5555);
     }
