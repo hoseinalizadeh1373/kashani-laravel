@@ -1,7 +1,21 @@
 <template>
   <div>
+    <notifications position="top center" type="warn" />
     <form v-if="step == 'getMobile'">
-      <div class="row mb-3">
+      <div class="row mb-3" v-if="national_code_required">
+        <label for="national_code" class="col-md-4 col-form-label text-md-end"
+          >کد ملی</label
+        >
+        <div class="col-md-6">
+          <input
+            type="text"
+            class="form-control"
+            v-model="national_code"
+            autofocus
+            :disabled="loading"
+          />
+        </div>
+      </div><div class="row mb-3">
         <label for="email" class="col-md-4 col-form-label text-md-end"
           >شماره موبایل</label
         >
@@ -9,7 +23,7 @@
           <input
             type="text"
             class="form-control"
-            :value="mobile"
+            v-model="mobile"
             autofocus
             :disabled="loading"
           />
@@ -29,8 +43,7 @@
             >
               <span class="sr-only"></span>
             </div>
-
-            ورود
+            ارسال پیامک
           </button>
         </div>
       </div>
@@ -47,7 +60,7 @@
             type="number"
             class="form-control"
             name="email"
-            :value="verification_code"
+            v-model="verification_code"
           />
         </div>
       </div>
@@ -68,21 +81,40 @@
 
 <script>
 export default {
-  props: ["mobile"],
+  // props: ["mobile"],
   data: function () {
     return {
       loading: false,
       step: "getMobile",
+      mobile: "",
       verification_code: "",
+      national_code: "",
+      national_code_required: false,
     };
   },
   methods: {
     sendVerificationCode() {
       this.loading = true;
       axios
-        .get("/mobile/sendVerificationSms")
+        .get("/mobile/sendCode",{
+          params: {
+            mobile:this.mobile,
+            naional_code:this.national_code
+          }
+        })
         .then((res) => {
-          this.step="getVerificationCode"
+          console.log(res)
+          if(res.data.success){
+            this.step="getVerificationCode"
+            return;
+          }
+
+
+          if(res.data.status_code==101){
+            this.$notify({ type: "warn", text: "این کاربر قبلا ثبت نام نشده است." });
+            this.national_code_required=true;
+          }
+
         })
         .catch((err) => {
           console.log(err);
@@ -94,7 +126,12 @@ export default {
     checkVerificationCode() {
       this.loading = true;
       axios
-        .get("/mobile/checkVerificationCode")
+        .get("/mobile/check",{
+          params:{
+            mobile: this.mobile,
+            code: this.verification_code
+          }
+        })
         .then((res) => {
           console.log(res);
         })

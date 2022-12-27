@@ -37,3 +37,9 @@ Route::middleware("auth")->prefix("client")->as("client.")->group(function(){
 });
 
 Route::get("/test","TestController@test");
+
+Route::middleware("throttle:sendVerifyCodeLimit")->group(function(){
+    Route::get("/mobile/sendCode","MobileVerificationController@sendCode");
+});
+
+Route::get("/mobile/check","MobileVerificationController@check");

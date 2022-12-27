@@ -17,6 +17,7 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "@kyvg/vue3-notification": "^2.7.0",
         "vazir-font": "^30.1.0"
     }
 }
