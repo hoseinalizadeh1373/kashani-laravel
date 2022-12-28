@@ -18,8 +18,7 @@ class MobileVerificationController extends Controller
     public function sendCode(Request $request){
 
         $user = $this->getUserWithMobile($request->mobile);
-        
-        if(!$user and !$request->has("national_code")){
+        if(!$user and !$request->national_code){
             return response()->json([
                 "success" => false,
                 "status_code" => self::USER_NOT_REGISTERED,
@@ -27,8 +26,10 @@ class MobileVerificationController extends Controller
             ]);
         }
 
+        $searchLine = new \App\Services\Searchline\Searchline;
+
         if(!$user){
-            $mobileBelogsToUser = Serchline::isMobileBelongsToPerson($request->national_code);
+            $mobileBelogsToUser = $searchLine->isMobileBelongsToPerson($request->mobile, $request->national_code);
             if(!$mobileBelogsToUser){
                 return response()->json([
                     "success" => false,
@@ -38,7 +39,6 @@ class MobileVerificationController extends Controller
             }
 
             $user = $this->registerUser($request);
-
         }
         
         $user->sendMobileVerificationCode();
