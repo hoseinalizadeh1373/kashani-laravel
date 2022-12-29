@@ -1,0 +1,33 @@
+*   Trying 185.55.225.19:443...
+* Connected to inquery.ir (185.55.225.19) port 443 (#0)
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*  CAfile: C:\php81\cert\cacert.pem
+*  CApath: none
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384
+* ALPN, server accepted to use http/1.1
+* Server certificate:
+*  subject: CN=mail.shabnam.co
+*  start date: Dec 20 08:21:51 2022 GMT
+*  expire date: Mar 20 08:21:50 2023 GMT
+*  issuer: C=US; O=Let's Encrypt; CN=R3
+*  SSL certificate verify ok.
+> POST /:80/ HTTP/1.1
+Host: inquery.ir
+User-Agent: GuzzleHttp/7
+Content-Type: text/html
+Content-Type: application/x-www-form-urlencoded
+charset: utf-8
+Content-Length: 80
+
+* old SSL session ID is stale, removing
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Date: Thu, 29 Dec 2022 06:52:30 GMT
+< Server: Apache
+< Vary: Accept-Encoding,User-Agent
+< Transfer-Encoding: chunked
+< Content-Type: text/html; charset=UTF-8
+< Content-Language: en-GB
+< 
+* Connection #0 to host inquery.ir left intact

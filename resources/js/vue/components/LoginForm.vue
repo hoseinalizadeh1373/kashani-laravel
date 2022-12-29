@@ -9,6 +9,8 @@
         <div class="col-md-6">
           <input
             type="text"
+            name="national_code"
+            id="national_code"
             class="form-control"
             v-model="national_code"
             autofocus
@@ -18,11 +20,13 @@
       </div>
       <div class="row mb-3">
         <label for="email" class="col-md-4 col-form-label text-md-end"
-          >شماره موبایل</label
+          >شماره mobile</label
         >
         <div class="col-md-6">
           <input
             type="text"
+            name="mobile"
+            id="mobile"
             class="form-control"
             v-model="mobile"
             autofocus

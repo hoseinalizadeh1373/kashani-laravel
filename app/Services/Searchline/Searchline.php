@@ -13,8 +13,8 @@ class Searchline
 
     public function isMobileBelongsToPerson($mobile,$nationalCode){
         $data = [
-            "mobile"=>$mobile,
-            "id"=>$nationalCode
+            "Mobile"=>array($mobile),
+            "IdCode"=>array($nationalCode)
         ];
         $this->api->call($data, "Shahkar");
     }
