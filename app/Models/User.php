@@ -13,6 +13,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, VerifyContactMobile;
 
+    const CONTACT_TYPE_MORAGHEB = 1;
+    const CONTACT_TYPE_NURSE = 2;
+    const CONTACT_TYPE_DOCTOR = 3;
+
     /**
      * The attributes that are mass assignable.
      *

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('national_code')->unique();
             $table->string('mobile')->unique();
+            $table->integer('contact_type')->default(\App\Models\User::CONTACT_TYPE_MORAGHEB);
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('mobile_verified_at')->nullable();
             $table->string('password')->nullable();
