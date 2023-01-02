@@ -17,13 +17,13 @@ class LoginTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('http://127.0.0.1:8000/login')
-                ->type("mobile","salam")
+                ->type("mobile","09370331680")
                 ->press("ورود")
                 ->pause(1000)
                 ->assertSee("کد ملی")
-                ->type("national_code","salam")
+                ->type("national_code","5729906803")
                 ->press("ورود")
-                ->pause(3000)
+                ->pause(1000)
                 ->screenshot('filename');
         });
     }

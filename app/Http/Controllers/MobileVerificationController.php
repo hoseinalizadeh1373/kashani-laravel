@@ -74,4 +74,12 @@ class MobileVerificationController extends Controller
     private function getUserWithMobile($mobile){
         return User::whereMobile($mobile)->first();
     }
+
+    private function registerUser($request){
+        return User::create([
+            "mobile"=>$request->mobile,
+            "national_code"=>$request->national_code,
+        ]);
+    }
+
 }

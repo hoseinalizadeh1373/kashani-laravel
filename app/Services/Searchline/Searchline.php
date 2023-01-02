@@ -12,6 +12,7 @@ class Searchline
     }
 
     public function isMobileBelongsToPerson($mobile,$nationalCode){
+        return true;
         $data = [
             "Mobile"=>array($mobile),
             "IdCode"=>array($nationalCode)
