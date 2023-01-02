@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\SmsLoginController;
 use App\Http\Controllers\VtigerFormsController;
 use App\Services\ContactVerifier;
 use Illuminate\Support\Facades\Route;
@@ -39,7 +40,7 @@ Route::middleware("auth")->prefix("client")->as("client.")->group(function(){
 Route::get("/test","TestController@test");
 
 Route::middleware("throttle:sendVerifyCodeLimit")->group(function(){
-    Route::get("/mobile/sendCode","MobileVerificationController@sendCode");
+    Route::get("/mobile/login",[SmsLoginController::class,"login"]);
 });
 
-Route::get("/mobile/check","MobileVerificationController@check");
+Route::get("/mobile/check","MobileVerificationController@checkVerification");

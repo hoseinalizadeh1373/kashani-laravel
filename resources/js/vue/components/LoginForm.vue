@@ -117,7 +117,7 @@ export default {
     sendVerificationCode() {
       this.loading = true;
       axios
-        .get("/mobile/sendCode", {
+        .get("/mobile/login", {
           params: {
             mobile: this.mobile,
             national_code: this.national_code,

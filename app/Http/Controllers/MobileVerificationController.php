@@ -4,82 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\ContactVerification\MobileVerificationStatus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MobileVerificationController extends Controller
 {
-    const USER_NOT_REGISTERED = 101;
-    const MOBILE_NOT_BELONGS_TO_USER = 102;
-    const USER_EXISTS = 103;
-    const MOBILE_REGISTERED_FOR_ANOTHER_USER = 104;
-    const USER_REGISTERED_WITH_ANOTHER_MOBILE = 105;
-
-    public function sendCode(Request $request){
-
-        $user = $this->getUserWithMobile($request->mobile);
-        if(!$user and !$request->national_code){
-            return response()->json([
-                "success" => false,
-                "status_code" => self::USER_NOT_REGISTERED,
-                "error_message" => "USER_NOT_REGISTERED",
-            ]);
-        }
-
-        $searchLine = new \App\Services\Searchline\Searchline;
-
-        if(!$user){
-            $mobileBelogsToUser = $searchLine->isMobileBelongsToPerson($request->mobile, $request->national_code);
-            if(!$mobileBelogsToUser){
-                return response()->json([
-                    "success" => false,
-                    "status_code" => self::MOBILE_NOT_BELONGS_TO_USER,
-                    "error_message" => "MOBILE_NOT_BELONGS_TO_USER",
-                ]);
-            }
-
-            $user = $this->registerUser($request);
-        }
-        
-        $user->sendMobileVerificationCode();
-
-        return response()->json([
-            "success"=>true,
+    use MobileVerificationStatus;
+    
+    public function checkVerification(Request $request){
+        $this->validate($request,[
+            "mobile"=>"required|exists:users,mobile"
         ]);
 
-    }
-
-    public function check(Request $request){
-
-        $user=$this->getUserWithMobile($request->mobile);
+        $user=$this->getUserByMobile($request->mobile);
         $verification = $user->doMobileVerification($request->code);
 
         if($verification){
             Auth::login($user);
-            $data = [
-                "success"=>true,
-            ];
+            return response()->json([
+                    "success"=>true,
+            ]);
         }
-        else 
-        {
-            $data=[
+
+        return response()->json([
                 "success"=>false,
-            ];
-        }   
-     
-        return response()->json($data);
-        
+        ]);   
+
     }
 
-    private function getUserWithMobile($mobile){
+    private function getUserByMobile($mobile){
         return User::whereMobile($mobile)->first();
-    }
-
-    private function registerUser($request){
-        return User::create([
-            "mobile"=>$request->mobile,
-            "national_code"=>$request->national_code,
-        ]);
     }
 
 }
