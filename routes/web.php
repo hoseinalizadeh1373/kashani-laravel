@@ -43,4 +43,4 @@ Route::middleware("throttle:sendVerifyCodeLimit")->group(function(){
     Route::get("/mobile/login",[SmsLoginController::class,"login"]);
 });
 
-Route::get("/mobile/check","MobileVerificationController@checkVerification");
+Route::get("/mobile/check",[SmsLoginController::class,"checkVerification"]);

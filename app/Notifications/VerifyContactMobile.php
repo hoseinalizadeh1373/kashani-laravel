@@ -11,7 +11,6 @@ class VerifyContactMobile extends Notification
 {
     use Queueable;
 
-
     private $verificationCode;
 
     /**
@@ -38,9 +37,6 @@ class VerifyContactMobile extends Notification
     
     public function toSms($notifiable)
     {
-        if($notifiable->isVerified())
-            return;
-
         return "Your verification code is $this->verificationCode";
     }
 

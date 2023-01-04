@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('national_code')->unique();
             $table->string('mobile')->unique();
+            $table->json('crm_fields')->nullable();
             $table->integer('contact_type')->default(\App\Models\User::CONTACT_TYPE_MORAGHEB);
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamp('mobile_verified_at')->nullable();

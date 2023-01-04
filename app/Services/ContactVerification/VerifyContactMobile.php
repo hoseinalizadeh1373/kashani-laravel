@@ -8,11 +8,14 @@ use Carbon\Carbon;
 trait VerifyContactMobile
 {
     public function createMobileVerificationCode(){
+
         $verificationCode = MobileVerificationToken::createToken($this->mobile);
+        
         return $verificationCode->token;
+    
     }
 
-    public function doMobileVerification($verificationCode){
+    public function checkMobileVerifyCode($verificationCode){
         
         $token = $this->getLastToken();
         
@@ -20,8 +23,7 @@ trait VerifyContactMobile
             return false;
         }
 
-        $this->mobile_verified_at = Carbon::now();
-        $this->save();
+        $this->markAsVerified();
 
         return true;
 
@@ -38,6 +40,13 @@ trait VerifyContactMobile
     public function sendMobileVerificationCode(){
         $verificationCode = $this->createMobileVerificationCode();
         $this->notify(new \App\Notifications\VerifyContactMobile($verificationCode));
+    }
+
+    public function markAsVerified(){
+        if(!$this->isVerified()){
+            $this->mobile_verified_at = Carbon::now();
+            $this->save();
+        }
     }
     
 }

@@ -1,7 +1,12 @@
 <template>
   <div>
     <notifications position="top center" type="warn" />
-    <form v-if="step == 'getMobile'">
+    <div v-if="step == 'getMobile'">
+      <ul class="alert alert-danger" v-if="Object.keys(errors).length">
+        <template v-for="error in errors" :key="error">
+          <li v-for="message in error" :key="message">{{ message }}</li>
+        </template>  
+      </ul>
       <div class="row mb-3" v-if="national_code_required">
         <label for="national_code" class="col-md-4 col-form-label text-md-end"
           >کد ملی</label
@@ -20,7 +25,7 @@
       </div>
       <div class="row mb-3">
         <label for="email" class="col-md-4 col-form-label text-md-end"
-          >شماره mobile</label
+          >شماره موبایل</label
         >
         <div class="col-md-6">
           <input
@@ -68,9 +73,14 @@
           </button>
         </div>
       </div>
-    </form>
+    </div>
     <!-- form 2 -->
-    <form v-if="step == 'getVerificationCode'">
+    <div v-if="step == 'getVerificationCode'">
+      <div class="row">
+        <div class="col-md-12">
+        <p>کد تایید به شماره موبایل شما ارسال شده است.</p>
+        </div>
+      </div>
       <div class="row mb-3">
         <label for="email" class="col-md-4 col-form-label text-md-end"
           >کد تایید
@@ -79,7 +89,7 @@
           <input
             type="number"
             class="form-control"
-            name="email"
+            name="vrification_code"
             v-model="verification_code"
           />
         </div>
@@ -95,7 +105,7 @@
           </button>
         </div>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -111,11 +121,13 @@ export default {
       national_code: "",
       national_code_required: false,
       remember_me: false,
+      errors: {},
     };
   },
   methods: {
     sendVerificationCode() {
       this.loading = true;
+      this.errors = {};
       axios
         .get("/mobile/login", {
           params: {
@@ -139,7 +151,8 @@ export default {
           }
         })
         .catch((err) => {
-          console.log(err);
+          this.errors = err.response.data.errors;
+          //
         })
         .then(() => {
           this.loading = false;
@@ -155,7 +168,7 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res);
+          window.location = "/";
         })
         .catch((err) => {
           console.log(err);

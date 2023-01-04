@@ -8,17 +8,11 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use ReflectionClass;
-use \App\Exceptions\SmsLoginGetUserException;
+use App\Services\ContactVerification\SmsLoginGetUserException;
+use App\Services\ContactVerification\Statuses;
 
 class SmsLoginController extends Controller
 {
-    public const USER_NOT_REGISTERED = 101;
-    public const MOBILE_NOT_BELONGS_TO_USER = 102;
-    public const USER_EXISTS = 103;
-    public const MOBILE_REGISTERED_FOR_ANOTHER_USER = 104;
-    public const USER_REGISTERED_WITH_ANOTHER_MOBILE = 105;
-    public const UNKNOWN_SERVER_ERROR = 500;
-
     public function login(Request $request)
     {
         $this->validate($request, [
@@ -28,18 +22,19 @@ class SmsLoginController extends Controller
 
         try {
             $user = $this->getUser($request);
-        } catch(Exception $e) {
+        } 
+        catch(SmsLoginGetUserException $e) {
             
-            $status = (int) ($e->getCode());
-
-            if ($status <= 100 or $status >= 110) {
-                $status = 500;
-                $message = "UNKNOWN"
-            }
-
             return response()->json([
                 "success" => false,
-                "status_code" => $status,
+                "status_code" => $e->getCode(),
+                "status_message" => $e->getMessage(),
+            ]);
+        }
+        catch(Exception $e){
+            return response()->json([
+                "success" => false,
+                "status_code" => 500,
                 "status_message" => $e->getMessage(),
             ]);
         }
@@ -58,7 +53,7 @@ class SmsLoginController extends Controller
         ]);
 
         $user=$this->getUserByMobile($request->mobile);
-        $verification = $user->doMobileVerification($request->code);
+        $verification = $user->checkMobileVerifyCode($request->code);
 
         if ($verification) {
             Auth::login($user);
@@ -82,7 +77,7 @@ class SmsLoginController extends Controller
         $user = $this->getUserByMobile($request->mobile);
 
         if (!$user and !$request->national_code) {
-            throw new SmsLoginGetUserException(self::USER_NOT_REGISTERED);
+            throw new SmsLoginGetUserException(Statuses::USER_NOT_REGISTERED);
         }
 
         $searchLine = new \App\Services\Searchline\Searchline();
@@ -90,7 +85,7 @@ class SmsLoginController extends Controller
         if (!$user) {
             $mobileBelogsToUser = $searchLine->isMobileBelongsToPerson($request->mobile, $request->national_code);
             if (!$mobileBelogsToUser) {
-                throw new SmsLoginGetUserException(self::MOBILE_NOT_BELONGS_TO_USER);
+                throw new SmsLoginGetUserException(Statuses::MOBILE_NOT_BELONGS_TO_USER);
             }
             $user = $this->registerUser($request);
         }
@@ -107,16 +102,5 @@ class SmsLoginController extends Controller
         ]);
     }
 
-/* 
-    public function getStatusMessage($status)
-    {
-        $class = new ReflectionClass(self::class);
-        $constants = $class->getConstants();
 
-        foreach ($constants as $name => $value) {
-            if ($value == $status) {
-                return $name;
-            }
-        }
-    } */
 }

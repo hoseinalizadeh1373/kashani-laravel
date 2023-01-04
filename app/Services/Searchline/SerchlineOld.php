@@ -2,7 +2,6 @@
 
 namespace App\Services\ContactVerification;
 
-use 
 
 class Serchline{
 
