@@ -25,7 +25,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get("/entrance/{token}",[App\Http\Controllers\CrmEntranceContoller::class,"entrance"]);
+// crm entrance
+Route::get("/crme/{token}",[App\Http\Controllers\CrmEntranceController::class,"entrance"]);
 
 Route::middleware("auth")->prefix("client")->as("client.")->group(function(){
 

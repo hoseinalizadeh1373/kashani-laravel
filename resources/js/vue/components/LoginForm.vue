@@ -111,7 +111,7 @@
 
 <script>
 export default {
-  // props: ["mobile"],
+  props: ["mode", "contactMobile"],
   data: function () {
     return {
       loading: false,
@@ -179,7 +179,10 @@ export default {
     },
   },
   mounted() {
-    console.log("Component mounted.");
+    if(this.mode == "checkSms")
+      this.step="getVerificationCode"
+
+    this.mobile=this.contactMobile;
   },
 };
 </script>
