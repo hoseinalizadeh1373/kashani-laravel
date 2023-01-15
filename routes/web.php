@@ -7,35 +7,18 @@ use Illuminate\Support\Facades\Route;
 use App\VTiger\CrmMethods;
 
 
-Route::get('/',[VtigerFormsController::class,"index"]);
-Route::get('/test',[VtigerFormsController::class,"test"]);
-Route::post('/register',[VtigerFormsController::class,"register"]);
-
-Route::get('/describe',function(){
-    dd((new CrmMethods)->describe());
-});
-Route::get('/me',function(){
-    dd((new CrmMethods)->me());
-});
-Route::get('/hsy',function(){
-    dd((new CrmMethods)->getContactByNationalCode("5729906803"));
+Route::get("/",function(){
+    return view("home");
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // crm entrance
-Route::get("/crme/{token}",[App\Http\Controllers\CrmEntranceController::class,"entrance"]);
+Route::get("/crme/{token}",[App\Http\Controllers\CrmEntranceController::class,"entrance"])->middleware(["guest"]);
 
 Route::middleware("auth")->prefix("client")->as("client.")->group(function(){
-
-    Route::get("verification",[App\Http\Controllers\VerificationController::class,"verification"])->name("verification");
-    
     Route::middleware("fullVerified")->group(function(){
-    
+        Route::get("/form",[VtigerFormsController::class,"form"])->name("form");    
     });
-
 });
 
 Route::get("/test","TestController@test");
@@ -45,3 +28,22 @@ Route::middleware("throttle:sendVerifyCodeLimit")->group(function(){
 });
 
 Route::get("/mobile/check",[SmsLoginController::class,"checkVerification"]);
+
+
+Auth::routes();
+
+
+
+// Route::get('/',[VtigerFormsController::class,"index"]);
+// Route::get('/test',[VtigerFormsController::class,"test"]);
+// Route::post('/register',[VtigerFormsController::class,"register"]);
+/* 
+Route::get('/describe',function(){
+    dd((new CrmMethods)->describe());
+});
+Route::get('/me',function(){
+    dd((new CrmMethods)->me());
+});
+Route::get('/hsy',function(){
+    dd((new CrmMethods)->getContactByNationalCode("5729906803"));
+}); */

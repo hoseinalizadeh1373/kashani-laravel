@@ -168,7 +168,7 @@ export default {
           },
         })
         .then((res) => {
-          window.location = "/";
+          window.location = "/client/form";
         })
         .catch((err) => {
           console.log(err);

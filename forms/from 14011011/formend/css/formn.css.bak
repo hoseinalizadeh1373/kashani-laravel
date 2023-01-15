@@ -1,0 +1,682 @@
+      @font-face {
+        font-family: 'sans';
+        src: url('../fonts/Iransansweb.ttf') format('truetype');
+      }
+
+      @font-face {
+        font-family: 'fontello';
+        src: url('../fonts/fontello.eot?56787315');
+        src: url('../fonts/fontello.eot?56787315#iefix') format('embedded-opentype'),
+          url('../fonts/fontello.woff?56787315') format('woff'),
+          url('../fonts/fontello.ttf?56787315') format('truetype'),
+          url('../fonts/fontello.svg?56787315#fontello') format('svg');
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      body {
+        font-family: 'sans';
+        min-width: 279px;
+      }
+
+      div.main {
+        direction: rtl;
+        display: flex;
+        justify-content: center;
+        font-weight: bold;
+      }
+
+      div.d1 {
+        width: 65%;
+      }
+
+      form {
+        border-radius: 20px;
+        padding: 10px;
+        box-shadow: 3px 10px 20px 5px rgba(96, 97, 96, 0.3);
+        width: 90%;
+      }
+
+      input,
+      textarea,
+      select,
+      option {
+        border-radius: 20px;
+        height: 40px;
+        border: 2px solid #d8dde1;
+        margin-top: 26px;
+        text-indent: 10px;
+      }
+
+      span.i+input {
+        text-indent: 35px;
+      }
+/*
+      span.i+textarea {
+        padding:5px 40px;
+      }
+*/
+
+      label {
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      select {
+        height: 50px;
+      }
+
+      select[multiple] {
+        height: 80px;
+      }
+
+      select[multiple]>option {
+        text-indent: 15px;
+        height: 22px;
+        margin: 0;
+        padding: 2px 0;
+        border-radius: 0;
+      }
+
+      option {
+        border: 0;
+      }
+
+      input[type="submit"],
+      select,
+      select * {
+        font-family: 'sans';
+        font-weight: bold;
+      }
+
+      input[type="submit"] {
+        width: 300px;
+        height: 50px;
+        border: 1px solid rgb(116, 228, 107);
+        background-color: rgb(41, 210, 133);
+        background-image: linear-gradient(80deg, rgb(41, 210, 133), rgb(79, 221, 83));
+        border-radius: 50px;
+        color: white;
+        font-size: 18px;
+        font-weight: normal;
+        cursor: pointer;
+        margin-bottom: 20px;
+      }
+
+      input[type="submit"]:hover {
+        color: rgb(0, 0, 0);
+        background-image: linear-gradient(85deg,
+            rgb(41, 210, 133),
+            rgb(79, 221, 83));
+      }
+
+      input[type="submit"]:active {
+        border: 0;
+        color: green;
+      }
+
+      input[type="text"],
+      [type="number"],
+      [type="date"],
+      [type="tel"],
+      [type="file"],
+      textarea,
+      select,
+      option {
+        width: 500px;
+        font-family: 'sans';
+        font-size: 14px;
+      }
+
+      select {
+        width: 505px;
+      }
+
+      label {
+        padding: 0 0 0 25px;
+      }
+
+      input[type="text"]:focus,
+      [type="number"]:focus,
+      [type="tel"]:focus {
+        border: none;
+        border: 3px solid rgb(158, 193, 229);
+        outline: 4px solid rgb(191, 222, 255);
+        padding: 0;
+      }
+
+      [type="file"]:focus{
+        border: none;
+        border: 2px solid rgb(158, 193, 229);
+        outline: 1px solid rgb(191, 222, 255);
+      }
+
+      input[type="file"]{
+padding:8px 0 0 0;
+cursor: pointer;
+/* color:transparent; */
+}
+
+      input[type="file"]::first-line{
+
+border:2px solid red;
+visibility:hidden;
+}
+
+input[type="file"]::file-selector-button,input[type="file"]::-webkit-file-selector-button {
+  border: 1px solid #6c5ce7;
+  padding: 0.4em 0.4em;
+  border-radius: 0.2em;
+  background-color: rgb(41, 210, 133);
+  cursor: pointer;
+  visibility:hidden;
+}
+
+button:hover,button:active {
+  background-color: rgb(41, 210, 133);
+  color:#000;
+
+}
+
+  button {
+  border: 1px solid #6c5ce7;
+  padding: 0.2em 1.2em;
+  border-radius: 0.2em;
+/*
+  background-color: rgb(41, 210, 133);
+  color:white;
+*/
+  cursor: pointer;
+  font-size:14px;
+  display: inline-block;
+
+  white-space:pre;
+  font-family: 'sans';  
+}
+
+input[type="file"]::before {
+content:"فایل انتخاب نشده";
+padding-right:95px;
+user-select:none;
+color:#000;
+visibility:visible;
+}
+
+
+input[type="file"]:valid::before {
+content:"";
+padding-right:0;
+}
+
+input[type="file"]:valid,input[type="file"]:valid::first-line{
+visibility:visible;
+color:black;
+}
+
+ button:active{
+
+border:0;
+outline:1px;
+
+}
+
+
+
+      textarea:focus {
+        border: 3px solid rgb(158, 193, 229);
+        outline: 4px solid rgb(191, 222, 255);
+      }
+
+      textarea {
+        min-height: 46px;
+        max-height: auto;
+        resize: none;
+        height: 46px;
+        width: 100%;
+        box-sizing: border-box;
+        text-indent: 0;
+        padding: 5px 10px 0 0;
+        vertical-align: top;
+        word-break: break-all;
+      }
+
+      label.req::after {
+        content: " *";
+        color: red;
+      }
+
+      input[type="checkbox"] {
+        height: 25px;
+        width: 25px;
+        margin:1px 0 1px 10px;
+        cursor: pointer;
+      }
+
+      #date:focus::placeholder {
+        visibility: hidden;
+      }
+
+      .hide {
+        font-size: 10px;
+        visibility: hidden;
+        display: none;
+      }
+
+      input:focus+.hide,
+      textarea:focus+.hide {
+        display: table;
+        visibility: visible;
+        box-sizing: border-box;
+        font-size: 10px;
+        margin: 5px 10px 0 0;
+        position: absolute;
+        padding: 0;
+        z-index: 99999999;
+      }
+
+      textarea:focus+.hide {
+        margin-top: -5px;
+      }
+
+      input[spin="none"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        appearance: none;
+      }
+
+      input {
+        position: relative;
+      }
+
+      span.icon {
+        font-family: "fontello";
+        font-weight: normal;
+        font-style: normal;
+        position: absolute;
+        z-index: 1;
+        font-size: 16px;
+        padding: 13px 14px;
+        display: inline-block;
+        opacity: 0.6;
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 18px;
+        top: -8px;
+        user-select: none;
+      }
+
+      span.im {
+        padding: 10px 9px !important;
+        padding: 0;
+      }
+
+      img.ic {
+        opacity: 1;
+        width: 28px;
+        height: 23px;
+      }
+
+      span.i {
+        position: relative;
+      }
+
+      span.fixicon {
+        padding: 13px 12px;
+      }
+
+      input:required:valid,
+      input:required:focus:valid,
+      ok,
+      textarea:required:valid {
+        border-color: #009000;
+      }
+
+      #credit-card::-webkit-input-placeholder {}
+
+      #credit-card {
+        box-sizing: border-box;
+        height: 48px;
+        width: 100%;
+        padding-left: calc(100% - 235px);
+      }
+
+      select:required:valid {
+        outline: none;
+        border-color: #009000;
+      }
+
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+
+        100% {
+          opacity: 1;
+        }
+      }
+
+      span.iii {
+        position: relative;
+      }
+
+
+      span.itxt + textarea {
+          padding:7px 34px 0 30px;
+       }        
+
+
+      span.itxt {
+        font-family: 'fontello';
+        font-size:16px;
+        min-width:-moz-fit-content;
+        min-width:fit-content;
+        margin-right:10px;
+        top:38px;
+        font-weight:normal;
+        position:absolute;
+      }
+
+
+
+      span.iiii {
+        position: relative;
+      }
+
+      form input:valid~span.iii:after,
+      form textarea:valid~span.iii:after,
+      form input:focus:valid~span.iii:after {
+        font-size: 20px;
+        position: absolute;
+        content: '\2714';
+        color: green;
+        left: 18px;
+        bottom: -6px;
+        transition: color 1s;
+        animation: fadeIn 3s;
+      }
+
+      form textarea:valid~span.iii:after{
+        bottom: 15px;
+      }
+
+      form input:focus~span.iiii:after {
+        z-index: 9999999;
+        font-size: 12px;
+        border-right: 2px solid rgb(158, 193, 229);
+        padding: 2px 20px 2px 20px;
+        line-height: 38px;
+        max-width: 35px;
+        position: absolute;
+        content: 'اختیاری';
+        color: green;
+        left: 3%;
+        bottom: 2px;
+        transition: color 1s;
+        animation: fadeIn 3s;
+      }
+
+      form select:valid~span.iii:after, form input:valid~span.iii::after {
+        z-index: 9999999;
+/*      display: inline-flex;      */
+        font-size: 20px;
+        position: absolute;
+        content: '\2713';
+        color: green;
+        left: 20px;
+        bottom: -4px;
+        transition: color 1s;
+        animation: fadeIn 3s;
+      }
+
+      form select[multiple]:valid~span.iii:after {
+        top: -22px;
+        left: 25px;
+      }
+
+
+      form input:focus:not(:valid)~span:after,
+      form textarea:focus:invalid~span:after{
+        z-index: 9999999;
+        font-size: 20px;
+        position: absolute;
+        content: '\2716';
+        color: red;
+        left: 18px;
+        bottom: -6px;
+        transition: color 1s;
+        animation: fadeIn 2s;
+      }
+
+      form textarea:focus:invalid~span:after{
+        bottom: 15px;
+      }
+
+
+
+      @media screen and (max-width: 520px) {
+
+        form input:focus:not(:valid)~span:after,
+        form input:valid~span:after,
+        form select:valid~span:after {
+          left: 16px !important;
+          bottom:-6px;
+        }
+
+        .text {
+          min-width: fit-content !important;
+        }
+
+        .text p:nth-of-type(1) {
+          font-size: 12px !important;
+          padding-bottom: 3px;
+        }
+
+        .text p:nth-of-type(2) {
+          font-size: 9px !important;
+          padding-bottom: 1px;
+        }
+
+        .text p:nth-of-type(3) {
+          font-size: 9px !important;
+        }
+
+        div.ttt p {
+          font-size: 12px !important;
+          padding-bottom: 2px !important;
+        }
+
+        div.ttt p a {
+          font-size: 12px !important;
+        }
+      }
+
+     @media screen and (max-width: 281px) {
+          
+       .pdp-default {
+        left:0 !important;
+
+       }
+
+      }
+
+      @media screen and (max-width: 650px) and (min-width: 350px) {
+
+        form input:focus:not(:valid)~span:after,
+        form input:valid~span:after,
+        form select:valid~span:after {
+          left: 22px !important;
+        }
+      }
+
+
+      @media screen and (max-width: 1050px) {
+
+        form *,
+        div.main,
+        div.d1,
+        table * {
+        min-width: 98%;
+        }
+
+        div.ttt {
+          margin: 3.7% 2.6% !important;
+        }
+
+        div.ttt a {
+          font-size: 22px;
+        }
+
+        form input {
+          min-width: 97% !important;
+        }
+
+        form input[type="submit"] {
+          min-width: 96% !important;
+          margin: 0;
+        }
+
+        form input[name="cf_pcf_ccn_1127"] {
+          min-width: 99% !important;
+        }
+
+        table:last-of-type {
+          margin-bottom: 20px;
+        }
+
+        td {
+          display: block !important;
+        }
+
+        input,
+        textarea,
+        select,
+        option {
+          width: 60% !important;
+          margin-top: 0;
+        }
+
+        tr {
+          display: block;
+          margin-top: 24px !important;
+          max-height:74px;
+        }
+  
+        .h {
+          display: block;
+          margin-top: 0 !important;
+        }
+
+        label:not(.hide) {
+          margin-right: 10px;
+        }
+
+       td input:focus:+.hide {
+          display: table;
+          visibility: visible;
+          box-sizing: border-box;
+          font-size: 10px;
+          margin: 5px 10px -25px 0;
+          position: relative;
+          padding: 0;
+        }
+
+        .pdp-default .days {
+          font-weight: bold;
+        }
+
+        form input:focus:not(:valid)~span:after,
+        form input:valid~span:after,
+        form select:valid~span:after,
+        form input:focus:valid~span:after {
+          right: calc(90% - 35px + 0px) !important;
+          bottom: -6px !important;
+        }
+
+      form select[multiple]:valid~span.iii:after {
+        
+        line-height: 450%;
+      }
+
+
+        span.icon {
+          min-width: fit-content;
+        }
+
+         input[type="checkbox"]  {
+           width: 25px !important;
+           min-width: 25px !important;
+        }
+
+      span.itxt {
+        top:12px !important;
+      }
+        
+       div.chk {
+           margin-top:-15px;
+       }
+
+       #ftxt {        
+           min-width: 90%;
+       }
+     }
+
+
+      @media screen and (max-width: 281px){
+        form input {
+          min-width: 96% !important;
+        }
+      }
+
+      .mimg {
+        width: 100%;
+        height: 100%;
+      }
+
+      div.text {
+        min-width: fit-content;
+        position: absolute;
+        text-align: right;
+        margin: 1.4% 2.6%;
+      }
+
+      div.text>span,
+      h4,
+      p {
+        margin: 0;
+      }
+
+      label:not(.hide) {
+        display: inline-block;
+        max-width: 167px;
+      }
+
+      div.ttt {
+        position: absolute;
+        min-width: fit-content;
+        text-align: left;
+        left: 0;
+        direction: ltr;
+        margin: 2.4% 2.6%;
+      }
+
+      div.ttt p {
+        font-size: 23px;
+      }
+
+      div.ttt a {
+        color: #000;
+        text-decoration: none;
+      }
+
+      div.container {
+        z-index: 99999999;
+        position: absolute;
+        width: 100%;
+        padding-top: 37%;
+        top: 0;
+        bottom: 0;
+      }
+
+      .chk {
+        display:flex;
+        align-items:center;
+        padding:10px;
+      }

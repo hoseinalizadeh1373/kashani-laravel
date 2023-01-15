@@ -3,19 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\VTiger\CrmMethods;
+use Illuminate\Support\Facades\Auth;
 
 class VtigerFormsController extends Controller
 {
     
-    public function index()
+    public function form()
     {
-        return view('vtiger-forms.moragheb');
+        $contact = (new CrmMethods())->getContactByNationalCode(Auth::user()->national_code);
+        $formname = $this->getFormName();
+        return view('vtiger-forms.'.$formname, compact("contact"));
     }
 
-    public function __construct()
-    {
+
+    public function updateContact(Request $request){
+        
+    }
+
+
+
+
+    private function getFormName(){
+        return [
+            User::CONTACT_TYPE_MORAGHEB => "moragheb",
+            User::CONTACT_TYPE_NURSE => "nurse",
+            User::CONTACT_TYPE_DOCTOR => "doctor",
+        ][Auth::user()->contact_type];
     }
 
     public function test()
