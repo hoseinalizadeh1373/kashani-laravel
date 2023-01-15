@@ -13,6 +13,11 @@ class FakeSmsPanel implements SmsInterface
        Log::info("fake sms sent",["message"=>$message,"to"=>$to]);
     }
 
+    public function sendPattern($patternId,$to,$args){
+       Log::info("fake pattern sms sent",["patternId"=>$patternId,"to"=>$to,"args"=>$args]);        
+    }
+
+
     public function credit(){
 
     }
