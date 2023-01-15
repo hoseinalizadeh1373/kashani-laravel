@@ -45,7 +45,21 @@ class CrmMethods
             "GET"
         );
 
-        return $contact[0] ?? null;
+        return new CrmContact($contact[0] ?? null);
+    }
+
+    public function getContactByContactNumber($contactNumber)
+    {
+        $contact =  $this->api->call(
+            "default/query",
+            [
+                "query"=>"select * from Contacts where contact_no = '$contactNumber';",
+            ],
+            "GET"
+        );
+
+        
+        return isset($contact[0]) ? (new CrmContact($contact[0])) : null;
     }
     
     public function updateContactInformation($data)
