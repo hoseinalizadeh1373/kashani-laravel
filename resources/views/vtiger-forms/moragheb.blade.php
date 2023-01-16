@@ -75,7 +75,7 @@
                   <span class="i">
                     <span class="icon" style="padding:13px 16px;">&#xe86f;</span>
                   </span>
-                  <input type="text" name="mobile"  data-label="" value="" spin="none" inputmode="numeric" required="" maxlength="11" size="11" pattern="09([0-9]{9})" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeydown="return checkcode(event);">
+                  <input type="text" name="mobile"  data-label="" value="{{ old("mobile",$contact->mobile) }}" spin="none" inputmode="numeric" required="" maxlength="11" size="11" pattern="09([0-9]{9})" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeydown="return checkcode(event);">
                   <label for="mobile" class="hide"> لطفا شماره موبایل خود را وارد کنید مثال: 09191234567 </label>
                   <span class="iii"></span>
                 </td>
@@ -88,7 +88,7 @@
                   <span class="i">
                     <span class="icon fas">&#xe811;</span>
                   </span>
-                  <input type="tel" name="otherphone"  data-label="" value="" spin="none" maxlength="10" inputmode="numeric" placeholder=" " onkeydown="return checkcode(event);">
+                  <input type="tel" name="otherphone"  data-label="" value="{{ old("phone",$contact->phone) }}" spin="none" maxlength="10" inputmode="numeric" placeholder=" " onkeydown="return checkcode(event);">
                 </td>
               </tr>
       
@@ -108,7 +108,7 @@
                   <span class="i">
                     <span class="icon">&#xe85b;</span>
                   </span>
-                  <input type="text" name="birthday" data-label="" value="" id="dat" required="" pattern="(131[6-9]|13[2-7][0-9]|138[0-3])[\/\-]([1-9]|1[0-2])[\/\-]([1-9]|[12][0-9]|3[01])\b" placeholder="
+                  <input type="text" name="birthday" data-label="" value="{{ old("birthday",$contact->birthday) }}" id="dat" required="" pattern="(131[6-9]|13[2-7][0-9]|138[0-3])[\/\-]([1-9]|1[0-2])[\/\-]([1-9]|[12][0-9]|3[01])\b" placeholder="
 روز / ماه / سال
  - حداقل سن 18 و حداکثر 85 سال
 " onfocus="return datechange()">
@@ -123,7 +123,7 @@
                   <span class="i">
                     <span class="icon fixicon">&#xe80d;</span>
                   </span>
-                  <input type="text" per='per' name="cf_1042" data-label="" value="" required pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{2,40}" maxlength="40">
+                  <input type="text" per='per' name="cf_1042" data-label="" value="{{ old("cf_1042",$contact->cf_1042) }}" required pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{2,40}" maxlength="40">
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -135,7 +135,7 @@
                   <span class="i">
                     <span class="icon fixicon">&#xf2bc;</span>
                   </span>
-                  <input id="meli" type="text" name="cf_pcf_irc_1122" data-label="" spin="none" value="" required maxlength="10" size="10" inputmode="numeric" pattern="[a-z]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);check();" onkeypress="return checkcode(event);">
+                  <input id="meli" type="text" name="cf_pcf_irc_1122" data-label="" spin="none" value="{{ old("national_code",$contact->national_code) }}" required maxlength="10" size="10" inputmode="numeric" pattern="[a-z]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);check();" onkeypress="return checkcode(event);">
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -147,7 +147,7 @@
                   <span class="i">
                     <span class="icon">&#xf0db;</span>
                   </span>
-                  <input type="tel" name="cf_1038"  data-label="" value="" spin="none" inputmode="numeric" minlength="1" maxlength="10" pattern="[0-9]{1,10}" required>
+                  <input type="tel" name="cf_1038"  data-label="" value="{{ old("cf_1038",$contact->cf_1038) }}" spin="none" inputmode="numeric" minlength="1" maxlength="10" pattern="[0-9]{1,10}" required>
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -162,7 +162,7 @@
                   <span class="i">
                     <span id="beforecard" class="icon fixicon">&#xe85d;</span>
                   </span>
-                  <input dir="ltr" type="text" id="credit-card" name="cf_pcf_ccn_1127" data-label="" autocomplete="off" inputmode="numeric" maxlength="19" pattern="[a-z]" value="" placeholder="0000-0000-0000-0000" required="required">
+                  <input dir="ltr" type="text" id="credit-card" name="cf_pcf_ccn_1127" data-label="" autocomplete="off" inputmode="numeric" maxlength="19" pattern="[a-z]" value="{{ old("cf_pcf_ccn_1127",$contact->cf_pcf_ccn_1127) }}" placeholder="0000-0000-0000-0000" required="required">
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -189,7 +189,7 @@
                   <span class="i">
                     <span class="icon">&#xe801;</span>
                   </span>
-                  <input type="number"  name="cf_1062" data-label="" value="" min="0" max="20" inputmode="numeric" pattern="[0-9]{0,20}" required="required">
+                  <input type="number"  name="cf_1062" data-label="" value="{{ old("cf_1062",$contact->cf_1062) }}" min="0" max="20" inputmode="numeric" pattern="[0-9]{0,20}" required="required">
                   <label for="cf_1062" class="hide"> عدد مجاز بین 0 الی 20 می باشد. </label>
                   <span class="iii"></span>
                 </td>
@@ -201,12 +201,12 @@
                 <td>
                   <select name="cf_1064" data-label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AE%D8%AF%D9%85%D8%AA+%D8%B3%D8%B1%D8%A8%D8%A7%D8%B2%DB%8C">
                     <option value="">انتخاب مقدار</option>
-                    <option value="معاف">معاف</option>
-                    <option value="پایان خدمت">پایان خدمت</option>
-                    <option value="در حال تحصیل">در حال تحصیل</option>
-                    <option value="غایب">غایب</option>
-                    <option value="مشمول">مشمول</option>
-                    <option value="در حال خدمت">در حال خدمت</option>
+                    <option value="معاف" {{old("cf_1064")=="معاف" ? 'selected' : '' }}>معاف</option>
+                    <option value= "پایان خدمت" {{old("cf_1064")=="خدمت پایان" ? 'selected' : '' }}>پایان خدمت</option>
+                    <option value="در حال تحصیل" {{old('cf_1064') == "تحصیل حال در" ? 'selected' : '' }}>در حال تحصیل</option>
+                    <option value="غایب" {{old("cf_1064")=="غایب" ? 'selected' : '' }}>غایب</option>
+                    <option value="مشمول" {{old("cf_1064")=="مشمول" ? 'selected' : '' }}>مشمول</option>
+                    <option value="در حال خدمت" {{old("cf_1064")=="خدمت حال در" ? 'selected' : '' }}>در حال خدمت</option>
                   </select>
                 </td>
               </tr>
@@ -218,7 +218,7 @@
                   <span class="i">
                     <span class="icon">&#xe876;</span>
                   </span>
-                  <input type="number" name="cf_1225"  data-label="" value="" pattern="[0-9]" required="" min="50" max="120" inputmode="numeric">
+                  <input type="number" name="cf_1225"  data-label="" value="{{ old("cf_1225",$contact->cf_1225) }}" pattern="[0-9]"  required="" min="50" max="120" inputmode="numeric">
                   <label for="cf_1225" class="hide"> وزن بین 50 الی 120 </label>
                   <span class="iii"></span>
                 </td>
@@ -231,7 +231,7 @@
                   <span class="i">
                     <span class="icon">&#xe875;</span>
                   </span>
-                  <input type="number" name="cf_1221" data-label="" pattern="[0-9]{1,3}" value="" required="" min="130" max="210">
+                  <input type="number" name="cf_1221" data-label="" pattern="[0-9]{1,3}" value="{{ old("cf_1221",$contact->cf_1221) }}" required="" min="130" max="210">
                   <label for="cf_1225" class="hide"> قد بین 130 الی 210 سانتی متر </label>
                   <span class="iii"></span>
                 </td>
@@ -243,14 +243,14 @@
                 <td>
                   <select name="cf_1030"  data-label="label:%D8%A2%D8%AE%D8%B1%DB%8C%D9%86+%D9%85%D8%AF%D8%B1%DA%A9+%D8%AA%D8%AD%D8%B5%DB%8C%D9%84%DB%8C" required="">
                     <option value="">انتخاب مقدار</option>
-                    <option value="بیسواد">بیسواد</option>
-                    <option value="ابتدایی">ابتدایی</option>
-                    <option value="سیکل">سیکل</option>
-                    <option value="دیپلم">دیپلم</option>
-                    <option value="کاردانی">کاردانی</option>
-                    <option value="کارشناسی">کارشناسی</option>
-                    <option value="کارشناس ارشد">کارشناس ارشد</option>
-                    <option value="دکترا">دکترا</option>
+                    <option value="بیسواد" {{old('cf_1030')=='بیسواد' ? 'selected' : '' }}>بیسواد</option>
+                    <option value="ابتدایی"  {{old('cf_1030')=='ابتدایی' ? 'selected' : '' }}>ابتدایی</option>
+                    <option value="سیکل"  {{old('cf_1030')=='سیکل' ? 'selected' : '' }}>سیکل</option>
+                    <option value="دیپلم"  {{old('cf_1030')=='دیپلم' ? 'selected' : '' }}>دیپلم</option>
+                    <option value="کاردانی"  {{old('cf_1030')=='کاردانی' ? 'selected' : '' }}>کاردانی</option>
+                    <option value="کارشناسی"  {{old('cf_1030')=='کارشناسی' ? 'selected' : '' }}>کارشناسی</option>
+                    <option value="کارشناس ارشد"  {{old('cf_1030')=='ارشد کارشناس' ? 'selected' : '' }}>کارشناس ارشد</option>
+                    <option value="دکترا"  {{old('cf_1030')=='دکترا' ? 'selected' : '' }}>دکترا</option>
                   </select>
                   <span class="iii"></span>
                 </td>
@@ -262,8 +262,8 @@
                 <td>
                   <select name="cf_1205" data-label="label:%D8%B3%D8%A7%D8%A8%D9%82%D9%87+%D9%85%D8%AD%DA%A9%D9%88%D9%85%DB%8C%D8%AA+%DA%A9%DB%8C%D9%81%D8%B1%DB%8C" required="required">
                     <option value="">انتخاب مقدار</option>
-                    <option value="دارم">دارم</option>
-                    <option value="ندارم">ندارم</option>
+                    <option value="دارم"  {{old('cf_1205')=='دارم' ? 'selected' : '' }}>دارم</option>
+                    <option value="ندارم" {{old('cf_1205')=='ندارم' ? 'selected' : '' }}>ندارم</option>
                   </select>
                   <span class="iii"></span>
                 </td>
@@ -273,15 +273,27 @@
                   <label>محدوده فعالیت</label>
                 </td>
                 <td>
-                  <select name="cf_1193[]" data-label="label:%D9%85%D8%AD%D8%AF%D9%88%D8%AF%D9%87+%D9%81%D8%B9%D8%A7%D9%84%DB%8C%D8%AA" multiple="" required>
-                    <option value="شمال">شمال</option>
-                    <option value="جنوب">جنوب</option>
-                    <option value="مرکز">مرکز</option>
-                    <option value="شرق">شرق</option>
-                    <option value="غرب">غرب</option>
-                    <option value="حومه">حومه</option>
-                    <option value="تمامی مناطق">تمامی مناطق</option>
-                  </select>
+                  <!-- <select name="cf_1193[]" data-label="label:%D9%85%D8%AD%D8%AF%D9%88%D8%AF%D9%87+%D9%81%D8%B9%D8%A7%D9%84%DB%8C%D8%AA" multiple="" required>
+                    <option value="شمال" {{old('cf_1193')=='شمال' ? 'selected' : '' }}>شمال</option>
+                    <option value="جنوب" {{old('cf_1193')=='جنوب' ? 'selected' : '' }}>جنوب</option>
+                    <option value="مرکز" {{old('cf_1193')=='مرکز' ? 'selected' : '' }}>مرکز</option>
+                    <option value="شرق" {{old('cf_1193')=='شرق' ? 'selected' : '' }}>شرق</option>
+                    <option value="غرب" {{old('cf_1193[]')=='غرب' ? 'selected' : '' }}>غرب</option>
+                    <option value="حومه" {{old('cf_1193')=='حومه' ? 'selected' : '' }}>حومه</option>
+                    <option value="تمامی مناطق" {{old('cf_1205')=='مناطق تمامی' ? 'selected' : '' }}>تمامی مناطق</option>
+                  </select> -->
+                  @php 
+                  $answers = [
+                    'شمال',
+                    'جنوب',
+                    'مرکز',
+                    'شرق',
+                    'غرب',
+                    'حومه',
+                    'تمامی مناطق'
+                    ];
+                  @endphp
+                  <x-multi-option :select_name="cf_1193" label="%D9%85%D8%AD%D8%AF%D9%88%D8%AF%D9%87+%D9%81%D8%B9%D8%A7%D9%84%DB%8C%D8%AA" :answer="$answers" :param="$contact->cf_1193" />
                   <span class="iii"></span>
                 </td>
               </tr>
