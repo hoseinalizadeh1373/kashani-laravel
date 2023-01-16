@@ -14,6 +14,7 @@ class VtigerFormsController extends Controller
     public function form()
     {
         $contact = (new CrmMethods())->getContactByNationalCode(Auth::user()->national_code);
+        dd($contact->bjalali);
         $formname = $this->getFormName();
         return view('vtiger-forms.'.$formname, compact("contact"));
     }
@@ -67,7 +68,7 @@ class VtigerFormsController extends Controller
     }
 
 
-    public function register(Request $request)
+    public function update(Request $request)
     {
         $this->validate($request, [
             'cf_pcf_irc_1122'=> 'required|numeric',

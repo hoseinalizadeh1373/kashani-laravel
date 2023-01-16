@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class MultiOption extends Component
+class Select extends Component
 {
     /**
      * Create a new component instance.
@@ -12,15 +12,15 @@ class MultiOption extends Component
      * @return void
      */
 
-     public $param;
-     public $answer;
-     public $select_name;
+     public $value;
+     public $options;
+     public $name;
      public $label;
-    public function __construct($select_name,$param,$answer,$label)
+    public function __construct($name,$value,$options,$label)
     {
-        $this->answer = $answer;
-        $this->param = $param;
-        $this->select_name = $select_name;
+        $this->options = $options;
+        $this->value = $value;
+        $this->name = $name;
         $this->label= $label;
         
     }
@@ -32,7 +32,6 @@ class MultiOption extends Component
      */
     public function render()
     {
-   
-        return view('components.multi-option');
+        return view('components.select');
     }
 }

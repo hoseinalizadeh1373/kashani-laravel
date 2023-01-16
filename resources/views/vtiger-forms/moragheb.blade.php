@@ -283,7 +283,7 @@
                     <option value="تمامی مناطق" {{old('cf_1205')=='مناطق تمامی' ? 'selected' : '' }}>تمامی مناطق</option>
                   </select> -->
                   @php 
-                  $answers = [
+                  $options = [
                     'شمال',
                     'جنوب',
                     'مرکز',
@@ -293,7 +293,12 @@
                     'تمامی مناطق'
                     ];
                   @endphp
-                  <x-multi-option :select_name="cf_1193" label="%D9%85%D8%AD%D8%AF%D9%88%D8%AF%D9%87+%D9%81%D8%B9%D8%A7%D9%84%DB%8C%D8%AA" :answer="$answers" :param="$contact->cf_1193" />
+                  <x-select
+                    selectName="cf_1193[]"
+                    label="%D9%85%D8%AD%D8%AF%D9%88%D8%AF%D9%87+%D9%81%D8%B9%D8%A7%D9%84%DB%8C%D8%AA"
+                    :options="$options"
+                    :value="$contact->cf_1193"
+                  />
                   <span class="iii"></span>
                 </td>
               </tr>

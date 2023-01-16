@@ -3,12 +3,19 @@
 use App\Http\Controllers\Auth\SmsLoginController;
 use App\Http\Controllers\VtigerFormsController;
 use App\Services\ContactVerifier;
+use App\Services\Searchline\Searchline;
 use Illuminate\Support\Facades\Route;
 use App\VTiger\CrmMethods;
 
 
 Route::get("/",function(){
-    return view("home");
+
+    $serach = new Searchline;
+    $res = $serach->isMobileBelongsToPerson("09155326344","0901328928");
+    dd($res);
+
+
+    // return view("home");
 });
 
 
@@ -17,7 +24,11 @@ Route::get("/crme/{token}",[App\Http\Controllers\CrmEntranceController::class,"e
 
 Route::middleware("auth")->prefix("client")->as("client.")->group(function(){
     Route::middleware("fullVerified")->group(function(){
+
         Route::get("/form",[VtigerFormsController::class,"form"])->name("form");    
+
+        Route::post("/update",[VtigerFormsController::class,"update"])->name("update");    
+
     });
 });
 
