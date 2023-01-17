@@ -17,7 +17,9 @@ Route::get("/",function(){
 
     // return view("home");
 });
-
+Route::get("/testing",function(){
+    return view('home');
+});
 
 // crm entrance
 Route::get("/crme/{token}",[App\Http\Controllers\CrmEntranceController::class,"entrance"])->middleware(["guest"]);

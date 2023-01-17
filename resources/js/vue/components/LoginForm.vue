@@ -78,7 +78,7 @@
     <div v-if="step == 'getVerificationCode'">
       <div class="row">
         <div class="col-md-12">
-        <p>کد تایید به شماره موبایل شما ارسال شده است.</p>
+        <p>کد تایید به شماره موبایل شما   {{mobile.substr(7,4).concat("******").concat(mobile.substr(0,2)) }} ارسال شده است.</p>
         </div>
       </div>
       <div class="row mb-3">
@@ -181,8 +181,8 @@ export default {
   mounted() {
     if(this.mode == "checkSms")
       this.step="getVerificationCode"
-
     this.mobile=this.contactMobile;
+    
   },
 };
 </script>
