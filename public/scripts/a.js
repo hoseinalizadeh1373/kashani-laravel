@@ -312,6 +312,8 @@ input_credit_card = function(input)
         if (char !== false)
         { input.setSelectionRange(pos, pos); }
 
+
+
 var card=newV.replace(/[^0-9]/g,"");
 if(card.length==16){
 bank(card);

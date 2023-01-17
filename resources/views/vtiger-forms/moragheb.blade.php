@@ -162,7 +162,7 @@
                   <span class="i">
                     <span id="beforecard" class="icon fixicon">&#xe85d;</span>
                   </span>
-                  <input dir="ltr" type="text" id="credit-card" name="cf_pcf_ccn_1127" data-label="" autocomplete="off" inputmode="numeric" maxlength="19" pattern="[a-z]" value="{{ old("cf_pcf_ccn_1127",$contact->cf_pcf_ccn_1127) }}" placeholder="0000-0000-0000-0000" required="required">
+                  <input dir="ltr" type="text" id="credit-card" name="cf_pcf_ccn_1127" data-label="" autocomplete="off" inputmode="numeric" maxlength="19" pattern="[a-z]" value="{{ old("cf_pcf_ccn_1127",$contact->cf_pcf_ccn_1127) }}" placeholder="0000-0000-0000-0000" required="required" oninvalid="setCustomValidity(' Please enter Alphabets.') ">
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -775,6 +775,7 @@
 
                 </td>
               </tr>
+              <div id="snackbar">با موفقیت ویرایش صورت گرفت</div>
         {{-- <tr>
         <td>
           <label>تصویر کارت ملی</label>
@@ -900,6 +901,7 @@
           <input type="submit" value="تایید اطلاعات">
       </form>
     </form>
+    @include('vtiger-forms.modal')
     </div>
         <script type="text/javascript" src="/scripts/persianDatepicker.js"></script>
     <script type="text/javascript" src="/scripts/jquery.farsiInput.js"></script>
@@ -988,27 +990,45 @@ return(decodeURIComponent(S));
 }
 </script>
 <script>
+
+// var modal = document.getElementById("myModal");
+
+
   $("document").ready(()=>{
     $("#__vtigerWebForm").submit((e)=>{
+      $('#myModal').css('display','block');
+      $('#__vtigerWebForm').prop("disabled",true);
       let data = $("#__vtigerWebForm").serialize();
       $.post("/client/update",data).then(res => {
         if(res.success){
-          alert("yes");
+           snack();
         }
         else{
           alert("no");
         }
       })
       .catch(error=>{
-        alert("error")
+        console.log(error);
+        alert("error");
       })
       .then(()=>{
-        alert("finish");
+        $('#myModal').css('display','none');
+        $('#__vtigerWebForm').prop("disabled",false);
       });
 
       return false;
       
     })
   })
+  function snack() {
+  // Get the snackbar DIV
+  var x = document.getElementById("snackbar");
+
+  // Add the "show" class to DIV
+  x.className = "show";
+
+  // After 3 seconds, remove the show class from DIV
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  }
 </script>
 @endsection
