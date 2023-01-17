@@ -88,7 +88,7 @@
                   <span class="i">
                     <span class="icon fas">&#xe811;</span>
                   </span>
-                  <input type="tel" name="otherphone"  data-label="" value="{{ old("phone",$contact->phone) }}" spin="none" maxlength="10" inputmode="numeric" placeholder=" " onkeydown="return checkcode(event);">
+                  <input type="tel" name="otherphone"  data-label="" value="{{ old("otherphone",$contact->otherphone) }}" spin="none" maxlength="10" inputmode="numeric" placeholder=" " onkeydown="return checkcode(event);">
                 </td>
               </tr>
       
@@ -108,7 +108,7 @@
                   <span class="i">
                     <span class="icon">&#xe85b;</span>
                   </span>
-                  <input type="text" name="birthday" data-label="" value="{{ old("birthday",$contact->birthday) }}" id="dat" required="" pattern="(131[6-9]|13[2-7][0-9]|138[0-3])[\/\-]([1-9]|1[0-2])[\/\-]([1-9]|[12][0-9]|3[01])\b" placeholder="
+                  <input type="text" name="birthday" data-label="" value="{{ old("bjalali",$contact->bjalali) }}" id="dat" required="" pattern="(131[6-9]|13[2-7][0-9]|138[0-3])[\/\-]([1-9]|1[0-2])[\/\-]([1-9]|[12][0-9]|3[01])\b" placeholder="
 روز / ماه / سال
  - حداقل سن 18 و حداکثر 85 سال
 " onfocus="return datechange()">
@@ -171,13 +171,28 @@
                   <label>وضعیت تاهل</label>
                 </td>
                 <td>
-                  <select name="cf_1058" data-label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AA%D8%A7%D9%87%D9%84" required="required" pattern="">
+                  <!-- <select name="cf_1058" data-label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AA%D8%A7%D9%87%D9%84" required="required" pattern="">
                     <option value="">انتخاب مقدار</option>
                     <option value="مجرد">مجرد</option>
                     <option value="متاهل">متاهل</option>
                     <option value="متارکه">متارکه</option>
                     <option value="فوت همسر">فوت همسر</option>
-                  </select>
+                  </select> -->
+                  @php 
+                  $options = [
+                    'مجرد',
+                    'متاهل',
+                    'متارکه',
+                    'فوت همسر',
+                    ];
+                  @endphp
+                  <x-select
+                    selectName="cf_1058"
+                    label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AA%D8%A7%D9%87%D9%84"
+                    :options="$options"
+                    :value="$contact->cf_1058"
+                    attribute="required='required'  pattern='' " 
+                  />
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -199,7 +214,7 @@
                   <label>وضعیت خدمت سربازی</label>
                 </td>
                 <td>
-                  <select name="cf_1064" data-label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AE%D8%AF%D9%85%D8%AA+%D8%B3%D8%B1%D8%A8%D8%A7%D8%B2%DB%8C">
+                  <!-- <select name="cf_1064" data-label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AE%D8%AF%D9%85%D8%AA+%D8%B3%D8%B1%D8%A8%D8%A7%D8%B2%DB%8C">
                     <option value="">انتخاب مقدار</option>
                     <option value="معاف" {{old("cf_1064")=="معاف" ? 'selected' : '' }}>معاف</option>
                     <option value= "پایان خدمت" {{old("cf_1064")=="خدمت پایان" ? 'selected' : '' }}>پایان خدمت</option>
@@ -207,7 +222,24 @@
                     <option value="غایب" {{old("cf_1064")=="غایب" ? 'selected' : '' }}>غایب</option>
                     <option value="مشمول" {{old("cf_1064")=="مشمول" ? 'selected' : '' }}>مشمول</option>
                     <option value="در حال خدمت" {{old("cf_1064")=="خدمت حال در" ? 'selected' : '' }}>در حال خدمت</option>
-                  </select>
+                  </select> -->
+                  @php 
+                  $options = [
+                    'معاف',
+                    'پایان خدمت',
+                    'در حال تحصیل',
+                    'غایب',
+                    'مشمول',
+                    'در حال خدمت'
+                    ];
+                  @endphp
+                  <x-select
+                    selectName="cf_1064"
+                    label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AE%D8%AF%D9%85%D8%AA+%D8%B3%D8%B1%D8%A8%D8%A7%D8%B2%DB%8C"
+                    :options="$options"
+                    :value="$contact->cf_1064"
+                    attribute=" " 
+                  />
                 </td>
               </tr>
               <tr>
@@ -241,7 +273,7 @@
                   <label>آخرین مدرک تحصیلی</label>
                 </td>
                 <td>
-                  <select name="cf_1030"  data-label="label:%D8%A2%D8%AE%D8%B1%DB%8C%D9%86+%D9%85%D8%AF%D8%B1%DA%A9+%D8%AA%D8%AD%D8%B5%DB%8C%D9%84%DB%8C" required="">
+                  <!-- <select name="cf_1030"  data-label="label:%D8%A2%D8%AE%D8%B1%DB%8C%D9%86+%D9%85%D8%AF%D8%B1%DA%A9+%D8%AA%D8%AD%D8%B5%DB%8C%D9%84%DB%8C" required="">
                     <option value="">انتخاب مقدار</option>
                     <option value="بیسواد" {{old('cf_1030')=='بیسواد' ? 'selected' : '' }}>بیسواد</option>
                     <option value="ابتدایی"  {{old('cf_1030')=='ابتدایی' ? 'selected' : '' }}>ابتدایی</option>
@@ -251,7 +283,28 @@
                     <option value="کارشناسی"  {{old('cf_1030')=='کارشناسی' ? 'selected' : '' }}>کارشناسی</option>
                     <option value="کارشناس ارشد"  {{old('cf_1030')=='ارشد کارشناس' ? 'selected' : '' }}>کارشناس ارشد</option>
                     <option value="دکترا"  {{old('cf_1030')=='دکترا' ? 'selected' : '' }}>دکترا</option>
-                  </select>
+                  </select> -->
+
+                  @php 
+                  $options = [
+                    'بیسواد',
+                    'ابتدایی',
+                    'سیکل',
+                    'دیپلم',
+                    'کاردانی',
+                    'کارشناسی',
+                    'کارشناس ارشد',
+                    'دکترا'
+                    ];
+                  @endphp
+                  <x-select
+                    selectName="cf_1030"
+                    label="label:%D8%A2%D8%AE%D8%B1%DB%8C%D9%86+%D9%85%D8%AF%D8%B1%DA%A9+%D8%AA%D8%AD%D8%B5%DB%8C%D9%84%DB%8C"
+                    :options="$options"
+                    :value="$contact->cf_1030"
+                    attribute="required" 
+                  />
+
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -262,8 +315,8 @@
                 <td>
                   <select name="cf_1205" data-label="label:%D8%B3%D8%A7%D8%A8%D9%82%D9%87+%D9%85%D8%AD%DA%A9%D9%88%D9%85%DB%8C%D8%AA+%DA%A9%DB%8C%D9%81%D8%B1%DB%8C" required="required">
                     <option value="">انتخاب مقدار</option>
-                    <option value="دارم"  {{old('cf_1205')=='دارم' ? 'selected' : '' }}>دارم</option>
-                    <option value="ندارم" {{old('cf_1205')=='ندارم' ? 'selected' : '' }}>ندارم</option>
+                    <option value="دارم"  {{ $contact->cf_1205 =='دارم' ? 'selected' : '' }}>دارم</option>
+                    <option value="ندارم" {{$contact->cf_1205 =='ندارم' ? 'selected' : '' }}>ندارم</option>
                   </select>
                   <span class="iii"></span>
                 </td>
@@ -295,9 +348,10 @@
                   @endphp
                   <x-select
                     selectName="cf_1193[]"
-                    label="%D9%85%D8%AD%D8%AF%D9%88%D8%AF%D9%87+%D9%81%D8%B9%D8%A7%D9%84%DB%8C%D8%AA"
+                    label="label:%D9%85%D8%AD%D8%AF%D9%88%D8%AF%D9%87+%D9%81%D8%B9%D8%A7%D9%84%DB%8C%D8%AA"
                     :options="$options"
                     :value="$contact->cf_1193"
+                    attribute="multiple=''  required"
                   />
                   <span class="iii"></span>
                 </td>
@@ -310,7 +364,7 @@
                   <span class="i">
                     <span class="icon">&#xe86c;</span>
                   </span>
-                  <input type="text" per='per' name="cf_1247" data-label="" value="" maxlength="40" minlength="3" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{3,40}" required>
+                  <input type="text" per='per' name="cf_1247" data-label="" value="{{ old("cf_1247",$contact->cf_1247) }}" maxlength="40" minlength="3" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{3,40}" required>
                   <label for="cf_1247" class="hide"> تنها - با همسر - خانواده </label>
                   <span class="iii"></span>
                 </td>
@@ -323,7 +377,7 @@
                   <span class="i">
                     <span class="icon">&#xe807;</span>
                   </span>
-                  <input type="text" name="cf_1048" per='per' data-label="" value="" maxlength="20" minlength="3" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{3,20}" required>
+                  <input type="text" name="cf_1048" per='per' data-label="" value="{{ old("cf_1048",$contact->cf_1048) }}" maxlength="20" minlength="3" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{3,20}" required>
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -332,7 +386,7 @@
                   <label>زبان و گویش</label>
                 </td>
                 <td>
-                  <select name="cf_1529[]" data-label="label:%D8%B2%D8%A8%D8%A7%D9%86+%D9%88+%DA%AF%D9%88%DB%8C%D8%B4" multiple="" required>
+                  <!-- <select name="cf_1529[]" data-label="label:%D8%B2%D8%A8%D8%A7%D9%86+%D9%88+%DA%AF%D9%88%DB%8C%D8%B4" multiple="" required>
                     <option value="پارسی">پارسی</option>
                     <option value="ترکی">ترکی</option>
                     <option value="کردی">کردی</option>
@@ -346,7 +400,30 @@
                     <option value="دری">دری</option>
                     <option value="پشتو">پشتو</option>
                     <option value="ارمنی">ارمنی</option>
-                  </select>
+                  </select> -->
+                  @php 
+                  $options = [
+                    'پارسی',
+                    'ترکی',
+                    'گیلکی',
+                    'مازنی',
+                    'لری',
+                    'لکی',
+                    'عربی',
+                    'بلوچی',
+                    'ترکمن',
+                    'دری',
+                    'پشتو',
+                    'ارمنی'
+                    ];
+                  @endphp
+                  <x-select
+                    selectName="cf_1529[]"
+                    label="label:%D8%B2%D8%A8%D8%A7%D9%86+%D9%88+%DA%AF%D9%88%DB%8C%D8%B4"
+                    :options="$options"
+                    :value="$contact->cf_1529"
+                    attribute="multiple=''  required"
+                  />
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -360,7 +437,7 @@
                       <img src="/img/iconm.png" class="ic">
                     </span>
                   </span>
-                  <input type="text" name="cf_1050" data-label="" per='per' value="" maxlength="20" minlength="3" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{3,20}" required>
+                  <input type="text" name="cf_1050" data-label="" per='per' value="{{ old("cf_1050",$contact->cf_1050) }}" maxlength="20" minlength="3" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{3,20}" required>
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -374,7 +451,7 @@
                       <img src="/img/prayer.png" class="ic" style="width:31px;height:33px;margin-top:-5px;margin-right:-2px;">
                     </span>
                   </span>
-                  <input type="text" name="cf_1052" data-label="" per='per' maxlength="20" minlength="3" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{3,20}" value="" required>
+                  <input type="text" name="cf_1052" data-label="" per='per' maxlength="20" minlength="3" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{3,20}" value="{{ old("cf_1052",$contact->cf_1052) }}"  required>
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -383,7 +460,7 @@
                   <label>شیفت خدمات</label>
                 </td>
                 <td>
-                  <select name="cf_1195[]" data-label="label:%D8%B4%DB%8C%D9%81%D8%AA+%D8%AE%D8%AF%D9%85%D8%A7%D8%AA" multiple="" required>
+                  <!-- <select name="cf_1195[]" data-label="label:%D8%B4%DB%8C%D9%81%D8%AA+%D8%AE%D8%AF%D9%85%D8%A7%D8%AA" multiple="" required>
                     <option value="روزانه">روزانه</option>
                     <option value="شبانه">شبانه</option>
                     <option value="شبانه روزی">شبانه روزی</option>
@@ -391,7 +468,26 @@
                     <option value="بیمارستان">بیمارستان</option>
                     <option value="منزل">منزل</option>
                     <option value="موردی">موردی</option>
-                  </select>
+                  </select> -->
+                  @php 
+                  $options = [
+                    'روزانه',
+                    'شبانه',
+                    'شبانه روزی',
+                    'مقطعی',
+                    'بیمارستان',
+                    'منزل',
+                    'موردی'
+                    ];
+                  @endphp
+
+                  <x-select
+                    selectName="cf_1195[]"
+                    label="label:%D8%B4%DB%8C%D9%81%D8%AA+%D8%AE%D8%AF%D9%85%D8%A7%D8%AA"
+                    :options="$options"
+                    :value="$contact->cf_1195"
+                    attribute="multiple=''  required"
+                  />
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -400,7 +496,7 @@
                   <label>خدمات مراقبت</label>
                 </td>
                 <td>
-                  <select name="cf_1197[]" data-label="label:%D8%AE%D8%AF%D9%85%D8%A7%D8%AA+%D9%85%D8%B1%D8%A7%D9%82%D8%A8%D8%AA" multiple="" required>
+                  <!-- <select name="cf_1197[]" data-label="label:%D8%AE%D8%AF%D9%85%D8%A7%D8%AA+%D9%85%D8%B1%D8%A7%D9%82%D8%A8%D8%AA" multiple="" required>
                     <option value="سالمند لگنی">سالمند لگنی</option>
                     <option value="سالمند پوشکی">سالمند پوشکی</option>
                     <option value="آلزایمر">آلزایمر</option>
@@ -413,7 +509,31 @@
                     <option value="تمامی موارد">تمامی موارد</option>
                     <option value="پرستار">پرستار</option>
                     <option value="پرستار ویژه">پرستار ویژه</option>
-                  </select>
+                  </select> -->
+                  @php 
+                  $options = [
+                    'سالمند لگنی',
+                    'سالمند پوشکی',
+                    'آلزایمر',
+                    'سالمند سالم',
+                    'کودک',
+                    'بهیار',
+                    'کمک بهیار',
+                    'کودک دوقولو',
+                    'امور منزل',
+                    'تمامی موارد',
+                    'پرستار',
+                    'پرستار ویژه'
+                    ];
+                  @endphp
+                  
+                  <x-select
+                    selectName="cf_1197[]"
+                    label="label:%D8%AE%D8%AF%D9%85%D8%A7%D8%AA+%D9%85%D8%B1%D8%A7%D9%82%D8%A8%D8%AA"
+                    :options="$options"
+                    :value="$contact->cf_1197"
+                    attribute="multiple=''  required"
+                  />
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -422,13 +542,29 @@
                   <label>استعمال دخانیت</label>
                 </td>
                 <td>
-                  <select name="cf_1255" data-label="label:%D8%A7%D8%B3%D8%AA%D8%B9%D9%85%D8%A7%D9%84+%D8%AF%D8%AE%D8%A7%D9%86%DB%8C%D8%AA" required>
+                  <!-- <select name="cf_1255" data-label="label:%D8%A7%D8%B3%D8%AA%D8%B9%D9%85%D8%A7%D9%84+%D8%AF%D8%AE%D8%A7%D9%86%DB%8C%D8%AA" required>
                     <option value="">انتخاب مقدار</option>
                     <option value="سیگار می کشم">سیگار می کشم</option>
                     <option value="سیگار نمی کشم">سیگار نمی کشم</option>
                     <option value="ترک کردم">ترک کردم</option>
                     <option value="تفریحی">تفریحی</option>
-                  </select>
+                  </select> -->
+                  @php 
+                  $options = [
+                    'سیگار می کشم',
+                    'سیگار نمی کشم',
+                    'ترک کردم',
+                    'تفریحی'
+                    ];
+                  @endphp
+                  
+                  <x-select
+                    selectName="cf_1255"
+                    label="label:%D8%A7%D8%B3%D8%AA%D8%B9%D9%85%D8%A7%D9%84+%D8%AF%D8%AE%D8%A7%D9%86%DB%8C%D8%AA"
+                    :options="$options"
+                    :value="$contact->cf_1255"
+                    attribute=" required"
+                  />
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -437,8 +573,9 @@
                   <label>کار با مددجوی مرد</label>
                 </td>
                 <td>
-                  <input type="hidden" name="cf_1480" data-label="" value="0">
-                  <input type="checkbox" name="cf_1480" data-label="" value="1">
+                  
+                  <input type="hidden" name="cf_1480" data-label="" value="0" >
+                  <input type="checkbox" name="cf_1480" data-label="" value="1" {{ $contact->cf_1480=='1' ? 'checked' : ''}} >
                 </td>
               </tr>
               <tr>
@@ -446,11 +583,26 @@
                   <label>وسیله نقلیه</label>
                 </td>
                 <td>
-                  <select name="cf_1809[]" data-label="label:%D9%88%D8%B3%DB%8C%D9%84%D9%87+%D9%86%D9%82%D9%84%DB%8C%D9%87" multiple="" required="">
+                  <!-- <select name="cf_1809[]" data-label="label:%D9%88%D8%B3%DB%8C%D9%84%D9%87+%D9%86%D9%82%D9%84%DB%8C%D9%87" multiple="" required="">
                     <option value="بدون وسیله">بدون وسیله</option>
                     <option value="موتور">موتور</option>
                     <option value="ماشین">ماشین</option>
-                  </select>
+                  </select> -->
+                  @php 
+                  $options = [
+                    'بدون وسیله',
+                    'موتور',
+                    'ماشین'
+                    ];
+                  @endphp
+                  
+                  <x-select
+                    selectName="cf_1809[]"
+                    label="label:%D9%88%D8%B3%DB%8C%D9%84%D9%87+%D9%86%D9%82%D9%84%DB%8C%D9%87"
+                    :options="$options"
+                    :value="$contact->cf_1809"
+                    attribute=" multiple=''  required"
+                  />
                 </td>
               </tr>
               <tr>
@@ -458,14 +610,32 @@
                   <label>گزینه های بیشتر</label>
                 </td>
                 <td>
-                  <select name="cf_1515[]" data-label="label:%DA%AF%D8%B2%DB%8C%D9%86%D9%87+%D9%87%D8%A7%DB%8C+%D8%A8%DB%8C%D8%B4%D8%AA%D8%B1+%D9%86%DB%8C%D8%B1%D9%88" multiple="">
+                  <!-- <select name="cf_1515[]" data-label="label:%DA%AF%D8%B2%DB%8C%D9%86%D9%87+%D9%87%D8%A7%DB%8C+%D8%A8%DB%8C%D8%B4%D8%AA%D8%B1+%D9%86%DB%8C%D8%B1%D9%88" multiple="">
                     <option value="گواهینامه">گواهینامه</option>
                     <option value="پاسپورت">پاسپورت</option>
                     <option value="ماشین">ماشین</option>
                     <option value="موتور">موتور</option>
                     <option value="امکان سفر داخلی">امکان سفر داخلی</option>
                     <option value="امکان سفر خارجی">امکان سفر خارجی</option>
-                  </select>
+                  </select> -->
+                  @php 
+                  $options = [
+                    'گواهینامه',
+                    'پاسپورت',
+                    'ماشین',
+                    'موتور',
+                    'امکان سفر داخلی',
+                    'امکان سفر خارجی'
+                    ];
+                  @endphp
+                  
+                  <x-select
+                    selectName="cf_1515[]"
+                    label="label:%DA%AF%D8%B2%DB%8C%D9%86%D9%87+%D9%87%D8%A7%DB%8C+%D8%A8%DB%8C%D8%B4%D8%AA%D8%B1+%D9%86%DB%8C%D8%B1%D9%88"
+                    :options="$options"
+                    :value="$contact->cf_1515"
+                    attribute=" multiple='' "
+                  />
                 </td>
               </tr>
               <tr>
@@ -475,7 +645,7 @@
                 <td>
                   <div style="position:relative">
                     <span class="itxt">&#xf2c0;</span>
-                    <textarea name="cf_1249" per='per' pernum required minlength="10" maxlength="420" autocomplete="off" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{10,420}" draggable="false"></textarea>
+                    <textarea name="cf_1249" per='per' pernum required minlength="10" maxlength="420" autocomplete="off" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{10,420}" draggable="false">{{ old("cf_1249",$contact->cf_1249) }}</textarea>
                     <label for="cf_1249" class="hide"> نام - شماره تماس - نسبت - آدرس </label>
                     <span class="iii"></span>
                   </div>
@@ -488,7 +658,7 @@
                 <td>
                  <div style="position:relative">
                     <span class="itxt">&#xf2c0;</span>
-                    <textarea name="cf_1251" per='per' pernum required minlength="10" maxlength="420" autocomplete="off" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{10,420}"></textarea>
+                    <textarea name="cf_1251" per='per' pernum required minlength="10" maxlength="420" autocomplete="off" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{10,420}">{{ old("cf_1251",$contact->cf_1251) }}</textarea>
                     <label for="cf_1251" class="hide"> نام - شماره تماس - نسبت - آدرس </label>
                     <span class="iii"></span>
                  </div>
@@ -501,7 +671,7 @@
                 <td>
                  <div style="position:relative">
                     <span class="itxt">&#xf2c0;</span>
-                    <textarea name="cf_1253" per='per' pernum required minlength="10" maxlength="420" autocomplete="off" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{10,420}"></textarea>
+                    <textarea name="cf_1253" per='per' pernum required minlength="10" maxlength="420" autocomplete="off" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{10,420}">{{ old("cf_1253",$contact->cf_1253) }}</textarea>
                     <label for="cf_1253" class="hide"> نام - شماره تماس - نسبت - آدرس </label>
                     <span class="iii"></span>
                   </div>
@@ -515,7 +685,7 @@
                  <div style="position:relative;">
                     <span class="itxt">&#xe84e;</span>
                     <textarea name="cf_1880" per='per' pernum minLength="10" maxlength="420" autocomplete="off" 
-                         pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{10,420}"   placeholder="نام - نام خانوادگی - شماره تماس - آدرس محل کار"></textarea>
+                         pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{10,420}"   placeholder="نام - نام خانوادگی - شماره تماس - آدرس محل کار">{{ old("cf_1880",$contact->cf_1880) }}</textarea>
                   <label for="cf_1880" class="hide"> نام و نام خانوادگی - شماره تماس - آدرس محل کار </label>
                 </div>
                 </td>
@@ -527,7 +697,7 @@
                 <td>
                  <div style="position:relative;">
                     <span class="itxt">&#xe826;</span>
-                  <textarea value="" name="cf_1882" per='per' pernum minlength="10" maxlength="420" autocomplete="off" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{10,420}" placeholder="نام  شماره تماس  علت ترک کار  مدت همکاری"></textarea>
+                  <textarea value="" name="cf_1882" per='per' pernum minlength="10" maxlength="420" autocomplete="off" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{10,420}" placeholder="نام  شماره تماس  علت ترک کار  مدت همکاری">{{ old("cf_1882",$contact->cf_1882) }}</textarea>
                   <label for="cf_1882" class="hide"> نام - شماره تماس - علت ترک کار - مدت همکاری </label>
                 </div>
                 </td>
@@ -539,7 +709,7 @@
                 <td>
                  <div style="position:relative;">
                     <span class="itxt">&#xe80c;</span>
-                    <textarea name="mailingstreet" per='per' pernum required minlength="10" maxlength="220" autocomplete="off" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{10,220}"></textarea>
+                    <textarea name="mailingstreet" per='per' pernum required minlength="10" maxlength="220" autocomplete="off" pattern="[\sآابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]{10,220}">{{ old("mailingstreet",$contact->mailingstreet) }}</textarea>
                     <span class="iii"></span>
                 </div>
                 </td>
@@ -552,7 +722,7 @@
                   <span class="i">
                     <span class="icon" style="font-family: 'fontello2';">&#xe800;</span>
                   </span>
-                   <input type="number" name="cf_pcf_irp_1076" data-label="" value="" maxlength="20" size="20" placeholder=" " spin="none" inputmode="numeric">
+                   <input type="number" name="cf_pcf_irp_1076" data-label=""  maxlength="20" size="20" placeholder=" " spin="none" value="{{ old("cf_pcf_irp_1076",$contact->cf_pcf_irp_1076) }}" inputmode="numeric">
                 </td>
                </tr>
               <tr>
@@ -560,7 +730,7 @@
                   <label>مشکلات جسمانی</label>
                 </td>
                 <td>
-                  <select name="cf_1521[]" data-label="label:%D9%85%D8%B4%DA%A9%D9%84%D8%A7%D8%AA+%D8%AC%D8%B3%D9%85%D8%A7%D9%86%DB%8C" multiple="">
+                  <!-- <select name="cf_1521[]" data-label="label:%D9%85%D8%B4%DA%A9%D9%84%D8%A7%D8%AA+%D8%AC%D8%B3%D9%85%D8%A7%D9%86%DB%8C" multiple="">
                     <option value="عینکی">عینکی</option>
                     <option value="کم شنوایی">کم شنوایی</option>
                     <option value="دودید">دودید</option>
@@ -575,7 +745,34 @@
                     <option value="لنگی پا">لنگی پا</option>
                     <option value="قطع انگشتان دست">قطع انگشتان دست</option>
                     <option value="لکنت زبان">لکنت زبان</option>
-                  </select>
+                  </select> -->
+                  @php 
+                  $options = [
+                    'عینکی',
+                    'کم شنوایی',
+                    'دودید',
+                    'نیستاگموس',
+                    'کم دید',
+                    'مشکل کمر',
+                    'مشکل گردن',
+                    'مشکل دست',
+                    'مشکل زانو',
+                    'ضعف جسمانی',
+                    'پای پرانتزی',
+                    'لنگی پا',
+                    'قطع انگشتان دست',
+                    'لکنت زبان'
+                    ];
+                  @endphp
+                  
+                  <x-select
+                    selectName="cf_1521[]"
+                    label="label:%D9%85%D8%B4%DA%A9%D9%84%D8%A7%D8%AA+%D8%AC%D8%B3%D9%85%D8%A7%D9%86%DB%8C"
+                    :options="$options"
+                    :value="$contact->cf_1521"
+                    attribute=" multiple='' "
+                  />
+
                 </td>
               </tr>
         <tr>
