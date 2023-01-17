@@ -1,8 +1,7 @@
 @php
   $values = explode(' |##| ',$value);
 @endphp
-
- <select name="$name[]" data-label="$label" {{$attribute}}>
+ <select name="{{$name}}" data-label="{{$label}}" {{$attribute}}>
 @if(!str_contains($attribute,'multiple')) 
 <option value="" >انتخاب مقدار</option>    
 @endif

@@ -19,7 +19,7 @@ class CrmContact{
             "national_code" => "cf_pcf_irc_1122",
             "type" => "cf_931",
             "bjalali" => function(){
-                return Verta($this->birthday);
+                return Verta($this->birthday)->format("Y-n-j");
             },
         ];
 

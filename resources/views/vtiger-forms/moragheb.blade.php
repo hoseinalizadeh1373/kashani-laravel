@@ -2,7 +2,7 @@
 @section("content")
     <div class="main">
       <div align="center" class="d1">
-          <form id="__vtigerWebForm" name="ثبت نام مراقب" action="https://my-saminnurses.ir/modules/Webforms/capture.php" autocomplete="off" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+          <form id="__vtigerWebForm" name="ثبت نام مراقب" autocomplete="off" method="post" accept-charset="utf-8" enctype="multipart/form-data">
           <div style="position:relative;z-index:999999999;display:block;min-width:100%;background-color:white">
             <img src="/img/1.png" class="mimg">
 
@@ -187,7 +187,7 @@
                     ];
                   @endphp
                   <x-select
-                    selectName="cf_1058"
+                    name="cf_1058"
                     label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AA%D8%A7%D9%87%D9%84"
                     :options="$options"
                     :value="$contact->cf_1058"
@@ -234,7 +234,7 @@
                     ];
                   @endphp
                   <x-select
-                    selectName="cf_1064"
+                    name="cf_1064"
                     label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AE%D8%AF%D9%85%D8%AA+%D8%B3%D8%B1%D8%A8%D8%A7%D8%B2%DB%8C"
                     :options="$options"
                     :value="$contact->cf_1064"
@@ -298,7 +298,7 @@
                     ];
                   @endphp
                   <x-select
-                    selectName="cf_1030"
+                    name="cf_1030"
                     label="label:%D8%A2%D8%AE%D8%B1%DB%8C%D9%86+%D9%85%D8%AF%D8%B1%DA%A9+%D8%AA%D8%AD%D8%B5%DB%8C%D9%84%DB%8C"
                     :options="$options"
                     :value="$contact->cf_1030"
@@ -347,7 +347,7 @@
                     ];
                   @endphp
                   <x-select
-                    selectName="cf_1193[]"
+                    name="cf_1193[]"
                     label="label:%D9%85%D8%AD%D8%AF%D9%88%D8%AF%D9%87+%D9%81%D8%B9%D8%A7%D9%84%DB%8C%D8%AA"
                     :options="$options"
                     :value="$contact->cf_1193"
@@ -418,7 +418,7 @@
                     ];
                   @endphp
                   <x-select
-                    selectName="cf_1529[]"
+                    name="cf_1529[]"
                     label="label:%D8%B2%D8%A8%D8%A7%D9%86+%D9%88+%DA%AF%D9%88%DB%8C%D8%B4"
                     :options="$options"
                     :value="$contact->cf_1529"
@@ -482,7 +482,7 @@
                   @endphp
 
                   <x-select
-                    selectName="cf_1195[]"
+                    name="cf_1195[]"
                     label="label:%D8%B4%DB%8C%D9%81%D8%AA+%D8%AE%D8%AF%D9%85%D8%A7%D8%AA"
                     :options="$options"
                     :value="$contact->cf_1195"
@@ -528,7 +528,7 @@
                   @endphp
                   
                   <x-select
-                    selectName="cf_1197[]"
+                    name="cf_1197[]"
                     label="label:%D8%AE%D8%AF%D9%85%D8%A7%D8%AA+%D9%85%D8%B1%D8%A7%D9%82%D8%A8%D8%AA"
                     :options="$options"
                     :value="$contact->cf_1197"
@@ -559,7 +559,7 @@
                   @endphp
                   
                   <x-select
-                    selectName="cf_1255"
+                    name="cf_1255"
                     label="label:%D8%A7%D8%B3%D8%AA%D8%B9%D9%85%D8%A7%D9%84+%D8%AF%D8%AE%D8%A7%D9%86%DB%8C%D8%AA"
                     :options="$options"
                     :value="$contact->cf_1255"
@@ -597,7 +597,7 @@
                   @endphp
                   
                   <x-select
-                    selectName="cf_1809[]"
+                    name="cf_1809[]"
                     label="label:%D9%88%D8%B3%DB%8C%D9%84%D9%87+%D9%86%D9%82%D9%84%DB%8C%D9%87"
                     :options="$options"
                     :value="$contact->cf_1809"
@@ -630,7 +630,7 @@
                   @endphp
                   
                   <x-select
-                    selectName="cf_1515[]"
+                    name="cf_1515[]"
                     label="label:%DA%AF%D8%B2%DB%8C%D9%86%D9%87+%D9%87%D8%A7%DB%8C+%D8%A8%DB%8C%D8%B4%D8%AA%D8%B1+%D9%86%DB%8C%D8%B1%D9%88"
                     :options="$options"
                     :value="$contact->cf_1515"
@@ -766,7 +766,7 @@
                   @endphp
                   
                   <x-select
-                    selectName="cf_1521[]"
+                    name="cf_1521[]"
                     label="label:%D9%85%D8%B4%DA%A9%D9%84%D8%A7%D8%AA+%D8%AC%D8%B3%D9%85%D8%A7%D9%86%DB%8C"
                     :options="$options"
                     :value="$contact->cf_1521"
@@ -775,7 +775,7 @@
 
                 </td>
               </tr>
-        <tr>
+        {{-- <tr>
         <td>
           <label>تصویر کارت ملی</label>
         </td>
@@ -866,8 +866,9 @@
  
 <a href="https://b2n.ir/pic-comp" target="_blank" style="color:red;">برای کم کردن حجم عکس کلیک کنید</a>
 </p>
+
         </td>
-      </tr> 
+      </tr>  --}}
 <!--       </tr>   -->
               <tr>
                 <td>
@@ -897,8 +898,8 @@
           <input type="hidden" id="captchaUrl" value="https://my-saminnurses.ir/modules/Settings/Webforms/actions/CheckCaptcha.php">
           <input type="hidden" id="recaptcha_validation_value">
           <input type="submit" value="تایید اطلاعات">
-      </div>
       </form>
+    </form>
     </div>
         <script type="text/javascript" src="/scripts/persianDatepicker.js"></script>
     <script type="text/javascript" src="/scripts/jquery.farsiInput.js"></script>
@@ -992,11 +993,17 @@ return(decodeURIComponent(S));
       let data = $("#__vtigerWebForm").serialize();
       $.post("/client/update",data).then(res => {
         if(res.success){
-          alert("Yes");
+          alert("yes");
         }
         else{
-          alert("no")
+          alert("no");
         }
+      })
+      .catch(error=>{
+        alert("error")
+      })
+      .then(()=>{
+        alert("finish");
       });
 
       return false;
