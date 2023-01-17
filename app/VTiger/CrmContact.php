@@ -3,6 +3,7 @@
 namespace App\VTiger;
 
 use App\Services\Searchline\Searchline;
+use Hekmatinasser\Verta\Verta;
 
 class CrmContact{
     
@@ -18,7 +19,7 @@ class CrmContact{
             "national_code" => "cf_pcf_irc_1122",
             "type" => "cf_931",
             "bjalali" => function(){
-                return convertDateTOJalali($this->birthdate);
+                return Verta($this->birthday);
             },
         ];
 
