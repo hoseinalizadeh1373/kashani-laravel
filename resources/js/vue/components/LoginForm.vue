@@ -78,7 +78,7 @@
     <div v-if="step == 'getVerificationCode'">
       <div class="row">
         <div class="col-md-12">
-        <p>کد تایید به شماره موبایل شما   {{mobile.substr(7,4).concat("******").concat(mobile.substr(0,2)) }} ارسال شده است.</p>
+        <p>کد تایید به شماره موبایل شما   {{ filteredMobile }} ارسال شده است.</p>
         </div>
       </div>
       <div class="row mb-3">
@@ -177,6 +177,11 @@ export default {
           this.loading = false;
         });
     },
+  },
+  computed:{
+    filteredMobile(){
+      return this.mobile.substr(7,4).concat("******").concat(this.mobile.substr(0,2))
+    }
   },
   mounted() {
     if(this.mode == "checkSms")
