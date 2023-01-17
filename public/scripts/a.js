@@ -19,6 +19,7 @@ jQuery(c).attr("class","req").html();
 
 $(function () {
    $("input[type=number]").change(function() {
+  
    var max = parseInt($(this).attr('max'));
    var min = parseInt($(this).attr('min'));
    if ($(this).val() > max)
@@ -100,7 +101,7 @@ $("#dat").persianDatepicker();
        $("[per='per']").farsiInput();
         });
 
-
+check();
 function check()
 {
   var ppp=document.getElementById("meli");
@@ -111,17 +112,17 @@ var d = document.getElementById("meli");
 
 return true;}
   else{
-
 $("#meli").prop("pattern","[a-z]");
     return false;}
 }    
 
 function checkCodeMeli(code)
 {
-  for (var i = 0; i < 10; i++) {
-  var text = i.toString().repeat(10);
+  for (var i = 0; i < 10; i++)
+   {
+   var text = i.toString().repeat(10);
    if(code==text){return false;}
-}
+   }
   var L=code.length;
   if(L<10){return;}
   if(L<8 || parseInt(code,10)==0) return false;
@@ -140,7 +141,7 @@ return true;
 
 
 function checkcode(xv) {
-
+console.log(xv);
 var xv = xv || window.event;
 var vr=xv.key;
 var gh=xv ? xv.which:xv.keyCode;
@@ -310,8 +311,6 @@ input_credit_card = function(input)
 
         if (char !== false)
         { input.setSelectionRange(pos, pos); }
-
-
 
 var card=newV.replace(/[^0-9]/g,"");
 if(card.length==16){
