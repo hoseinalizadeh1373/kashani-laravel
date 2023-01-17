@@ -20,9 +20,12 @@ class CrmEntranceController extends Controller
     }
 
     public function entrance($token){
-
-
-        $contact = $this->getCrmContactWithToken($token);
+        try{
+            $contact = $this->getCrmContactWithToken($token);
+        }
+        catch(\Exception $err){
+            dd($err->getMessage());
+        }
 
         if(!$contact)
         {

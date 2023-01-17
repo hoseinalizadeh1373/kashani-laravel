@@ -13,7 +13,12 @@ class VtigerFormsController extends Controller
     
     public function form()
     {
-        $contact = (new CrmMethods())->getContactByNationalCode(Auth::user()->national_code);
+        try{
+            $contact = (new CrmMethods())->getContactByNationalCode(Auth::user()->national_code);
+        }
+        catch(\Exception $e){
+            dd("errpr");
+        }
         
         $formname = $this->getFormName();
         return view('vtiger-forms.'.$formname, compact("contact"));
