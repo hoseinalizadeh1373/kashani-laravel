@@ -887,3 +887,29 @@ textarea:focus {padding:8px 35px 0 30px !important}
   cursor: pointer;
   color: black;
 }
+.img_error_catch{
+  width: 50%;
+  margin-left: auto;
+   margin-right: auto;
+   display:block;
+}
+.btn_error_catch{
+background: transparent;
+margin: auto;
+font-size: medium;
+font-weight: 500;
+width: 300px;
+border: 3px solid rgb(10, 131, 139);
+border-radius:25px;
+cursor:pointer;
+padding: 10px;
+text-align:center;
+transition: all ease-in-out 500ms;
+}
+.btn_error_catch a{
+  text-decoration: none;
+  color: #000;
+}
+.btn_error_catch:hover{
+background: #546e7a;
+}

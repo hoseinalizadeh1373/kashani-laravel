@@ -17,7 +17,9 @@ class VtigerFormsController extends Controller
             $contact = (new CrmMethods())->getContactByNationalCode(Auth::user()->national_code);
         }
         catch(\Exception $e){
-            dd("errpr");
+            //dd("errpr");
+             $url = url('/client/form');
+             return view('errors.errorCatch',['url'=>$url]);
         }
         
         $formname = $this->getFormName();
