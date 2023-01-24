@@ -816,3 +816,100 @@ textarea:focus {padding:8px 35px 0 30px !important}
   from {bottom: 30px; opacity: 1;}
   to {bottom: 0; opacity: 0;}
 }
+/* 
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+
+.tab button.active {
+  background-color: #ccc;
+}
+
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+} */
+[data-tab-info] {
+  display: none;
+}
+
+.active[data-tab-info] {
+  display: block;
+}
+
+.tab-content {
+  
+  color: rgb(82, 75, 75);
+  justify-content: center;
+   align-items: center;
+}
+
+.tabs {
+  
+   color: rgb(255, 255, 255);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   
+}
+
+.tabs span {
+  background: rgb(191, 207, 192);
+  padding: 10px;
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.tabs span:hover {
+  background: rgb(29, 185, 112);
+  cursor: pointer;
+  color: black;
+}
+.img_error_catch{
+  width: 50%;
+  margin-left: auto;
+   margin-right: auto;
+   display:block;
+}
+.btn_error_catch{
+background: transparent;
+margin: auto;
+font-size: medium;
+font-weight: 500;
+width: 300px;
+border: 3px solid rgb(10, 131, 139);
+border-radius:25px;
+cursor:pointer;
+padding: 10px;
+text-align:center;
+transition: all ease-in-out 500ms;
+}
+.btn_error_catch a{
+  text-decoration: none;
+  color: #000;
+}
+.btn_error_catch:hover{
+background: #546e7a;
+}

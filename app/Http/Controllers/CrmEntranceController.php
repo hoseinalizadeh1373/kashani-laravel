@@ -9,6 +9,7 @@ use App\VTiger\CrmMethods;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class CrmEntranceController extends Controller
 {
 
@@ -21,15 +22,23 @@ class CrmEntranceController extends Controller
 
     public function entrance($token){
         try{
+          
             $contact = $this->getCrmContactWithToken($token);
+           
         }
         catch(\Exception $err){
-            dd($err->getMessage());
+            //dd($err->getMessage());
+            $url = url('/crme/'.$token);
+
+            return view('errors.errorCatch',['url'=>$url]);
         }
 
         if(!$contact)
         {
-            return "contact not exists on crm";
+            // return "contact not exists on crm";
+            $url = url('/crme/'.$token);
+            $params = config('MessageAlert.not_exist');
+            return view('errors.errorCatch',['url'=>$url,'params'=>$params]);
         }
 
         $user = User::whereNationalCode($contact->national_code)->first();
@@ -39,8 +48,12 @@ class CrmEntranceController extends Controller
             return view("auth.login", ["mode"=>"checkSms", "mobile"=>$user->mobile]);
         }
 
-        if(!$contact->checkMobileBelongsTo())
-            return 'mobile number not belongs to this persion';
+        if(!$contact->checkMobileBelongsTo()){
+             //return 'mobile number not belongs to this person';
+             $url = url('/crme/'.$token);
+             $params = config('MessageAlert.belong_mobile');
+             return view('errors.errorCatch',['url'=>$url,'params'=>$params]);
+        }
      
         if(!$user)
             $user = $this->registerWithCrmContact($contact);

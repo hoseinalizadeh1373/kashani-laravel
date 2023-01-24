@@ -12,7 +12,6 @@
                 <p style="font-size:16px;margin-bottom:2px;">فرم به دقت تکمیل گردد</p>
                 <p style="font-size: 16px;font-weight:bold;">زمان مورد نیاز 10 دقیقه</p>
               </div>
-              <!-- text-align:left;margin-right:5%; -->
               <div class="ttt">
                 <p style="">
                   <a href="Tel: 02179215">Tel: 02179215</a>
@@ -27,8 +26,17 @@
           <input type="hidden" name="publicid" value="0aafdfb29022103bd606aae21811360e">
           <input type="hidden" name="urlencodeenable" value="1">
           <input type="hidden" name="name" value="ثبت نام مراقب">
-          <table>
-            <tbody>
+          {{-- <div class="tab">
+            <button class="tablinks" onclick="openCity(event,'payeh')" >اطلاعات پایه</button>
+            <button class="tablinks" onclick="openCity(event,'document')" >آپلود مدارک</button>
+          </div> --}}
+          <div class="tabs">
+            <span data-tab-value="#tab_1">اطلاعات پایه</span>
+            <span data-tab-value="#tab_2">بارگزاری اسناد</span>
+            
+        </div>
+          <table class="tab-content">
+            <tbody class="tabs__tab active" id="tab_1" data-tab-info>
               <tr>
                 <td>
                   <label>نام</label>
@@ -75,7 +83,7 @@
                   <span class="i">
                     <span class="icon" style="padding:13px 16px;">&#xe86f;</span>
                   </span>
-                  <input type="text" name="mobile"  data-label="" value="{{ old("mobile",$contact->mobile) }}" spin="none" inputmode="numeric" required="" maxlength="11" size="11" pattern="09([0-9]{9})" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeydown="return checkcode(event);">
+                  <input type="text" name="mobile"  data-label="" value="{{ old("mobile",$contact->mobile) }}" spin="none" inputmode="numeric" required="" maxlength="11" size="11" pattern="09([0-9]{9})" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeydown="return checkcode(event);"  oninvalid="setCustomValidity(' لطفا شماره موبایل را صحیح وارد کنید')" >
                   <label for="mobile" class="hide"> لطفا شماره موبایل خود را وارد کنید مثال: 09191234567 </label>
                   <span class="iii"></span>
                 </td>
@@ -135,7 +143,7 @@
                   <span class="i">
                     <span class="icon fixicon">&#xf2bc;</span>
                   </span>
-                  <input id="meli" type="text" name="cf_pcf_irc_1122" data-label="" spin="none" value="{{ old("national_code",$contact->national_code) }}" required maxlength="10" size="10" inputmode="numeric" pattern="[a-z]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);check();" onkeypress="return checkcode(event);">
+                  <input id="meli" type="text" name="cf_pcf_irc_1122" data-label="" spin="none" value="{{ old("national_code",$contact->national_code) }}" required maxlength="10" size="10" inputmode="numeric" pattern="[a-z]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);check();" onkeypress="return checkcode(event);"  oninvalid="setCustomValidity(' لطفا کد ملی را صحیح وارد کنید')>
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -162,7 +170,7 @@
                   <span class="i">
                     <span id="beforecard" class="icon fixicon">&#xe85d;</span>
                   </span>
-                  <input dir="ltr" type="text" id="credit-card" name="cf_pcf_ccn_1127" data-label="" autocomplete="off" inputmode="numeric" maxlength="19" pattern="[a-z]" value="{{ old("cf_pcf_ccn_1127",$contact->cf_pcf_ccn_1127) }}" placeholder="0000-0000-0000-0000" required="required" oninvalid="setCustomValidity(' Please enter Alphabets.') ">
+                  <input dir="ltr" type="text" id="credit-card" name="cf_pcf_ccn_1127" data-label="" autocomplete="off" inputmode="numeric" maxlength="19" pattern="[a-z]" value="{{ old("cf_pcf_ccn_1127",$contact->cf_pcf_ccn_1127) }}" placeholder="0000-0000-0000-0000" required="required" oninvalid="setCustomValidity(' لطفا شماره کارت را صحیح وارد کنید') ">
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -171,13 +179,7 @@
                   <label>وضعیت تاهل</label>
                 </td>
                 <td>
-                  <!-- <select name="cf_1058" data-label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AA%D8%A7%D9%87%D9%84" required="required" pattern="">
-                    <option value="">انتخاب مقدار</option>
-                    <option value="مجرد">مجرد</option>
-                    <option value="متاهل">متاهل</option>
-                    <option value="متارکه">متارکه</option>
-                    <option value="فوت همسر">فوت همسر</option>
-                  </select> -->
+                 
                   @php 
                   $options = [
                     'مجرد',
@@ -214,15 +216,7 @@
                   <label>وضعیت خدمت سربازی</label>
                 </td>
                 <td>
-                  <!-- <select name="cf_1064" data-label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AE%D8%AF%D9%85%D8%AA+%D8%B3%D8%B1%D8%A8%D8%A7%D8%B2%DB%8C">
-                    <option value="">انتخاب مقدار</option>
-                    <option value="معاف" {{old("cf_1064")=="معاف" ? 'selected' : '' }}>معاف</option>
-                    <option value= "پایان خدمت" {{old("cf_1064")=="خدمت پایان" ? 'selected' : '' }}>پایان خدمت</option>
-                    <option value="در حال تحصیل" {{old('cf_1064') == "تحصیل حال در" ? 'selected' : '' }}>در حال تحصیل</option>
-                    <option value="غایب" {{old("cf_1064")=="غایب" ? 'selected' : '' }}>غایب</option>
-                    <option value="مشمول" {{old("cf_1064")=="مشمول" ? 'selected' : '' }}>مشمول</option>
-                    <option value="در حال خدمت" {{old("cf_1064")=="خدمت حال در" ? 'selected' : '' }}>در حال خدمت</option>
-                  </select> -->
+                 
                   @php 
                   $options = [
                     'معاف',
@@ -273,18 +267,7 @@
                   <label>آخرین مدرک تحصیلی</label>
                 </td>
                 <td>
-                  <!-- <select name="cf_1030"  data-label="label:%D8%A2%D8%AE%D8%B1%DB%8C%D9%86+%D9%85%D8%AF%D8%B1%DA%A9+%D8%AA%D8%AD%D8%B5%DB%8C%D9%84%DB%8C" required="">
-                    <option value="">انتخاب مقدار</option>
-                    <option value="بیسواد" {{old('cf_1030')=='بیسواد' ? 'selected' : '' }}>بیسواد</option>
-                    <option value="ابتدایی"  {{old('cf_1030')=='ابتدایی' ? 'selected' : '' }}>ابتدایی</option>
-                    <option value="سیکل"  {{old('cf_1030')=='سیکل' ? 'selected' : '' }}>سیکل</option>
-                    <option value="دیپلم"  {{old('cf_1030')=='دیپلم' ? 'selected' : '' }}>دیپلم</option>
-                    <option value="کاردانی"  {{old('cf_1030')=='کاردانی' ? 'selected' : '' }}>کاردانی</option>
-                    <option value="کارشناسی"  {{old('cf_1030')=='کارشناسی' ? 'selected' : '' }}>کارشناسی</option>
-                    <option value="کارشناس ارشد"  {{old('cf_1030')=='ارشد کارشناس' ? 'selected' : '' }}>کارشناس ارشد</option>
-                    <option value="دکترا"  {{old('cf_1030')=='دکترا' ? 'selected' : '' }}>دکترا</option>
-                  </select> -->
-
+                 
                   @php 
                   $options = [
                     'بیسواد',
@@ -326,15 +309,7 @@
                   <label>محدوده فعالیت</label>
                 </td>
                 <td>
-                  <!-- <select name="cf_1193[]" data-label="label:%D9%85%D8%AD%D8%AF%D9%88%D8%AF%D9%87+%D9%81%D8%B9%D8%A7%D9%84%DB%8C%D8%AA" multiple="" required>
-                    <option value="شمال" {{old('cf_1193')=='شمال' ? 'selected' : '' }}>شمال</option>
-                    <option value="جنوب" {{old('cf_1193')=='جنوب' ? 'selected' : '' }}>جنوب</option>
-                    <option value="مرکز" {{old('cf_1193')=='مرکز' ? 'selected' : '' }}>مرکز</option>
-                    <option value="شرق" {{old('cf_1193')=='شرق' ? 'selected' : '' }}>شرق</option>
-                    <option value="غرب" {{old('cf_1193[]')=='غرب' ? 'selected' : '' }}>غرب</option>
-                    <option value="حومه" {{old('cf_1193')=='حومه' ? 'selected' : '' }}>حومه</option>
-                    <option value="تمامی مناطق" {{old('cf_1205')=='مناطق تمامی' ? 'selected' : '' }}>تمامی مناطق</option>
-                  </select> -->
+                 
                   @php 
                   $options = [
                     'شمال',
@@ -386,21 +361,7 @@
                   <label>زبان و گویش</label>
                 </td>
                 <td>
-                  <!-- <select name="cf_1529[]" data-label="label:%D8%B2%D8%A8%D8%A7%D9%86+%D9%88+%DA%AF%D9%88%DB%8C%D8%B4" multiple="" required>
-                    <option value="پارسی">پارسی</option>
-                    <option value="ترکی">ترکی</option>
-                    <option value="کردی">کردی</option>
-                    <option value="گیلکی">گیلکی</option>
-                    <option value="مازنی">مازنی</option>
-                    <option value="لری">لری</option>
-                    <option value="لکی">لکی</option>
-                    <option value="عربی">عربی</option>
-                    <option value="بلوچی">بلوچی</option>
-                    <option value="ترکمن">ترکمن</option>
-                    <option value="دری">دری</option>
-                    <option value="پشتو">پشتو</option>
-                    <option value="ارمنی">ارمنی</option>
-                  </select> -->
+                 
                   @php 
                   $options = [
                     'پارسی',
@@ -460,15 +421,7 @@
                   <label>شیفت خدمات</label>
                 </td>
                 <td>
-                  <!-- <select name="cf_1195[]" data-label="label:%D8%B4%DB%8C%D9%81%D8%AA+%D8%AE%D8%AF%D9%85%D8%A7%D8%AA" multiple="" required>
-                    <option value="روزانه">روزانه</option>
-                    <option value="شبانه">شبانه</option>
-                    <option value="شبانه روزی">شبانه روزی</option>
-                    <option value="مقطعی">مقطعی</option>
-                    <option value="بیمارستان">بیمارستان</option>
-                    <option value="منزل">منزل</option>
-                    <option value="موردی">موردی</option>
-                  </select> -->
+                 
                   @php 
                   $options = [
                     'روزانه',
@@ -496,20 +449,7 @@
                   <label>خدمات مراقبت</label>
                 </td>
                 <td>
-                  <!-- <select name="cf_1197[]" data-label="label:%D8%AE%D8%AF%D9%85%D8%A7%D8%AA+%D9%85%D8%B1%D8%A7%D9%82%D8%A8%D8%AA" multiple="" required>
-                    <option value="سالمند لگنی">سالمند لگنی</option>
-                    <option value="سالمند پوشکی">سالمند پوشکی</option>
-                    <option value="آلزایمر">آلزایمر</option>
-                    <option value="سالمند سالم">سالمند سالم</option>
-                    <option value="کودک">کودک</option>
-                    <option value="بهیار">بهیار</option>
-                    <option value="کمک بهیار">کمک بهیار</option>
-                    <option value="کودک دوقولو">کودک دوقولو</option>
-                    <option value="امور منزل">امور منزل</option>
-                    <option value="تمامی موارد">تمامی موارد</option>
-                    <option value="پرستار">پرستار</option>
-                    <option value="پرستار ویژه">پرستار ویژه</option>
-                  </select> -->
+                 
                   @php 
                   $options = [
                     'سالمند لگنی',
@@ -542,13 +482,6 @@
                   <label>استعمال دخانیت</label>
                 </td>
                 <td>
-                  <!-- <select name="cf_1255" data-label="label:%D8%A7%D8%B3%D8%AA%D8%B9%D9%85%D8%A7%D9%84+%D8%AF%D8%AE%D8%A7%D9%86%DB%8C%D8%AA" required>
-                    <option value="">انتخاب مقدار</option>
-                    <option value="سیگار می کشم">سیگار می کشم</option>
-                    <option value="سیگار نمی کشم">سیگار نمی کشم</option>
-                    <option value="ترک کردم">ترک کردم</option>
-                    <option value="تفریحی">تفریحی</option>
-                  </select> -->
                   @php 
                   $options = [
                     'سیگار می کشم',
@@ -583,11 +516,6 @@
                   <label>وسیله نقلیه</label>
                 </td>
                 <td>
-                  <!-- <select name="cf_1809[]" data-label="label:%D9%88%D8%B3%DB%8C%D9%84%D9%87+%D9%86%D9%82%D9%84%DB%8C%D9%87" multiple="" required="">
-                    <option value="بدون وسیله">بدون وسیله</option>
-                    <option value="موتور">موتور</option>
-                    <option value="ماشین">ماشین</option>
-                  </select> -->
                   @php 
                   $options = [
                     'بدون وسیله',
@@ -610,14 +538,6 @@
                   <label>گزینه های بیشتر</label>
                 </td>
                 <td>
-                  <!-- <select name="cf_1515[]" data-label="label:%DA%AF%D8%B2%DB%8C%D9%86%D9%87+%D9%87%D8%A7%DB%8C+%D8%A8%DB%8C%D8%B4%D8%AA%D8%B1+%D9%86%DB%8C%D8%B1%D9%88" multiple="">
-                    <option value="گواهینامه">گواهینامه</option>
-                    <option value="پاسپورت">پاسپورت</option>
-                    <option value="ماشین">ماشین</option>
-                    <option value="موتور">موتور</option>
-                    <option value="امکان سفر داخلی">امکان سفر داخلی</option>
-                    <option value="امکان سفر خارجی">امکان سفر خارجی</option>
-                  </select> -->
                   @php 
                   $options = [
                     'گواهینامه',
@@ -730,22 +650,7 @@
                   <label>مشکلات جسمانی</label>
                 </td>
                 <td>
-                  <!-- <select name="cf_1521[]" data-label="label:%D9%85%D8%B4%DA%A9%D9%84%D8%A7%D8%AA+%D8%AC%D8%B3%D9%85%D8%A7%D9%86%DB%8C" multiple="">
-                    <option value="عینکی">عینکی</option>
-                    <option value="کم شنوایی">کم شنوایی</option>
-                    <option value="دودید">دودید</option>
-                    <option value="نیستاگموس">نیستاگموس</option>
-                    <option value="کم دید">کم دید</option>
-                    <option value="مشکل کمر">مشکل کمر</option>
-                    <option value="مشکل گردن">مشکل گردن</option>
-                    <option value="مشکل دست">مشکل دست</option>
-                    <option value="مشکل زانو">مشکل زانو</option>
-                    <option value="ضعف جسمانی">ضعف جسمانی</option>
-                    <option value="پای پرانتزی">پای پرانتزی</option>
-                    <option value="لنگی پا">لنگی پا</option>
-                    <option value="قطع انگشتان دست">قطع انگشتان دست</option>
-                    <option value="لکنت زبان">لکنت زبان</option>
-                  </select> -->
+                  
                   @php 
                   $options = [
                     'عینکی',
@@ -775,102 +680,12 @@
 
                 </td>
               </tr>
-              <div id="snackbar">با موفقیت ویرایش صورت گرفت</div>
-        {{-- <tr>
-        <td>
-          <label>تصویر کارت ملی</label>
-        </td>
-        <td>
-                  <span class="i">
-                    <span class="icon fas" style="opacity:1;top:-15px;"><button class="upFile">انتخاب فایل</button></span>
-                  </span>
-          <input type="file" name="file_8_1" class="file" required="" accept="image/gif, image/jpeg, image/png" title="انتخاب فایل"/>
-                  <span class="iii"></span>
-                  <p class="ftxt" style="line-height:20px;font-size:11px;padding:3px 20px 2px 0;color:black;">
-حجم مجاز 150 کیلو بایت | فایل های مجاز 
-(.jpg .gif .png) | 
- 
-<a href="https://b2n.ir/pic-comp" target="_blank" style="color:red;">برای کم کردن حجم عکس کلیک کنید</a>
-</p>
-        </td>
-      </tr>
-
-        <tr>
-        <td>
-          <label>عکس پرسنلی</label>
-        </td>
-        <td>
-                  <span class="i">
-                    <span class="icon fas" style="opacity:1;top:-15px;"><button class="upFile">انتخاب فایل</button></span>
-                  </span>
-          <input type="file" name="imagename[]" class="file" required="" accept="image/gif, image/jpeg, image/png" title="انتخاب فایل"/>
-                  <span class="iii"></span>
-                  <p class="ftxt" style="line-height:20px;font-size:11px;padding:3px 20px 2px 0;color:black;">
-حجم مجاز 150 کیلو بایت | فایل های مجاز 
-(.jpg .gif .png) | 
- 
-<a href="https://b2n.ir/pic-comp" target="_blank" style="color:red;">برای کم کردن حجم عکس کلیک کنید</a>
-</p>
-        </td>
-      </tr> 
-
-        <tr>
-        <td>
-          <label>تصویر اجاره نامه یا سند</label>
-        </td>
-        <td>
-                  <span class="i">
-                    <span class="icon fas" style="opacity:1;top:-15px;"><button class="upFile">انتخاب فایل</button></span>
-                  </span>
-          <input type="file" name="file_7_2" class="file" required="required" accept="image/gif, image/jpeg, image/png" title="انتخاب فایل"/>
-                  <span class="iii"></span>
-                  <p class="ftxt" style="line-height:20px;font-size:11px;padding:3px 20px 2px 0;color:black;">
-حجم مجاز 150 کیلو بایت | فایل های مجاز 
-(.jpg .gif .png) | 
- 
-<a href="https://b2n.ir/pic-comp" target="_blank" style="color:red;">برای کم کردن حجم عکس کلیک کنید</a>
-</p>
-        </td>
-      </tr> 
-        <tr>
-        <td>
-          <label>تصویر صفحه 1 و 2 شناسنامه</label>
-        </td>
-        <td>
-                  <span class="i">
-                    <span class="icon fas" style="opacity:1;top:-15px;"><button class="upFile">انتخاب فایل</button></span>
-                  </span>
-          <input type="file" name="file_7_3" class="file" required="required" accept="image/gif, image/jpeg, image/png" title="انتخاب فایل"/>
-                  <span class="iii"></span>
-                  <p class="ftxt" style="line-height:20px;font-size:11px;padding:3px 20px 2px 0;color:black;">
-حجم مجاز 150 کیلو بایت | فایل های مجاز 
-(.jpg .gif .png) | 
- 
-<a href="https://b2n.ir/pic-comp" target="_blank" style="color:red;">برای کم کردن حجم عکس کلیک کنید</a>
-</p>
-        </td>
-      </tr> 
-
-        <tr>
-        <td>
-          <label>تصویر عدم سوء پیشینه</label>
-        </td>
-        <td>
-                  <span class="i">
-                    <span class="icon fas" style="opacity:1;top:-15px;"><button class="upFile">انتخاب فایل</button></span>
-                  </span>
-          <input type="file" name="file_7_4" class="file" required="required" accept="image/gif, image/jpeg, image/png, application/pdf" title="انتخاب فایل"/>
-                  <span class="iii"></span>
-                  <p class="ftxt" style="line-height:20px;font-size:11px;padding:3px 20px 2px 0;color:black;">
-حجم مجاز 150 کیلو بایت | فایل های مجاز 
-(.jpg .gif .png .pdf) | 
- 
-<a href="https://b2n.ir/pic-comp" target="_blank" style="color:red;">برای کم کردن حجم عکس کلیک کنید</a>
-</p>
-
-        </td>
-      </tr>  --}}
-<!--       </tr>   -->
+            </tbody>
+              <div id="snackbar"></div>
+              <tbody class="tabs__tab" id="tab_2" data-tab-info>
+              
+                @include('vtiger-forms.documentMoragheb')
+              </tbody>
               <tr>
                 <td>
                  <!--  <label></label> -->
@@ -879,10 +694,9 @@
                   <div class="chk">
                   <input type="checkbox" name="" data-label="" value="0" required="">
                   <span>صحت کلیه اطلاعات را تایید می نمایم.</span>
-</div>
                 </td>
               </tr>
-            </tbody>
+            
           </table>
           <script type="text/javascript">
             var RecaptchaOptions = {
@@ -909,14 +723,7 @@
     <script type="text/javascript" src="/scripts/a.js"></script>
 <script>
 
-// $("[oninvalid]").attr("onkeydown","this.setCustomValidity('')");
-
-
 $(document).ready(function(){
-
-
-// console.log($(".ftxt").prevAll("input[type=file]").attr("name"));
-
 
   if($(".ftxt").length !== 0){
     var stuff = {};
@@ -1001,15 +808,15 @@ return(decodeURIComponent(S));
       let data = $("#__vtigerWebForm").serialize();
       $.post("/client/update",data).then(res => {
         if(res.success){
-           snack();
+           snack("با موفقیت ویرایش صورت گرفت","greenyellow");
         }
         else{
-          alert("no");
+          snack(" no متاسفانه خطایی رخ داد ، مجدد سعی کنید","red");
         }
       })
       .catch(error=>{
         console.log(error);
-        alert("error");
+        snack("متاسفانه خطایی رخ داد ، مجدد سعی کنید","red");
       })
       .then(()=>{
         $('#myModal').css('display','none');
@@ -1020,15 +827,45 @@ return(decodeURIComponent(S));
       
     })
   })
-  function snack() {
+  function snack(message,color) {
   // Get the snackbar DIV
   var x = document.getElementById("snackbar");
 
   // Add the "show" class to DIV
   x.className = "show";
 
+  x.innerHTML = message;
+  x.style.backgroundColor = color;
   // After 3 seconds, remove the show class from DIV
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
   }
+
+//   function openCity(evt, cityName) {
+//   var i, tabcontent, tablinks;
+//   tabcontent = document.getElementsByClassName("tabcontent");
+//   for (i = 0; i < tabcontent.length; i++) {
+//     tabcontent[i].style.display = "none";
+//   }
+//   tablinks = document.getElementsByClassName("tablinks");
+//   for (i = 0; i < tablinks.length; i++) {
+//     tablinks[i].className = tablinks[i].className.replace(" active", "");
+//   }
+//   document.getElementById(cityName).style.display = "block";
+//   evt.currentTarget.className += " active";
+// }
+const tabs = document.querySelectorAll('[data-tab-value]')
+        const tabInfos = document.querySelectorAll('[data-tab-info]')
+  
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = document
+                    .querySelector(tab.dataset.tabValue);
+  
+                tabInfos.forEach(tabInfo => {
+                    tabInfo.classList.remove('active')
+                })
+                target.classList.add('active');
+            })
+        })
 </script>
 @endsection
