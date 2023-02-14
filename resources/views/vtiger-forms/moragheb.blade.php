@@ -682,10 +682,9 @@
               </tr>
             </tbody>
               <div id="snackbar"></div>
-              <tbody class="tabs__tab" id="tab_2" data-tab-info>
-              
+              {{-- <tbody class="tabs__tab" id="tab_2" data-tab-info>
                 @include('vtiger-forms.documentMoragheb')
-              </tbody>
+              </tbody> --}}
               <tr>
                 <td>
                  <!--  <label></label> -->

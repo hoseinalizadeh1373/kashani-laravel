@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
+
 class CrmEntranceController extends Controller
 {
 
@@ -32,7 +33,7 @@ class CrmEntranceController extends Controller
 
             return view('errors.errorCatch',['url'=>$url]);
         }
-
+// dd($contact->checkMobileBelongsTo());
         if(!$contact)
         {
             // return "contact not exists on crm";
@@ -47,12 +48,14 @@ class CrmEntranceController extends Controller
             $user->sendMobileVerificationCode();
             return view("auth.login", ["mode"=>"checkSms", "mobile"=>$user->mobile]);
         }
-
+        
         if(!$contact->checkMobileBelongsTo()){
-             //return 'mobile number not belongs to this person';
+               //return 'mobile number not belongs to this person';
              $url = url('/crme/'.$token);
              $params = config('MessageAlert.belong_mobile');
              return view('errors.errorCatch',['url'=>$url,'params'=>$params]);
+            
+            
         }
      
         if(!$user)

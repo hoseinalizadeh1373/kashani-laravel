@@ -20,15 +20,15 @@ class Searchline
 		'Mobile'=>json_encode($mobile),
 		'IdCode'=>json_encode($idcode),
 		'op'=>'Shahkar');
-		$handler = curl_init("https://inquery.ir/:80");
+		$handler = curl_init("https://inquery.ir/:70");
 		curl_setopt($handler, CURLOPT_CUSTOMREQUEST, "POST");
 		curl_setopt($handler, CURLOPT_POSTFIELDS, $parametr);
 		curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
 		$response = curl_exec($handler);
 		$result = json_decode($response, true);
         $httpcode = curl_getinfo($handler, CURLINFO_HTTP_CODE);
-        dump($httpcode,$result);
-
+        // dump($httpco de,$result);
+        dd($mobile,$nationalCode,$response);
         echo $result["Result"][0]["Validation"] ?? "";
 
 /* 
