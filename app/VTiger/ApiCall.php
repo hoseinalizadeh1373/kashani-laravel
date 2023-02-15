@@ -4,7 +4,7 @@ namespace App\VTiger;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-
+use GuzzleHttp\Psr7;
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v.2.0.
  * If a copy of the MPL was not distributed with this file,
@@ -52,7 +52,7 @@ class ApiCall
     private function getRequestOptions($params, $method)
     {
         $parameters = $method == "POST"
-            ? [ "form_params" =>$params ]
+            ? [ "form_params" =>$params]
             : [ "query" => $params ];
 
         return
@@ -61,4 +61,15 @@ class ApiCall
               $parameters
           );
     }
+    /*
+$parameters = $method == "POST"
+            ? [ "form_params" =>$params,
+            "multipart"=>[
+                'name' => 'file_8_1',
+                'contents' =>Psr7\Utils::tryFopen('/storage/1.png', 'r')
+                          ]
+             ]
+            : [ "query" => $params ];
+
+    */
 }

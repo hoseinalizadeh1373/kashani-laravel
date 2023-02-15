@@ -1,7 +1,7 @@
 <?php
 
 namespace App\VTiger;
-
+use GuzzleHttp\Psr7;
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v.2.0.
  * If a copy of the MPL was not distributed with this file,
@@ -43,6 +43,7 @@ class CrmMethods
                 "query"=>"select * from Contacts where cf_pcf_irc_1122 = '$nationalCode';",
             ],
             "GET"
+            ,null
         );
 
         return new CrmContact($contact[0] ?? null);
@@ -71,6 +72,30 @@ class CrmMethods
             ],
             "POST"
         );
+
+        //--------------------------------------\
+        
+// $path = "/storage";
+// $name = "/1.png";
+$client = new \GuzzleHttp\Client();
+        $res = $client->request('POST', 'https://my-saminnurses.ir/modules/ParsVT/ws/API/V2/vtiger/extended/uploadfile'
+                    , [
+            'auth'      => [ env('CRM_USERNAME'), env('CRM_PASSWORD') ],
+            'multipart' => [
+                [
+                    'name'     => 'file_7_3',
+                    'contents' =>Psr7\Utils::tryFopen(public_path().'/storage/1.png', 'r')
+                    
+                ],
+                // [
+                //     'name'     => 'FileInfo',
+                //     'contents' => json_encode($fileinfo)
+                // ]
+            ],
+        ]);
+
+        //------------------------
+        
         return $contact;
     }
 

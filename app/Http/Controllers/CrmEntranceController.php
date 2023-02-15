@@ -33,10 +33,12 @@ class CrmEntranceController extends Controller
 
             return view('errors.errorCatch',['url'=>$url]);
         }
+
 // dd($contact->checkMobileBelongsTo());
         if(!$contact)
         {
             // return "contact not exists on crm";
+            
             $url = url('/crme/'.$token);
             $params = config('MessageAlert.not_exist');
             return view('errors.errorCatch',['url'=>$url,'params'=>$params]);
@@ -61,6 +63,7 @@ class CrmEntranceController extends Controller
         if(!$user)
             $user = $this->registerWithCrmContact($contact);
         
+            
         $user->sendMobileVerificationCode();
         return view("auth.login", ["mode"=>"checkSms", "mobile"=>$user->mobile]);
 

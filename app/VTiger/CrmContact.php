@@ -36,7 +36,7 @@ class CrmContact{
     }
 
     public function checkMobileBelongsTo(){
-        return false;    
+        return true;    
         // $client = new \GuzzleHttp\Client();
         // $res = $client->post(
         //     'https://inquery.ir:70',
