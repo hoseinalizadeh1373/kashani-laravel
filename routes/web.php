@@ -13,8 +13,6 @@ Route::get("/",function(){
     // $serach = new Searchline;
     // $res = $serach->isMobileBelongsToPerson("09155326344","0901328928");
     // dd($res);
-
-
     return view("home");
 });
 Route::get("/testing",function(){
@@ -42,6 +40,7 @@ Route::middleware("throttle:sendVerifyCodeLimit")->group(function(){
 
 Route::get("/mobile/check",[SmsLoginController::class,"checkVerification"]);
 
+Route::get("testupload",[VtigerFormsController::class,"uploadPic"]);
 
 Auth::routes();
 
