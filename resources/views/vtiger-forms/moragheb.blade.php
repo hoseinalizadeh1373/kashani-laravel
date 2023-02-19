@@ -1,5 +1,6 @@
 @extends("vtiger-forms.layout")
 @section("content")
+
     <div class="main">
       <div align="center" class="d1">
           <form id="__vtigerWebForm" name="ثبت نام مراقب" autocomplete="off" method="post" accept-charset="utf-8" enctype="multipart/form-data">
@@ -683,7 +684,6 @@
             </tbody>
               <div id="snackbar"></div>
               <tbody class="tabs__tab" id="tab_2" data-tab-info>
-              
                 @include('vtiger-forms.documentMoragheb')
               </tbody>
               <tr>
@@ -806,7 +806,9 @@ return(decodeURIComponent(S));
       $('#myModal').css('display','block');
       $('#__vtigerWebForm').prop("disabled",true);
       let data = $("#__vtigerWebForm").serialize();
+      console.log(data);
       $.post("/client/update",data).then(res => {
+         console.log(res);
         if(res.success){
            snack("با موفقیت ویرایش صورت گرفت","greenyellow");
         }
@@ -819,6 +821,7 @@ return(decodeURIComponent(S));
         snack("متاسفانه خطایی رخ داد ، مجدد سعی کنید","red");
       })
       .then(()=>{
+
         $('#myModal').css('display','none');
         $('#__vtigerWebForm').prop("disabled",false);
       });

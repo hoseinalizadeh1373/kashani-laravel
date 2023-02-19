@@ -36,7 +36,6 @@ class CrmContact{
     }
 
     public function checkMobileBelongsTo(){
-        return false;
         $searchline = new Searchline;
         return $searchline->isMobileBelongsToPerson($this->mobile,$this->national_code);
     }

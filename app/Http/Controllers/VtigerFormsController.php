@@ -17,7 +17,7 @@ class VtigerFormsController extends Controller
             $contact = (new CrmMethods())->getContactByNationalCode(Auth::user()->national_code);
         }
         catch(\Exception $e){
-            //dd("errpr");
+            dd($e);
              $url = url('/client/form');
              return view('errors.errorCatch',['url'=>$url]);
         }
@@ -85,7 +85,8 @@ class VtigerFormsController extends Controller
             $vtiger = new CrmMethods;
             $contact = $vtiger->getContactByNationalCode($request["cf_pcf_irc_1122"]);
             $data = $request->all();
-
+                
+            
             $mode = "";
             if ($contact) {
                 $data["id"]=$contact->id;
@@ -121,4 +122,5 @@ class VtigerFormsController extends Controller
         return response()->json($data);
        
     }
-}
+
+ }
