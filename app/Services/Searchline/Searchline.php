@@ -13,12 +13,12 @@ class Searchline
 
     public function isMobileBelongsToPerson($mobile,$nationalCode){
 
-		$mobile = array($mobile);
-		$idcode = array($nationalCode);
+		// $mobile = array($mobile);
+		// $idcode = array($nationalCode);
 		$parametr = array(
-		'token'=>env("SEARCHLINE_TOKEN"),
-		'Mobile'=>json_encode($mobile),
-		'IdCode'=>json_encode($idcode),
+		'Token'=>env("SEARCHLINE_TOKEN"),
+		'Mobile'=>$mobile,
+		'IdCode'=>$nationalCode,
 		'op'=>'Shahkar');
 		$handler = curl_init("https://inquery.ir/:70");
 		curl_setopt($handler, CURLOPT_CUSTOMREQUEST, "POST");
@@ -27,10 +27,7 @@ class Searchline
 		$response = curl_exec($handler);
 		$result = json_decode($response, true);
         $httpcode = curl_getinfo($handler, CURLINFO_HTTP_CODE);
-        // dump($httpco de,$result);
-        dd($mobile,$nationalCode,$response);
-        echo $result["Result"][0]["Validation"] ?? "";
-
+        return $result["Result"]["Validation"];
 /* 
         $data = [
             "Mobile"=>array($mobile),

@@ -36,46 +36,8 @@ class CrmContact{
     }
 
     public function checkMobileBelongsTo(){
-        return true;    
-        // $client = new \GuzzleHttp\Client();
-        // $res = $client->post(
-        //     'https://inquery.ir:70',
-        //     array(
-        //         'form_params' =>array(
-        //             'token'=>env("SEARCHLINE_TOKEN"),
-        //             'Mobile'=>json_encode('09332999173'),
-        //             'IdCode'=>json_encode('0899045775'),
-        //             'op'=>'Shahkar'
-        //                              )
-        //          )
-        // );
-
-        // $mobile = '09332999173';
-        // $idcode = '0890345775';
-        // $params = array(
-        //     'token'=>env("SEARCHLINE_TOKEN"),
-        //     'Mobile'=>json_encode($mobile),
-        //     'IdCode'=>json_encode($idcode),
-        //     'op'=>'Shahkar'
-        // );
-
-        // // $url = rtrim("https://inquery.ir/:70");
-
-        
-        // $handler = curl_init("https://inquery.ir/:70");
-		// curl_setopt($handler, CURLOPT_CUSTOMREQUEST, "POST");
-		// curl_setopt($handler, CURLOPT_POSTFIELDS, $params);
-		// curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
-		// $response = curl_exec($handler);
-        // $output = curl_exec($handler);
-        // dd($response);
-        // curl_close($handler);
-        // return $output;
-    
-                
-
-        // $searchline = new Searchline;
-        // return $searchline->isMobileBelongsToPerson($this->mobile,$this->national_code);
+        $searchline = new Searchline;
+        return $searchline->isMobileBelongsToPerson($this->mobile,$this->national_code);
     }
 
     public function getRaw(){

@@ -122,4 +122,5 @@ class VtigerFormsController extends Controller
         return response()->json($data);
        
     }
-}
+
+ }

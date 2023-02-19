@@ -56,8 +56,6 @@ class CrmEntranceController extends Controller
              $url = url('/crme/'.$token);
              $params = config('MessageAlert.belong_mobile');
              return view('errors.errorCatch',['url'=>$url,'params'=>$params]);
-            
-            
         }
      
         if(!$user)
