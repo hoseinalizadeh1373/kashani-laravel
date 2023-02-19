@@ -88,7 +88,7 @@ class CrmMethods
         
         $data = [
             "id"=> "12x227595",
-            "file_8_1" => $res[0]
+            "cf_pcf_ulf_1016" => $res[0]
         ];
         
         $res = $this->updateContactInformation($data);
