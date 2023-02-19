@@ -8,8 +8,7 @@ use App\Services\Searchline\Searchline;
 use App\VTiger\CrmMethods;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-
+use Illuminate\Support\Facades\Log;
 
 class CrmEntranceController extends Controller
 {
@@ -22,49 +21,43 @@ class CrmEntranceController extends Controller
     }
 
     public function entrance($token){
+
         try{
-          
             $contact = $this->getCrmContactWithToken($token);
-           
         }
         catch(\Exception $err){
             //dd($err->getMessage());
             $url = url('/crme/'.$token);
-
             return view('errors.errorCatch',['url'=>$url]);
         }
 
-// dd($contact->checkMobileBelongsTo());
         if(!$contact)
         {
             // return "contact not exists on crm";
-            
             $url = url('/crme/'.$token);
             $params = config('MessageAlert.not_exist');
             return view('errors.errorCatch',['url'=>$url,'params'=>$params]);
         }
 
         $user = User::whereNationalCode($contact->national_code)->first();
-
-        if($user){
-            $user->sendMobileVerificationCode();
-            return view("auth.login", ["mode"=>"checkSms", "mobile"=>$user->mobile]);
-        }
         
-        if(!$contact->checkMobileBelongsTo()){
-               //return 'mobile number not belongs to this person';
-             $url = url('/crme/'.$token);
-             $params = config('MessageAlert.belong_mobile');
-             return view('errors.errorCatch',['url'=>$url,'params'=>$params]);
-        }
-     
-        if(!$user)
+        if(!$user){
             $user = $this->registerWithCrmContact($contact);
+        }
+
+        if($user->mobile != $contact->mobile){
+            $user->resetMobileVerifyStatus();
+        }
         
-            
+        if(!$user->checkMobileBelongsTo()){
+            //return 'mobile number not belongs to this person';
+          $url = url('/crme/'.$token);
+          $params = config('MessageAlert.belong_mobile');
+          return view('errors.errorCatch',['url'=>$url,'params'=>$params]);
+        }
+
         $user->sendMobileVerificationCode();
         return view("auth.login", ["mode"=>"checkSms", "mobile"=>$user->mobile]);
-
     }
 
     private function getCrmContactWithToken($token){
@@ -84,9 +77,10 @@ class CrmEntranceController extends Controller
         $user->national_code = $contact->national_code;
         $user->mobile = $contact->mobile;
         $user->firstname = $contact->firstname; 
-        $user->lastname = $contact->lastname; 
+        $user->lastname = $contact->lastname;
         $user->email = $contact->email;
         $user->contact_type = $contactType;
+        $user->mobile_verify_status = User::MOBILE_BELONG_NOT_CHECK;
         $user->save(); 
 
         return $user;

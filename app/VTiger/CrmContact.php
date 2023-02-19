@@ -35,10 +35,7 @@ class CrmContact{
         return $this->map($field);
     }
 
-    public function checkMobileBelongsTo(){
-        $searchline = new Searchline;
-        return $searchline->isMobileBelongsToPerson($this->mobile,$this->national_code);
-    }
+  
 
     public function getRaw(){
         return $this->rawContact;
