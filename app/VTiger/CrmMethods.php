@@ -97,7 +97,70 @@ class CrmMethods
         
         
     }
+    public function uploadProfilePic()
+    {
+        $data= [
+            "record"=> "12x227595",
+            "files"=>json_encode(
+                [
+                    [
+                        "name"=>"1.png",
+                        "content" =>base64_encode(file_get_contents("1.png"))
+                    ]
+                ]
+            )
 
+               ];
+
+               $result = $this->api->call(
+                "extended/uploadcontactsimage",
+                $data,
+                "POST"
+               );
+       
+
+
+               dd($result);
+    }
+     public function CreateDocument()
+    {
+    $data = [
+        "element"=>json_encode([
+            "assigned_user_id"=>"12x227595",
+            "notes_title" => "test"
+        ]),
+        "file"=>json_encode([
+            "name" =>"1.png",
+            "content" =>base64_encode(file_get_contents("1.png")),
+        ])
+        ];
+        
+        $res = $this->api->call(
+            "extended/createdocument",
+            $data,
+            "POST"
+        );
+        dd($res);
+    }
+    public function addRelatedDoc()
+    {
+        $data = [
+            
+            "sourceRecordId" => "12x227595",
+            "relatedRecordId" => "228864,228863",
+            "relationIdLabel"=>"test",
+            
+        ];
+        
+        $res = $this->api->call(
+            "extended/add_related_records",
+            $data,
+            "POST"
+        );
+
+        
+        dd($res);
+    }
 
     public function updateContactInformation($data)
     {

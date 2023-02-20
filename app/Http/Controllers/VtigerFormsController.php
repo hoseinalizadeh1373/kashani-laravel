@@ -40,6 +40,22 @@ class VtigerFormsController extends Controller
         dd($id);
         $crm->uploadProfileImage($id,$file);
     }
+    public function uploadPicProfile()
+    {
+        $crm = new CrmMethods();
+        $crm->uploadProfilePic();
+    }
+
+    public function UploadCreateDocument()
+    {
+        $crm = new CrmMethods();
+        $crm->CreateDocument();
+    }
+    public function addRelated()
+    {
+        $crm = new CrmMethods();
+        $crm->addRelatedDoc();
+    }
 
     private function getFormName(){
         return [
