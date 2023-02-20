@@ -40,6 +40,14 @@ class VtigerFormsController extends Controller
         dd($id);
         $crm->uploadProfileImage($id,$file);
     }
+    public function uploadPicProfile()
+    {
+        $crm = new CrmMethods();
+        $crm->uploadProfilePic();
+        exit();
+        $id =  $crm->getContactByNationalCode("0890345775");
+
+    }
 
     private function getFormName(){
         return [

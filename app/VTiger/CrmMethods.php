@@ -97,6 +97,31 @@ class CrmMethods
         
         
     }
+    public function uploadProfilePic()
+    {
+        $data= [
+            "record"=> "12x227595",
+            "files"=>json_encode(
+                [
+                    [
+                        "name"=>"1.png",
+                        "content" =>base64_encode(file_get_contents("1.png"))
+                    ]
+                ]
+            )
+
+               ];
+
+               $result = $this->api->call(
+                "extended/uploadcontactsimage",
+                $data,
+                "POST"
+               );
+       
+
+
+               dd($result);
+    }
 
 
     public function updateContactInformation($data)
