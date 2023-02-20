@@ -44,9 +44,17 @@ class VtigerFormsController extends Controller
     {
         $crm = new CrmMethods();
         $crm->uploadProfilePic();
-        exit();
-        $id =  $crm->getContactByNationalCode("0890345775");
+    }
 
+    public function UploadCreateDocument()
+    {
+        $crm = new CrmMethods();
+        $crm->CreateDocument();
+    }
+    public function addRelated()
+    {
+        $crm = new CrmMethods();
+        $crm->addRelatedDoc();
     }
 
     private function getFormName(){

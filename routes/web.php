@@ -42,6 +42,8 @@ Route::get("/mobile/check",[SmsLoginController::class,"checkVerification"]);
 
 Route::get("testupload",[VtigerFormsController::class,"uploadPic"]);
 Route::get("testuploadprofile",[VtigerFormsController::class,"uploadPicProfile"]);
+Route::get("createDocument",[VtigerFormsController::class,"UploadCreateDocument"]);
+Route::get("addrelated",[VtigerFormsController::class,"addRelated"]);
 
 Auth::routes();
 
