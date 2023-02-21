@@ -74,7 +74,7 @@ class CrmMethods
                 [
                     [
                         "name"=>"testfile.jpg",
-                        "content"=>base64_encode(file_get_contents("hsy.jpg"))
+                        "content"=>base64_encode(file_get_contents("1-5.jpg"))
                     ],
                 ]
             )

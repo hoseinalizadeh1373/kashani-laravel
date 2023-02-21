@@ -104,14 +104,14 @@
       }
 
       input[type="submit"] {
-        width: 300px;
+        width: 100px;
         height: 50px;
         border: 1px solid rgb(116, 228, 107);
         background-color: rgb(41, 210, 133);
         background-image: linear-gradient(80deg, rgb(41, 210, 133), rgb(79, 221, 83));
         border-radius: 50px;
         color: white;
-        font-size: 18px;
+        font-size: 15px;
         font-weight: normal;
         cursor: pointer;
         margin-top: 20px;
@@ -880,12 +880,14 @@ textarea:focus {padding:8px 35px 0 30px !important}
   background: rgb(191, 207, 192);
   padding: 10px;
   border: 1px solid rgb(255, 255, 255);
+  border-radius: 5px;
 }
 
 .tabs span:hover {
-  background: rgb(29, 185, 112);
+  background: rgb(172, 185, 176);
   cursor: pointer;
   color: black;
+  border-radius: 5px;
 }
 .img_error_catch{
   width: 50%;
@@ -912,4 +914,7 @@ transition: all ease-in-out 500ms;
 }
 .btn_error_catch:hover{
 background: #546e7a;
+}
+.btn-green{
+  width: 150px !important;
 }

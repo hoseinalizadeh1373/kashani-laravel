@@ -33,6 +33,7 @@ class VtigerFormsController extends Controller
 
 
     public function uploadPic(){
+   
         $crm = new CrmMethods();
         $crm->uploadDocuments();
         exit;
@@ -42,6 +43,7 @@ class VtigerFormsController extends Controller
     }
     public function uploadPicProfile()
     {
+   
         $crm = new CrmMethods();
         $crm->uploadProfilePic();
     }
