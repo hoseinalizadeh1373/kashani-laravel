@@ -32,10 +32,19 @@ class VtigerFormsController extends Controller
     }
 
 
-    public function uploadPic(){
+    public function uploadPic(Request $request){
    
+
+        // $data = $_POST['file_for_upload'];
+
+        $fff  =$request->upload_file;
+        $ff = $request->file('file_upload');
+        dd($ff);
+        // return response()->json($ff);
+        exit;
         $crm = new CrmMethods();
-        $crm->uploadDocuments();
+        $crm->uploadDocuments($data);
+
         exit;
         $id =  $crm->getContactByNationalCode("0890345775");
         dd($id);
