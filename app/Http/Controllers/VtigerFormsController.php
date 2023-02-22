@@ -11,10 +11,15 @@ use Illuminate\Support\Facades\Auth;
 class VtigerFormsController extends Controller
 {
     
+
+     private $Contact_id = 0;
     public function form()
     {
         try{
             $contact = (new CrmMethods())->getContactByNationalCode(Auth::user()->national_code);
+         
+            
+            
         }
         catch(\Exception $e){
             dd($e);
@@ -33,34 +38,35 @@ class VtigerFormsController extends Controller
 
 
     public function uploadPic(Request $request){
-   
-
-        // $data = $_POST['file_for_upload'];
-
-        $fff  =$request->upload_file;
-        $ff = $request->file('file_upload');
-        dd($ff);
-        // return response()->json($ff);
-        exit;
+        $id = Auth::User()->crm_contact_id;
+        $base64 = base64_encode(file_get_contents($request->file('file_upload')->path()));
+       
         $crm = new CrmMethods();
-        $crm->uploadDocuments($data);
-
-        exit;
-        $id =  $crm->getContactByNationalCode("0890345775");
-        dd($id);
-        $crm->uploadProfileImage($id,$file);
+        $crm->uploadDocuments($base64,$id);
+       
+      
     }
-    public function uploadPicProfile()
+    public function uploadPicProfile(Request $request)
     {
-   
+        $id = Auth::User()->crm_contact_id;
+        $base64 = base64_encode(file_get_contents($request->file('file_upload')->path()));
+        $extension = $request->file('file_upload')->extension();
         $crm = new CrmMethods();
-        $crm->uploadProfilePic();
+        $crm->uploadProfilePic($base64,$id,$extension);
+        return redirect('/client/form');
     }
 
-    public function UploadCreateDocument()
+    public function UploadCreateDocument(Request $request)
     {
+
+        $id = Auth::User()->crm_contact_id;
+        $base64 = base64_encode(file_get_contents($request->file('file_upload')->path()));
+        $extension = $request->file('file_upload')->extension();
         $crm = new CrmMethods();
-        $crm->CreateDocument();
+        $docid = $crm->CreateDocument($base64,$id,$request->get('upload_file'),$extension);
+        $crm->addRelatedDoc($id,$docid);
+        return redirect('/client/form');
+        
     }
     public function addRelated()
     {

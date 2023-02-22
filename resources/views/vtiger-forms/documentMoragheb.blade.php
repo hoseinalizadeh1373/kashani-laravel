@@ -94,18 +94,18 @@
       </tr>  
      </tr>    --}}
 
-     <form id="upload_moragheb_asnad" action="{{ url ('/testupload')}}"  method="post" enctype="multipart/form-data">
+     <form id="upload_moragheb_asnad" action="{{ url ('/createDocument')}}"  method="post" enctype="multipart/form-data">
       @csrf
       @method('POST')
 <tr>
   <td>
      <select id="select_asnad" name="upload_file" data-label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AA%D8%A7%D9%87%D9%84" required="required" pattern="">
       <option value="">انتخاب مقدار</option>
-      <option value="file_8_1">تصویر کارت ملی</option>
-      <option value="imagename">عکس پرسنلی</option>
-      <option value="file_7_2">تصویر اجاره نامه یا سند</option>
-      <option value="file_7_3">تصویر صفحه 1 و 2 شناسنامه</option>
-      <option value="file_7_4">تصویر عدم سوء پیشینه<</option>
+      <option value="national_image">تصویر کارت ملی</option>
+      <option value="personal_image">عکس پرسنلی</option>
+      <option value="Lease_image">تصویر اجاره نامه یا سند</option>
+      <option value="certificate_image">تصویر صفحه 1 و 2 شناسنامه</option>
+      <option value="bad_background_image">تصویر عدم سوء پیشینه<</option>
     </select>
   </td>
 </tr>
@@ -124,7 +124,7 @@
 </td>
 <tr>
   <td>
-    <input type="submit" class="btn-green" value="hvshg">
+    <input type="submit" class="btn-green" value="بارگزاری">
   </td>
 </tr>
 </form>

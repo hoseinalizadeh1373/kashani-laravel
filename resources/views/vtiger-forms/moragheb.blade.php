@@ -812,62 +812,45 @@ return(decodeURIComponent(S));
 
 
   $("document").ready(()=>{
-    // $("#__vtigerWebForm").submit((e)=>{
-    //   $('#myModal').css('display','block');
-    //   $('#__vtigerWebForm').prop("disabled",true);
-    //   let data = $("#__vtigerWebForm").serialize();
-    //   console.log(data);
-    //   $.post("/client/update",data).then(res => {
-    //      console.log(res);
-    //     if(res.success){
-    //        snack("با موفقیت ویرایش صورت گرفت","greenyellow");
-    //     }
-    //     else{
-    //       snack(" no متاسفانه خطایی رخ داد ، مجدد سعی کنید","red");
-    //     }
-    //   })
-    //   .catch(error=>{
-    //     console.log(error);
-    //     snack("متاسفانه خطایی رخ داد ، مجدد سعی کنید","red");
-    //   })
-    //   .then(()=>{
+    $("#__vtigerWebForm").submit((e)=>{
+      $('#myModal').css('display','block');
+      $('#__vtigerWebForm').prop("disabled",true);
+      let data = $("#__vtigerWebForm").serialize();
+      console.log(data);
+      $.post("/client/update",data).then(res => {
+         console.log(res);
+        if(res.success){
+           snack("با موفقیت ویرایش صورت گرفت","greenyellow");
+        }
+        else{
+          snack(" no متاسفانه خطایی رخ داد ، مجدد سعی کنید","red");
+        }
+      })
+      .catch(error=>{
+        console.log(error);
+        snack("متاسفانه خطایی رخ داد ، مجدد سعی کنید","red");
+      })
+      .then(()=>{
 
-    //     $('#myModal').css('display','none');
-    //     $('#__vtigerWebForm').prop("disabled",false);
-    //   });
+        $('#myModal').css('display','none');
+        $('#__vtigerWebForm').prop("disabled",false);
+      });
 
-    //   return false;
+      return false;
       
-    // })
-//     $("#upload_moragheb_asnad").submit((e)=>{
-//     $('#upload_moragheb_asnad').prop("disabled",true);
+    })
+    $("#upload_moragheb_asnad").submit((e)=>{
+    $('#upload_moragheb_asnad').prop("disabled",true);
 
-//       let fname = $('#file_upload')[0].files;
+      let fname = $('#file_upload')[0].files;
 
-//       var e = document.getElementById("select_asnad");
-//       var value = e.value;
+      var e = document.getElementById("select_asnad");
+      var value = e.value;
       
-//     let dataa = $("#upload_moragheb_asnad").serialize();
-//      let func = value=="imagename"? "/testuploadprofile" : "/testupload";
-     
-// $.ajax({
-//   // "_token": "{{ csrf_token() }}",
-//         url:func+'?_token=' + '{{ csrf_token() }}',
-//         method:"post",
-//         data: {
-//           "file_for_upload":dataa,
-//           "ff":fname
-//         },
-//         success:function(response){
-//           console.log(response);
-//         }
-//         ,error:function(xhr){
-//           console.log(xhr);
-//         }
-//       });
-//       // console.log(fname);
-//       return false;
-//     });  
+     let func = value=="personal_image"? "/testuploadprofile" : "/createDocument";
+     document.getElementById("upload_moragheb_asnad").action = func;
+     $('#upload_moragheb_asnad').prop("enabled",true);
+    });  
     return false; 
   })
 

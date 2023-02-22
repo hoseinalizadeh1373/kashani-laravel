@@ -97,15 +97,15 @@ class CrmMethods
         
         
     }
-    public function uploadProfilePic()
+    public function uploadProfilePic($base64,$id,$ext)
     {
         $data= [
-            "record"=> "12x227595",
+            "record"=> $id,
             "files"=>json_encode(
                 [
                     [
-                        "name"=>"1.png",
-                        "content" =>base64_encode(file_get_contents("1.png"))
+                        "name"=>"personal_image.".$ext,
+                        "content" =>$base64
                     ]
                 ]
             )
@@ -120,7 +120,7 @@ class CrmMethods
        
 
 
-               dd($result);
+              
     }
     public function getContactRelatedDocs()
     {
@@ -142,18 +142,18 @@ class CrmMethods
 
         exit;
     }
-    public function CreateDocument()
+    public function CreateDocument($base64,$id,$name,$ext)
     {
 
        
         $data = [
             "element"=>json_encode([
-                "assigned_user_id"=>"12x227595",
-                "notes_title" => "test"
+                "assigned_user_id"=>$id,
+                "notes_title" => $name
             ]),
             "file"=>json_encode([
-                "name" =>"1.png",
-                "content" =>base64_encode(file_get_contents("1.png")),
+                "name" =>$name.".".$ext,
+                "content" =>$base64,
             ])
         ];
         
@@ -162,14 +162,15 @@ class CrmMethods
             $data,
             "POST"
         );
-        dd($res);
+        
+        return $res->docid;
     }
-    public function addRelatedDoc()
+    public function addRelatedDoc($id,$docid)
     {
         $data = [
             
-            "sourceRecordId" => "12x227595",
-            "relatedRecordId" => "15x228902",
+            "sourceRecordId" => $id,
+            "relatedRecordId" => "15x".$docid,
             "relationIdLabel"=>"Documents",
             
         ];
@@ -181,7 +182,7 @@ class CrmMethods
         );
 
         
-        dd($res);
+    
     }
 
     public function updateContactInformation($data)

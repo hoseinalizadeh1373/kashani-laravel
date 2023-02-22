@@ -41,7 +41,7 @@ Route::middleware("throttle:sendVerifyCodeLimit")->group(function(){
 Route::get("/mobile/check",[SmsLoginController::class,"checkVerification"]);
 
 Route::post("testupload",[VtigerFormsController::class,"uploadPic"]);
-Route::get("testuploadprofile",[VtigerFormsController::class,"uploadPicProfile"]);
+Route::post("testuploadprofile",[VtigerFormsController::class,"uploadPicProfile"]);
 Route::post("createDocument",[VtigerFormsController::class,"UploadCreateDocument"]);
 Route::get("addrelated",[VtigerFormsController::class,"addRelated"]);
 
