@@ -681,11 +681,9 @@
 
                 </td>
               </tr>
-            </tbody>
+          
               <div id="snackbar"></div>
-              <tbody class="tabs__tab" id="tab_2" data-tab-info>
-                @include('vtiger-forms.documentMoragheb')
-              </tbody>
+              
               <tr>
                 <td>
                  <!--  <label></label> -->
@@ -695,9 +693,16 @@
                   <input type="checkbox" name="" data-label="" value="0" required="">
                   <span>صحت کلیه اطلاعات را تایید می نمایم.</span>
                 </td>
+             
               </tr>
-            
-          </table>
+              <tr>
+                <input type="hidden" id="captchaUrl" value="https://my-saminnurses.ir/modules/Settings/Webforms/actions/CheckCaptcha.php">
+                <input type="hidden" id="recaptcha_validation_value">
+                <td>
+                <input type="submit" class="btn-green" value="تایید اطلاعات">
+                </td>
+              </tr>
+            </tbody>
           <script type="text/javascript">
             var RecaptchaOptions = {
               theme: "clean"
@@ -710,11 +715,16 @@
             <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
             <input type="hidden" name="recaptcha_response_field" value="manual_challenge">
           </noscript>
-          <input type="hidden" id="captchaUrl" value="https://my-saminnurses.ir/modules/Settings/Webforms/actions/CheckCaptcha.php">
-          <input type="hidden" id="recaptcha_validation_value">
-          <input type="submit" value="تایید اطلاعات">
+         
+     
+   
       </form>
-    </form>
+    </table>
+    <table class="tab-content">
+      <tbody class="tabs__tab" id="tab_2" data-tab-info>
+        @include('vtiger-forms.documentMoragheb')
+      </tbody>
+    </table>
     @include('vtiger-forms.modal')
     </div>
         <script type="text/javascript" src="/scripts/persianDatepicker.js"></script>
@@ -829,7 +839,24 @@ return(decodeURIComponent(S));
       return false;
       
     })
+    $("#upload_moragheb_asnad").submit((e)=>{
+    $('#upload_moragheb_asnad').prop("disabled",true);
+
+      let fname = $('#file_upload')[0].files;
+
+      var e = document.getElementById("select_asnad");
+      var value = e.value;
+      
+     let func = value=="personal_image"? "/testuploadprofile" : "/createDocument";
+     document.getElementById("upload_moragheb_asnad").action = func;
+     $('#upload_moragheb_asnad').prop("enabled",true);
+    });  
+    return false; 
   })
+
+  
+
+
   function snack(message,color) {
   // Get the snackbar DIV
   var x = document.getElementById("snackbar");

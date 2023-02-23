@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/persianDatepicker-default.css" />
     <link rel="stylesheet" href="/css/formn.css" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>فرم استخدام مرکز پرستاری ثمین</title>
     <style>
       @import url("/css/formFix.css");

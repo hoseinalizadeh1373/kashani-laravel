@@ -81,6 +81,8 @@ class CrmEntranceController extends Controller
         $user->email = $contact->email;
         $user->contact_type = $contactType;
         $user->mobile_verify_status = User::MOBILE_BELONG_NOT_CHECK;
+        $user->crm_contact_id = $contact->id;
+        $user->crm_contact_number = $contact->contact_no;
         $user->save(); 
 
         return $user;

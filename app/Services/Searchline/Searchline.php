@@ -2,6 +2,8 @@
 
 namespace App\Services\Searchline;
 
+use Illuminate\Support\Facades\Log;
+
 class Searchline
 {
     private $api;
@@ -20,13 +22,17 @@ class Searchline
 		'Mobile'=>$mobile,
 		'IdCode'=>$nationalCode,
 		'op'=>'Shahkar');
+
 		$handler = curl_init("https://inquery.ir/:70");
 		curl_setopt($handler, CURLOPT_CUSTOMREQUEST, "POST");
 		curl_setopt($handler, CURLOPT_POSTFIELDS, $parametr);
 		curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
+       
 		$response = curl_exec($handler);
+     
 		$result = json_decode($response, true);
         $httpcode = curl_getinfo($handler, CURLINFO_HTTP_CODE);
+        
         return $result["Result"]["Validation"];
 /* 
         $data = [
