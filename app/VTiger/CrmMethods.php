@@ -10,13 +10,26 @@ use GuzzleHttp\Psr7;
 
 class CrmMethods
 {
+    /**
+     * Undocumented variable
+     *
+     * @var [type]
+     */
     private $api;
     
+    /**
+     * Undocumented function
+     */
     public function __construct()
     {
         $this->api = new ApiCall;
     }
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function me()
     {
         return $this->api->call(
@@ -24,6 +37,11 @@ class CrmMethods
         );
     }
     
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
     public function describe()
     {
         return $this->api->call(
@@ -35,6 +53,12 @@ class CrmMethods
         );
     }
     
+    /**
+     * Undocumented function
+     *
+     * @param [type] $nationalCode
+     * @return void
+     */
     public function getContactByNationalCode($nationalCode)
     {
         $contact =  $this->api->call(
@@ -49,6 +73,12 @@ class CrmMethods
         return new CrmContact($contact[0] ?? null);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param [type] $contactNumber
+     * @return void
+     */
     public function getContactByContactNumber($contactNumber)
     {
         $contact =  $this->api->call(
@@ -62,7 +92,208 @@ class CrmMethods
         
         return isset($contact[0]) ? (new CrmContact($contact[0])) : null;
     }
-    
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $fileAddress
+     * @param [type] $contactId
+     * @return void
+     */
+    public function uploadProfilePic($fileAddress, $contactId)
+    {
+
+        $base64 = $this->toBase64($fileAddress);
+        $ext = $this->getExtension($fileAddress);
+
+        $data= [
+            "record"=> $contactId,
+            "files"=>json_encode(
+                [
+                    [
+                        "name"=>"personal_image.".$ext,
+                        "content" =>$base64
+                    ]
+                ]
+            )
+
+        ];
+
+        $result = $this->api->call(
+            "extended/uploadcontactsimage",
+            $data,
+            "POST"
+        );
+       
+        return true;
+        
+    }
+
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $fileAddress
+     * @param [type] $contactId
+     * @param [type] $name
+     * @return void
+     */
+    public function CreateDocument($fileAddress,$contactId,$filename, $title)
+    {
+        $base64 = $this->toBase64($fileAddress);
+
+        $data = [
+            "element"=>json_encode([
+                "assigned_user_id"=>$contactId,
+                "notes_title" => $title
+            ]),
+            "file"=>json_encode([
+                "name" => $filename,
+                "content" => $base64,
+            ])
+        ];
+            
+        $res = $this->api->call(
+            "extended/createdocument",
+            $data,
+            "POST"
+        );
+        
+        return $res->docid ?? null;
+
+    }
+
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $contactId
+     * @param [type] $docid
+     * @return void
+     */
+    public function addRelatedDoc($contactId, $docid)
+    {
+        $data = [
+            
+            "sourceRecordId" => $contactId,
+            "relatedRecordId" => "15x" . $docid,
+            "relationIdLabel"=>"Documents",
+            
+        ];
+        
+        $res = $this->api->call(
+            "extended/add_related_records",
+            $data,
+            "POST"
+        );
+
+        return true;
+
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $data
+     * @return void
+     */
+    public function updateContactInformation($data)
+    {
+
+        $contact =  $this->api->call(
+            "default/revise",
+            [
+                "element"=>json_encode($data),
+            ],
+            "POST"
+        );
+
+        return $contact;
+    }
+
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $contactId
+     * @return void
+     */
+    public function deleteContant($contactId)
+    {
+        $contact =  $this->api->call(
+            "default/delete",
+            [
+                "id"=>$contactId,
+            ],
+            "POST"
+        );
+        
+        return new CrmContact($contact);
+    }
+
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $data
+     * @return void
+     */
+    public function createNewContact($data)
+    {
+        
+        $data["cf_931"] = "مراقب";
+        $data["assigned_user_id"] = "19x5";
+        
+        $contact =  $this->api->call(
+            "default/create",
+            [
+                "elementType"=>"Contacts",
+                "element"=>json_encode($data),
+            ],
+            "POST"
+        );
+        
+        return new CrmContact($contact);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $fileAddress
+     * @return void
+     */
+    public function getExtension($fileAddress)
+    {
+        return $fileAddress->extension();
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $fileAddress
+     * @return void
+     */
+    public function toBase64($fileAddress)
+    {
+        return base64_encode(file_get_contents($fileAddress->path()));
+    }
+
+
+    //سمانه نوروزی
+    // 12x111
+    // cf_pcf_irc_1122
+    //0630185646
+    //09055116302
+    /*
+    "firstname"=>"samane",
+    "lastname"=>"norozi",
+    "mobile"=>"09055116302",
+    "CON32"=>"CON32",
+    'assigned_user_id' => '19x5',
+     */
+}
+
+    /* 
 
     public function uploadDocuments($data){
         // id hossein 12x227595
@@ -95,37 +326,11 @@ class CrmMethods
 
         dd($res);
         
-        
-    }
-    public function uploadProfilePic($file,$id)
-    {
-
-        $base64 = $this->ToBase64($file);
-        $ext = $this->getExtension($file);
-        $data= [
-            "record"=> $id,
-            "files"=>json_encode(
-                [
-                    [
-                        "name"=>"personal_image.".$ext,
-                        "content" =>$base64
-                    ]
-                ]
-            )
-
-               ];
-
-               $result = $this->api->call(
-                "extended/uploadcontactsimage",
-                $data,
-                "POST"
-               );
-       
+    } */
 
 
-              
-    }
-    public function getContactRelatedDocs()
+    
+   /*  public function getContactRelatedDocs()
     {
          $data= [
             "id"=>"12x227595",
@@ -144,116 +349,4 @@ class CrmMethods
         dd($res);
 
         exit;
-    }
-    public function CreateDocument($file,$id,$name)
-    {
-     $ext =  $this->getExtension($file);
-     $base64 = $this->ToBase64($file);
-        $data = [
-            "element"=>json_encode([
-                "assigned_user_id"=>$id,
-                "notes_title" => $name
-            ]),
-            "file"=>json_encode([
-                "name" =>$name.".".$ext,
-                "content" =>$base64,
-            ])
-        ];
-        
-        $res = $this->api->call(
-            "extended/createdocument",
-            $data,
-            "POST"
-        );
-        
-        return $res->docid;
-    }
-    public function addRelatedDoc($id,$docid)
-    {
-        $data = [
-            
-            "sourceRecordId" => $id,
-            "relatedRecordId" => "15x".$docid,
-            "relationIdLabel"=>"Documents",
-            
-        ];
-        
-        $res = $this->api->call(
-            "extended/add_related_records",
-            $data,
-            "POST"
-        );
-
-        
-    
-    }
-
-    public function updateContactInformation($data)
-    {
-        $contact =  $this->api->call(
-            "default/revise",
-            [
-                "element"=>json_encode($data),
-            ],
-            "POST"
-        );
-
-        return $contact;
-    }
-
-    
-    public function deleteContant($id)
-    {
-        $contact =  $this->api->call(
-            "default/delete",
-            [
-                "id"=>$id,
-            ],
-            "POST"
-        );
-        return $contact;
-    }
-
-
-    public function createNewContact($data)
-    {
-        
-        $data["cf_931"] = "مراقب";
-        $data["assigned_user_id"] = "19x5";
-        
-        $contact =  $this->api->call(
-            "default/create",
-            [
-                "elementType"=>"Contacts",
-                "element"=>json_encode($data),
-            ],
-            "POST"
-        );
-        
-        return $contact;
-    }
-
-public function getExtension($file)
-{
-    return $file->extension();
-}
-
-public function ToBase64($file)
-{
-        return base64_encode(file_get_contents($file->path()));
-}
-
-
-    //سمانه نوروزی
-    // 12x111
-    // cf_pcf_irc_1122
-    //0630185646
-    //09055116302
-    /*
-    "firstname"=>"samane",
-    "lastname"=>"norozi",
-    "mobile"=>"09055116302",
-    "CON32"=>"CON32",
-    'assigned_user_id' => '19x5',
-     */
-}
+    } */
