@@ -84,7 +84,7 @@
                   <span class="i">
                     <span class="icon" style="padding:13px 16px;">&#xe86f;</span>
                   </span>
-                  <input type="text" name="mobile"  data-label="" value="{{ old("mobile",$contact->mobile) }}" spin="none" inputmode="numeric" required="" maxlength="11" size="11" pattern="09([0-9]{9})" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeydown="return checkcode(event);"  oninvalid="setCustomValidity(' لطفا شماره موبایل را صحیح وارد کنید')" >
+                  <input type="text" name="mobile"  data-label="" value="{{ old("mobile",$contact->mobile) }}" spin="none" inputmode="numeric" required="" maxlength="11" size="11" pattern="09([0-9]{9})" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeydown="return checkcode(event);"  oninvalid="setCustomValidity(' لطفا شماره موبایل را صحیح وارد کنید')"  @disabled(true)>
                   <label for="mobile" class="hide"> لطفا شماره موبایل خود را وارد کنید مثال: 09191234567 </label>
                   <span class="iii"></span>
                 </td>
