@@ -48,23 +48,17 @@ class VtigerFormsController extends Controller
     }
     public function uploadPicProfile(Request $request)
     {
-        $id = Auth::User()->crm_contact_id;
-        $base64 = base64_encode(file_get_contents($request->file('file_upload')->path()));
-        $extension = $request->file('file_upload')->extension();
+       
         $crm = new CrmMethods();
-        $crm->uploadProfilePic($base64,$id,$extension);
+        $crm->uploadProfilePic($request->file('file_upload'),Auth::User()->crm_contact_id);
         return redirect('/client/form');
     }
 
     public function UploadCreateDocument(Request $request)
     {
-
-        $id = Auth::User()->crm_contact_id;
-        $base64 = base64_encode(file_get_contents($request->file('file_upload')->path()));
-        $extension = $request->file('file_upload')->extension();
         $crm = new CrmMethods();
-        $docid = $crm->CreateDocument($base64,$id,$request->get('upload_file'),$extension);
-        $crm->addRelatedDoc($id,$docid);
+        $docid = $crm->CreateDocument($request->file('file_upload'),Auth::User()->crm_contact_id,$request->get('upload_file'));
+        $crm->addRelatedDoc(Auth::User()->crm_contact_id,$docid);
         return redirect('/client/form');
         
     }

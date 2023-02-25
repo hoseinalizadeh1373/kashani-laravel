@@ -97,8 +97,11 @@ class CrmMethods
         
         
     }
-    public function uploadProfilePic($base64,$id,$ext)
+    public function uploadProfilePic($file,$id)
     {
+
+        $base64 = $this->ToBase64($file);
+        $ext = $this->getExtension($file);
         $data= [
             "record"=> $id,
             "files"=>json_encode(
@@ -142,10 +145,10 @@ class CrmMethods
 
         exit;
     }
-    public function CreateDocument($base64,$id,$name,$ext)
+    public function CreateDocument($file,$id,$name)
     {
-
-       
+     $ext =  $this->getExtension($file);
+     $base64 = $this->ToBase64($file);
         $data = [
             "element"=>json_encode([
                 "assigned_user_id"=>$id,
@@ -229,6 +232,16 @@ class CrmMethods
         
         return $contact;
     }
+
+public function getExtension($file)
+{
+    return $file->extension();
+}
+
+public function ToBase64($file)
+{
+        return base64_encode(file_get_contents($file->path()));
+}
 
 
     //سمانه نوروزی
