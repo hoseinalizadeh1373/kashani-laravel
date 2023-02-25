@@ -11,15 +11,10 @@ use Illuminate\Support\Facades\Auth;
 class VtigerFormsController extends Controller
 {
     
-
-     private $Contact_id = 0;
     public function form()
     {
         try{
             $contact = (new CrmMethods())->getContactByNationalCode(Auth::user()->national_code);
-         
-            
-            
         }
         catch(\Exception $e){
             dd($e);
@@ -31,41 +26,107 @@ class VtigerFormsController extends Controller
         return view('vtiger-forms.'.$formname, compact("contact"));
     }
 
-
-    public function updateContact(Request $request){
-        
-    }
-
-
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function uploadPic(Request $request){
         $id = Auth::User()->crm_contact_id;
         $base64 = base64_encode(file_get_contents($request->file('file_upload')->path()));
        
         $crm = new CrmMethods();
         $crm->uploadDocuments($base64,$id);
-       
-      
     }
+
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function uploadPicProfile(Request $request)
     {
-       
         $crm = new CrmMethods();
         $crm->uploadProfilePic($request->file('file_upload'),Auth::User()->crm_contact_id);
         return redirect('/client/form');
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param Request $request
+     * @return void
+     */
     public function UploadCreateDocument(Request $request)
     {
         $crm = new CrmMethods();
-        $docid = $crm->CreateDocument($request->file('file_upload'),Auth::User()->crm_contact_id,$request->get('upload_file'));
+    
+        $file = $request->file('file_upload');
+        $filename = $request->get('upload_file') . "." . $file->extension();
+        $docTitle  = trans("vtiger.".$request->get("upload_file"));
+
+        $docid = $crm->CreateDocument(
+                $file,
+                Auth::User()->crm_contact_id,
+                $filename,
+                $docTitle
+            );
+
         $crm->addRelatedDoc(Auth::User()->crm_contact_id,$docid);
+
         return redirect('/client/form');
         
     }
-    public function addRelated()
+    
+    public function update(Request $request)
     {
-        $crm = new CrmMethods();
-        $crm->addRelatedDoc();
+        $this->validate($request, [
+            'cf_pcf_irc_1122'=> 'required|numeric',
+        ]);
+
+        $nationalCode = $request["cf_pcf_irc_1122"];
+
+        try{
+            $vtiger = new CrmMethods;
+            $contact = $vtiger->getContactByNationalCode($nationalCode);
+            $data = $request->all();
+            
+            $actionMode = "";
+            if ($contact) {
+                $data["id"]=$contact->id;
+                $actionMode = "update";
+                $storedContact = $vtiger->updateContactInformation($data);
+            } else {
+                $actionMode = "create";
+                $storedContact = $vtiger->createNewContact($request->all());
+            }
+    
+            if(!$storedContact){
+                $data = [
+                    "success"=>false,
+                    "mode"=>$actionMode
+                ];
+            }
+            else{
+                $data = [
+                    "success"=>true,
+                    "mode"=>$actionMode
+                ];
+            }
+    
+        }
+        catch(\Exception $e){
+            $data = [
+                "success"=>false,
+                "mode"=>$actionMode,
+                "message"=>$e->getMessage()
+            ];
+        }
+
+        return response()->json($data);
+       
     }
 
     private function getFormName(){
@@ -76,6 +137,19 @@ class VtigerFormsController extends Controller
         ][Auth::user()->contact_type];
     }
 
+    
+    /**
+     * Undocumented function
+     *
+     * @param [type] $fileAddress
+     * @return void
+     */
+    public function getExtension($fileAddress)
+    {
+        return $fileAddress->extension();
+    }
+ }
+/* 
     public function test()
     {
         $code = "5729906803";
@@ -107,54 +181,4 @@ class VtigerFormsController extends Controller
             dd($ex->getMessage());
         }
     }
-
-
-    public function update(Request $request)
-    {
-        $this->validate($request, [
-            'cf_pcf_irc_1122'=> 'required|numeric',
-        ]);
-
-        try{
-            $vtiger = new CrmMethods;
-            $contact = $vtiger->getContactByNationalCode($request["cf_pcf_irc_1122"]);
-            $data = $request->all();
-                
-            
-            $mode = "";
-            if ($contact) {
-                $data["id"]=$contact->id;
-                $mode = "update";
-                $storedContact = $vtiger->updateContactInformation($data);
-            } else {
-                $mode = "create";
-                $storedContact = $vtiger->createNewContact($request->all());
-            }
-    
-            if(!$storedContact){
-                $data = [
-                    "success"=>false,
-                    "mode"=>$mode
-                ];
-            }
-            else{
-                $data = [
-                    "success"=>true,
-                    "mode"=>$mode
-                ];
-            }
-    
-        }
-        catch(\Exception $e){
-            $data = [
-                "success"=>false,
-                "mode"=>$mode,
-                "message"=>$e->getMessage()
-            ];
-        }
-
-        return response()->json($data);
-       
-    }
-
- }
+ */
