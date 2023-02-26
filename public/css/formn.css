@@ -882,6 +882,7 @@ textarea:focus {padding:8px 35px 0 30px !important}
 
 .tabs span {
   background: rgb(191, 207, 192);
+  color: seagreen;
   padding: 18px 30px;
     
   border: 1px solid rgb(19, 16, 16);
