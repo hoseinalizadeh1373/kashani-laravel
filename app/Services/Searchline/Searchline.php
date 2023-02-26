@@ -13,19 +13,38 @@ class Searchline
         $this->api = new ApiCall;
     }
 
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $mobile
+     * @param [type] $nationalCode
+     * @return boolean|null if api not responde return null.
+     */
     public function isMobileBelongsToPerson($mobile,$nationalCode){
+        return false;
+        $parameters = array(
+            'Token'=>env("SEARCHLINE_TOKEN"),
+            'Mobile'=>$mobile,
+            'IdCode'=>$nationalCode,
+            'op'=>'Shahkar'
+        );
 
-		// $mobile = array($mobile);
-		// $idcode = array($nationalCode);
-		$parametr = array(
-		'Token'=>env("SEARCHLINE_TOKEN"),
-		'Mobile'=>$mobile,
-		'IdCode'=>$nationalCode,
-		'op'=>'Shahkar');
+        try{
+            return $this->connect($parameters);
+        }
+        catch(\Exception $exeption){
+            Log::critical("Searchline Error:" . $exeption->getMessage());
+            return null;
+        }
 
-		$handler = curl_init("https://inquery.ir/:70");
+    }
+
+    private function connect($parameters){
+
+        $handler = curl_init("https://inquery.ir/:70");
 		curl_setopt($handler, CURLOPT_CUSTOMREQUEST, "POST");
-		curl_setopt($handler, CURLOPT_POSTFIELDS, $parametr);
+		curl_setopt($handler, CURLOPT_POSTFIELDS, $parameters);
 		curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
        
 		$response = curl_exec($handler);
@@ -34,12 +53,7 @@ class Searchline
         $httpcode = curl_getinfo($handler, CURLINFO_HTTP_CODE);
         
         return $result["Result"]["Validation"];
-/* 
-        $data = [
-            "Mobile"=>array($mobile),
-            "IdCode"=>array($nationalCode)
-        ];
-        $this->api->call($data, "Shahkar"); */
+
     }
 
 }

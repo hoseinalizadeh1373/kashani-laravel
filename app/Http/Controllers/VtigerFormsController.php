@@ -77,7 +77,7 @@ class VtigerFormsController extends Controller
         $crm->addRelatedDoc(Auth::User()->crm_contact_id,$docid);
 
         return redirect('/client/form');
-        
+
     }
     
     public function update(Request $request)
@@ -95,7 +95,7 @@ class VtigerFormsController extends Controller
             
             $actionMode = "";
             if ($contact) {
-                $data["id"]=$contact->id;
+                $data["id"] = $contact->id;
                 $actionMode = "update";
                 $storedContact = $vtiger->updateContactInformation($data);
             } else {

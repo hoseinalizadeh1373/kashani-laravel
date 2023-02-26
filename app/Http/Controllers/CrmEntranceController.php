@@ -49,6 +49,10 @@ class CrmEntranceController extends Controller
             $user->resetMobileVerifyStatus();
         }
         
+
+        // اگر وضعیت تعلق موبایل در سی آر ام مشخص شده بود .. نامشخ نبود .. جدول خودمان را آپدیت میکنیم و میگذریم
+
+        // اگر وضعیت سی آر ام مشخص بود از این مرحله عبور میکنیم
         if(!$user->checkMobileBelongsTo()){
             //return 'mobile number not belongs to this person';
           $url = url('/crme/'.$token);
