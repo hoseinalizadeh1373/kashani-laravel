@@ -46,6 +46,7 @@ class Searchline
 		curl_setopt($handler, CURLOPT_CUSTOMREQUEST, "POST");
 		curl_setopt($handler, CURLOPT_POSTFIELDS, $parameters);
 		curl_setopt($handler, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($handler,CURLOPT_TIMEOUT,10);
        
 		$response = curl_exec($handler);
      

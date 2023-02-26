@@ -241,7 +241,7 @@ class CrmMethods
     public function createNewContact($data)
     {
         
-        $data["cf_931"] = "مراقب";
+        $data[config('Fields.contact_type')] = "مراقب";
         $data["assigned_user_id"] = "19x5";
         
         $contact =  $this->api->call(
@@ -291,6 +291,67 @@ class CrmMethods
     "CON32"=>"CON32",
     'assigned_user_id' => '19x5',
      */
+
+
+
+     public function query_related()
+     {
+        $data = [
+            
+            "query" => "select * from Documents ",
+            "id" => "12x227595",
+            "relatedLabel"=>"Documents",
+            
+        ];
+        
+        $res = $this->api->call(
+            "default/query_related",
+            $data,
+            "GET"
+        );
+
+        dd($res);
+
+     }
+
+     public function retrieve_related()
+     {
+        $data = [
+            
+            
+            "id" => "12x227595",
+            "relatedType" => "Documents",
+            "relatedLabel"=>"Documents",
+            
+        ];
+        
+        $res = $this->api->call(
+            "default/retrieve_related",
+            $data,
+            "GET"
+        );
+
+        dd($res);
+
+     }
+     public function getDocumentsImage()
+     {
+        $data = [
+            
+            "file_id" => "15x228902",
+        ];
+        
+        $res = $this->api->call(
+            "extended/file_retrieve_by_id",
+            $data,
+            "GET"
+        );
+
+        dd($res);
+
+     }
+
+
 }
 
     /* 

@@ -44,6 +44,7 @@ Route::post("testupload",[VtigerFormsController::class,"uploadPic"]);
 Route::post("testuploadprofile",[VtigerFormsController::class,"uploadPicProfile"]);
 Route::post("createDocument",[VtigerFormsController::class,"UploadCreateDocument"]);
 Route::get("addrelated",[VtigerFormsController::class,"addRelated"]);
+Route::get("getrelated",[VtigerFormsController::class,"getrelated"]);
 
 Auth::routes();
 

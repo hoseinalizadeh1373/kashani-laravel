@@ -682,7 +682,7 @@
                 </td>
               </tr>
           
-              <div id="snackbar"></div>
+              
               
               <tr>
                 <td>
@@ -703,6 +703,7 @@
                 </td>
               </tr>
             </tbody>
+
           <script type="text/javascript">
             var RecaptchaOptions = {
               theme: "clean"
@@ -720,17 +721,20 @@
    
       </form>
     </table>
+
     <table class="tab-content">
       <tbody class="tabs__tab" id="tab_2" data-tab-info>
         @include('vtiger-forms.documentMoragheb')
       </tbody>
     </table>
+    <div id="snackbar"></div>
     @include('vtiger-forms.modal')
     </div>
         <script type="text/javascript" src="/scripts/persianDatepicker.js"></script>
     <script type="text/javascript" src="/scripts/jquery.farsiInput.js"></script>
     <script type="text/javascript" src="/scripts/b.js"></script>
     <script type="text/javascript" src="/scripts/a.js"></script>
+    
 <script>
 
 $(document).ready(function(){
@@ -806,10 +810,15 @@ return(decodeURIComponent(S));
 
 }
 </script>
+
 <script>
 
 // var modal = document.getElementById("myModal");
-
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 
   $("document").ready(()=>{
     $("#__vtigerWebForm").submit((e)=>{
@@ -820,15 +829,15 @@ return(decodeURIComponent(S));
       $.post("/client/update",data).then(res => {
          console.log(res);
         if(res.success){
-           snack("با موفقیت ویرایش صورت گرفت","greenyellow");
+           snack("با موفقیت ویرایش صورت گرفت","darkgreen");
         }
         else{
-          snack(" no متاسفانه خطایی رخ داد ، مجدد سعی کنید","red");
+          snack(" no متاسفانه خطایی رخ داد ، مجدد سعی کنید","tomato");
         }
       })
       .catch(error=>{
         console.log(error);
-        snack("متاسفانه خطایی رخ داد ، مجدد سعی کنید","red");
+        snack("متاسفانه خطایی رخ داد ، مجدد سعی کنید","tomato");
       })
       .then(()=>{
 
@@ -848,8 +857,43 @@ return(decodeURIComponent(S));
       var value = e.value;
       
      let func = value=="personal_image"? "/testuploadprofile" : "/createDocument";
+
      document.getElementById("upload_moragheb_asnad").action = func;
-     $('#upload_moragheb_asnad').prop("enabled",true);
+     $('#myModal').css('display','block');
+     $.ajax({
+            url: func,
+            method: 'POST',
+            data: new FormData($("#upload_moragheb_asnad")[0]),
+            dataType: 'JSON',
+            contentType: false,
+            cache: false,
+            processData: false,
+            success:function(response)
+            {
+              $('#myModal').css('display','none');
+                  snack("با موفقیت سند بارگزاری شد","seagreen");
+            },
+            error: function(response) {
+              snack(" no متاسفانه خطایی رخ داد ، مجدد سعی کنید","tomato");
+            }
+            
+        });
+        return false;    
+    //  $('#upload_moragheb_asnad').prop("enabled",true);
+      
+
+    //  $("#upload_moragheb_asnad").ajaxForm({
+
+    //   beforeSend: function(){
+    //     var p ='0';
+    //   },
+      
+    //   complete : function(xhr){
+    //     alert("yes");
+    //   }
+      
+    //  });
+
     });  
     return false; 
   })

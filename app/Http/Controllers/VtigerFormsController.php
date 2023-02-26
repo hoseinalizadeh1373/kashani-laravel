@@ -15,6 +15,7 @@ class VtigerFormsController extends Controller
     {
         try{
             $contact = (new CrmMethods())->getContactByNationalCode(Auth::user()->national_code);
+            
         }
         catch(\Exception $e){
             dd($e);
@@ -50,7 +51,8 @@ class VtigerFormsController extends Controller
     {
         $crm = new CrmMethods();
         $crm->uploadProfilePic($request->file('file_upload'),Auth::User()->crm_contact_id);
-        return redirect('/client/form');
+        return response()->json(['success'=>'you']);
+        // return redirect('/client/form');
     }
 
     /**
@@ -86,7 +88,7 @@ class VtigerFormsController extends Controller
             'cf_pcf_irc_1122'=> 'required|numeric',
         ]);
 
-        $nationalCode = $request["cf_pcf_irc_1122"];
+        $nationalCode = $request[config('Fields.nationalcode')];
 
         try{
             $vtiger = new CrmMethods;
@@ -147,6 +149,14 @@ class VtigerFormsController extends Controller
     public function getExtension($fileAddress)
     {
         return $fileAddress->extension();
+    }
+
+    public function getrelated()
+    {
+        $crm =new CrmMethods();
+        $crm->retrieve();
+        //  $crm->retrieve_related();
+        // $crm->query_related();
     }
  }
 /* 
