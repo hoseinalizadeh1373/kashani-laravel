@@ -752,6 +752,7 @@ textarea:focus {padding:8px 35px 0 30px !important}
   background-color: transparent;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
+  position: fixed;  
   width: 80%; /* Could be more or less, depending on screen size */
 }
 .loaderProgress {
@@ -759,11 +760,23 @@ textarea:focus {padding:8px 35px 0 30px !important}
   top: 50%;
   width: 50px;
   height: 50px;
+  position: fixed;
   border: 3px solid rgba(255,255,255,.3);
   border-radius: 50%;
   border-top-color: #fff;
   animation: spin 1s ease-in-out infinite;
   -webkit-animation: spin 1s ease-in-out infinite;
+}
+.modalProgress-content h5{
+  display: inline-block;
+  top: 50%;
+  margin-top: 51px;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+  height: auto;
+  position: fixed;
+
 }
 
 @keyframes spin {
@@ -858,6 +871,7 @@ textarea:focus {padding:8px 35px 0 30px !important}
 
 .active[data-tab-info] {
   display: block;
+  
 }
 
 .tab-content {
@@ -865,6 +879,7 @@ textarea:focus {padding:8px 35px 0 30px !important}
   color: rgb(82, 75, 75);
   justify-content: center;
    align-items: center;
+   
 }
 
 .tabs {
@@ -923,4 +938,9 @@ background: #546e7a;
 }
 .btn-green{
   width: 150px !important;
+  font-size: larger;
+
+}
+.selected_tab{
+background-color: #8edb8e !important;
 }

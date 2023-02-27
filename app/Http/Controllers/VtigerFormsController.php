@@ -78,7 +78,8 @@ class VtigerFormsController extends Controller
 
         $crm->addRelatedDoc(Auth::User()->crm_contact_id,$docid);
 
-        return redirect('/client/form');
+        return response()->json(['success'=>'you']);
+        // return redirect('/client/form');
 
     }
     

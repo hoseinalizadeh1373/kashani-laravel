@@ -32,8 +32,8 @@
             <button class="tablinks" onclick="openCity(event,'document')" >آپلود مدارک</button>
           </div> --}}
           <div class="tabs">
-            <span data-tab-value="#tab_1">اطلاعات پایه</span>
-            <span data-tab-value="#tab_2">بارگزاری اسناد</span>
+            <span data-tab-value="#tab_1" id="tab_payeh">اطلاعات پایه</span>
+            <span data-tab-value="#tab_2" id="tab_sanad">بارگزاری اسناد</span>
             
         </div>
           <table class="tab-content">
@@ -688,10 +688,12 @@
                 <td>
                  <!--  <label></label> -->
                 </td>
-                <td>
+                <td >
                   <div class="chk">
                   <input type="checkbox" name="" data-label="" value="0" required="">
                   <span>صحت کلیه اطلاعات را تایید می نمایم.</span>
+                  </div>
+                  <input type="submit" class="btn-green" value="تایید اطلاعات">
                 </td>
              
               </tr>
@@ -699,8 +701,9 @@
                 <input type="hidden" id="captchaUrl" value="https://my-saminnurses.ir/modules/Settings/Webforms/actions/CheckCaptcha.php">
                 <input type="hidden" id="recaptcha_validation_value">
                 <td>
-                <input type="submit" class="btn-green" value="تایید اطلاعات">
+               
                 </td>
+               
               </tr>
             </tbody>
 
@@ -913,7 +916,9 @@ $.ajaxSetup({
   // After 3 seconds, remove the show class from DIV
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
   }
+  document.getElementById("tab_payeh").classList.add("selected_tab");
 
+  
 //   function openCity(evt, cityName) {
 //   var i, tabcontent, tablinks;
 //   tabcontent = document.getElementsByClassName("tabcontent");
@@ -929,17 +934,26 @@ $.ajaxSetup({
 // }
 const tabs = document.querySelectorAll('[data-tab-value]')
         const tabInfos = document.querySelectorAll('[data-tab-info]')
-  
+        
         tabs.forEach(tab => {
+        
             tab.addEventListener('click', () => {
                 const target = document
                     .querySelector(tab.dataset.tabValue);
-  
+                  
                 tabInfos.forEach(tabInfo => {
                     tabInfo.classList.remove('active')
+                    console.log(tab)
+                    tabs[0].classList.remove("selected_tab");
+                    tabs[1].classList.remove("selected_tab");
+                    tab.classList.add("selected_tab")
+                  
                 })
                 target.classList.add('active');
+           
             })
         })
+
+       
 </script>
 @endsection
