@@ -879,6 +879,7 @@ textarea:focus {padding:8px 35px 0 30px !important}
   color: rgb(82, 75, 75);
   justify-content: center;
    align-items: center;
+   
 }
 
 .tabs {
@@ -937,6 +938,8 @@ background: #546e7a;
 }
 .btn-green{
   width: 150px !important;
+  font-size: larger;
+
 }
 .selected_tab{
 background-color: #8edb8e !important;

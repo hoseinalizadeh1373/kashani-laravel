@@ -688,10 +688,12 @@
                 <td>
                  <!--  <label></label> -->
                 </td>
-                <td>
+                <td >
                   <div class="chk">
                   <input type="checkbox" name="" data-label="" value="0" required="">
                   <span>صحت کلیه اطلاعات را تایید می نمایم.</span>
+                  </div>
+                  <input type="submit" class="btn-green" value="تایید اطلاعات">
                 </td>
              
               </tr>
@@ -699,8 +701,9 @@
                 <input type="hidden" id="captchaUrl" value="https://my-saminnurses.ir/modules/Settings/Webforms/actions/CheckCaptcha.php">
                 <input type="hidden" id="recaptcha_validation_value">
                 <td>
-                <input type="submit" class="btn-green" value="تایید اطلاعات">
+               
                 </td>
+               
               </tr>
             </tbody>
 
