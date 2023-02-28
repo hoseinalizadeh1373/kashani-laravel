@@ -16,7 +16,9 @@ Route::get("/",function(){
     return view("home");
 });
 Route::get("/testing",function(){
-    return view('home');
+   $crm = new CrmMethods;
+   $con = $crm->getContactByNationalCode("5729906803");
+   dd($con);
 });
 
 // crm entrance

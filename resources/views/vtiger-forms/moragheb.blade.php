@@ -1,4 +1,4 @@
-@extends("vtiger-forms.layout")
+@extends("layouts.vtiger")
 @section("content")
 
     <div class="main">
@@ -719,19 +719,16 @@
             <textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
             <input type="hidden" name="recaptcha_response_field" value="manual_challenge">
           </noscript>
-         
-     
-   
       </form>
     </table>
 
     <table class="tab-content">
       <tbody class="tabs__tab" id="tab_2" data-tab-info>
-        @include('vtiger-forms.documentMoragheb')
+        @include('vtiger-forms._partials._documentMoragheb')
       </tbody>
     </table>
     <div id="snackbar"></div>
-    @include('vtiger-forms.modal')
+    @include('vtiger-forms._partials._modal')
     </div>
         <script type="text/javascript" src="/scripts/persianDatepicker.js"></script>
     <script type="text/javascript" src="/scripts/jquery.farsiInput.js"></script>
