@@ -22,12 +22,9 @@ class UseMeliPayamak implements SmsInterface
     public function send($message,$to){
         try{
             $text = 'تست وب سرویس ملی پیامک';
-            $response = $this->client->send($to,"",$text);
+            $response = $this->client->send("09370331680","",$message);
             $json = json_decode($response);
-            echo $json->Value; //RecId or Error Number 
-            dd("ASDasasdsasd");
         }catch(\Exception $e){
-            dd("Asd");
             dd($e->getMessage());
         }
     }

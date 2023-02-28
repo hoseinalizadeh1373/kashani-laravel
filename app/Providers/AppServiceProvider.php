@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Services\Sms\FakeSmsPanel;
-use App\Services\Sms\IppanelSms;
+use App\Services\Sms\UseMeliPayamak;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Sms\SmsInterface;
@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(SmsInterface::class,FakeSmsPanel::class);
+        $this->app->bind(SmsInterface::class,UseMeliPayamak::class);
     }
 
     /**
