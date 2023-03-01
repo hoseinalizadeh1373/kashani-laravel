@@ -16,6 +16,15 @@ class VtigerFormsController extends Controller
         try{
             $contact = (new CrmMethods())->getContactByNationalCode(Auth::user()->national_code);
             
+          
+           if($contact->imageattachmentids!=null){
+           
+            $crm = new CrmMethods();
+            $base64 =  $crm->getImage($contact->imageattachmentids);
+            file_put_contents($contact->id .'.jpg',base64_decode($base64));
+           }
+            
+            
         }
         catch(\Exception $e){
             dd($e);
@@ -155,7 +164,7 @@ class VtigerFormsController extends Controller
     public function getrelated()
     {
         $crm =new CrmMethods();
-        $crm->retrieve();
+        $crm->getDocumentsImage();
         //  $crm->retrieve_related();
         // $crm->query_related();
     }

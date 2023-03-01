@@ -334,11 +334,11 @@ class CrmMethods
         dd($res);
 
      }
-     public function getDocumentsImage()
+     public function getImage($imageid)
      {
         $data = [
             
-            "file_id" => "15x228902",
+            "file_id" => $imageid,
         ];
         
         $res = $this->api->call(
@@ -347,11 +347,12 @@ class CrmMethods
             "GET"
         );
 
-        dd($res);
+        return ($res[0]->filepath);
 
      }
 
 
+     
 }
 
     /* 

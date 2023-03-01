@@ -40,6 +40,18 @@
             <tbody class="tabs__tab active" id="tab_1" data-tab-info>
               <tr>
                 <td>
+                  <label>عکس پرسنلی</label>
+                </td>
+                <td>
+                  <span class="i">
+                    <span class="icon">&#xe826;</span>
+                  </span>
+                  {{-- @dd($collection->first) --}}
+                 <img src="/{{$contact->id}}.jpg" width="50px" height="50px">
+                </td>
+              </tr>
+              <tr>
+                <td>
                   <label>نام</label>
                 </td>
                 <td>
@@ -855,6 +867,7 @@ $.ajaxSetup({
 
       var e = document.getElementById("select_asnad");
       var value = e.value;
+    // alert( document.getElementById('select_asnad').selectedOptions[0].text);
       
      let func = value=="personal_image"? "/testuploadprofile" : "/createDocument";
 
@@ -872,6 +885,8 @@ $.ajaxSetup({
             {
               $('#myModal').css('display','none');
                   snack("با موفقیت سند بارگزاری شد","seagreen");
+                  document.getElementById('td').innerHTML += "<span class='iii'></span>" ;
+                 
             },
             error: function(response) {
               snack(" no متاسفانه خطایی رخ داد ، مجدد سعی کنید","tomato");
