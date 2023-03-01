@@ -98,14 +98,14 @@
       @csrf
       {{-- @method('POST') --}}
 <tr>
-  <td>
+  <td id="td"> 
      <select id="select_asnad" name="upload_file" data-label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AA%D8%A7%D9%87%D9%84" required="required" pattern="">
       <option value="">انتخاب نوع سند</option>
       <option value="national_image">تصویر کارت ملی</option>
       <option value="personal_image">عکس پرسنلی</option>
       <option value="Lease_image">تصویر اجاره نامه یا سند</option>
       <option value="certificate_image">تصویر صفحه 1 و 2 شناسنامه</option>
-      <option value="bad_background_image">تصویر عدم سوء پیشینه</option>
+      <option value="bad_background_image">  تصویر عدم سوء پیشینه</option>
     </select>
   </td>
 </tr>
