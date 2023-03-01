@@ -739,6 +739,7 @@
         @include('vtiger-forms._partials._documentMoragheb')
       </tbody>
     </table>
+    
     <div id="snackbar"></div>
     @include('vtiger-forms._partials._modal')
     </div>
@@ -831,7 +832,8 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-
+let a = "{{$caches_asnad}}";
+console.log(a);
   $("document").ready(()=>{
     $("#__vtigerWebForm").submit((e)=>{
       $('#myModal').css('display','block');
@@ -867,12 +869,16 @@ $.ajaxSetup({
 
       var e = document.getElementById("select_asnad");
       var value = e.value;
-    // alert( document.getElementById('select_asnad').selectedOptions[0].text);
+    var textt = document.getElementById('select_asnad').selectedOptions[0].text;
       
      let func = value=="personal_image"? "/testuploadprofile" : "/createDocument";
 
      document.getElementById("upload_moragheb_asnad").action = func;
      $('#myModal').css('display','block');
+    
+     
+    
+    
      $.ajax({
             url: func,
             method: 'POST',
@@ -885,29 +891,20 @@ $.ajaxSetup({
             {
               $('#myModal').css('display','none');
                   snack("با موفقیت سند بارگزاری شد","seagreen");
-                  document.getElementById('td').innerHTML += "<span class='iii'></span>" ;
-                 
+                  document.getElementById('select_asnad').selectedOptions[0].classList.add("selected_option");
+                 document.getElementById("div").innerHTML += " <div class='alert alert-success' role='alert'>  با موفقیت "+textt+"   بارگزاری شد! </div>"
+
             },
             error: function(response) {
               snack(" no متاسفانه خطایی رخ داد ، مجدد سعی کنید","tomato");
+              document.getElementById("div").innerHTML += " <div class='alert alert-success' role='alert'>  متاسفانه خطایی رخ داد ! </div>"
+              $('#myModal').css('display','none');
             }
             
         });
         return false;    
-    //  $('#upload_moragheb_asnad').prop("enabled",true);
-      
-
-    //  $("#upload_moragheb_asnad").ajaxForm({
-
-    //   beforeSend: function(){
-    //     var p ='0';
-    //   },
-      
-    //   complete : function(xhr){
-    //     alert("yes");
-    //   }
-      
-    //  });
+        
+    
 
     });  
     return false; 
@@ -930,20 +927,7 @@ $.ajaxSetup({
   }
   document.getElementById("tab_payeh").classList.add("selected_tab");
 
-  
-//   function openCity(evt, cityName) {
-//   var i, tabcontent, tablinks;
-//   tabcontent = document.getElementsByClassName("tabcontent");
-//   for (i = 0; i < tabcontent.length; i++) {
-//     tabcontent[i].style.display = "none";
-//   }
-//   tablinks = document.getElementsByClassName("tablinks");
-//   for (i = 0; i < tablinks.length; i++) {
-//     tablinks[i].className = tablinks[i].className.replace(" active", "");
-//   }
-//   document.getElementById(cityName).style.display = "block";
-//   evt.currentTarget.className += " active";
-// }
+
 const tabs = document.querySelectorAll('[data-tab-value]')
         const tabInfos = document.querySelectorAll('[data-tab-info]')
         

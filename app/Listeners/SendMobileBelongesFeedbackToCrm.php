@@ -35,7 +35,7 @@ class SendMobileBelongesFeedbackToCrm
         // field codemelli va mobile verification
         $data = [
             "id"=> $event->user->crm_contact_id,
-            "check_manually" => $searchlineStatus
+            "cf_1934" => $searchlineStatus
         ];
 
         $crm = new CrmMethods();
