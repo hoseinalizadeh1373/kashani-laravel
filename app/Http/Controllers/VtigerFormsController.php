@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\VTiger\CrmMethods;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class VtigerFormsController extends Controller
 {
@@ -16,14 +17,14 @@ class VtigerFormsController extends Controller
         try{
             $contact = (new CrmMethods())->getContactByNationalCode(Auth::user()->national_code);
             
-          
+            
            if($contact->imageattachmentids!=null){
            
             $crm = new CrmMethods();
             $base64 =  $crm->getImage($contact->imageattachmentids);
             file_put_contents($contact->id .'.jpg',base64_decode($base64));
            }
-            
+           $caches_asnad  = Cache::get('name');
             
         }
         catch(\Exception $e){
@@ -33,7 +34,7 @@ class VtigerFormsController extends Controller
         }
         
         $formname = $this->getFormName();
-        return view('vtiger-forms.'.$formname, compact("contact"));
+        return view('vtiger-forms.'.$formname, compact("contact","caches_asnad"));
     }
 
     /**
@@ -60,6 +61,7 @@ class VtigerFormsController extends Controller
     {
         $crm = new CrmMethods();
         $crm->uploadProfilePic($request->file('file_upload'),Auth::User()->crm_contact_id);
+        
         return response()->json(['success'=>'you']);
         // return redirect('/client/form');
     }
@@ -86,7 +88,7 @@ class VtigerFormsController extends Controller
             );
 
         $crm->addRelatedDoc(Auth::User()->crm_contact_id,$docid);
-
+         //Cache::store('redis')->put('name',$request->get('upload_file'));
         return response()->json(['success'=>'you']);
         // return redirect('/client/form');
 

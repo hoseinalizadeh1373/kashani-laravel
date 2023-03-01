@@ -943,4 +943,9 @@ background: #546e7a;
 }
 .selected_tab{
 background-color: #8edb8e !important;
+
+}
+.selected_option{
+  background-color: #8edb8e !important;
+  color: #009000;
 }
