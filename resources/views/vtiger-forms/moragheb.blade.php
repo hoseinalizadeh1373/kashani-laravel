@@ -832,8 +832,7 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-let a = "{{$caches_asnad}}";
-console.log(a);
+
   $("document").ready(()=>{
     $("#__vtigerWebForm").submit((e)=>{
       $('#myModal').css('display','block');
@@ -897,7 +896,7 @@ console.log(a);
             },
             error: function(response) {
               snack(" no متاسفانه خطایی رخ داد ، مجدد سعی کنید","tomato");
-              document.getElementById("div").innerHTML += " <div class='alert alert-success' role='alert'>  متاسفانه خطایی رخ داد ! </div>"
+              // document.getElementById("div").innerHTML += " <div class='alert alert-success' role='alert'>  متاسفانه خطایی رخ داد ! </div>"
               $('#myModal').css('display','none');
             }
             
