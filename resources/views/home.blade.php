@@ -7,9 +7,9 @@
             به پنل مرکز پرستاری ثمین خوش آمدید
 
             <div class="col-md-4">
-                @if (Route::has('login'))
+                @auth
                 <a href="{{url('/client/form')}}">جهت ویرایش اطلاعات خود کلیک کنید</a>
-                @endif
+                @endauth
             </div>
         </div>
     </div>
