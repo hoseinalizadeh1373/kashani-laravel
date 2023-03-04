@@ -37,7 +37,8 @@ class VerifyContactMobile extends Notification
     
     public function toSms($notifiable)
     {
-        return "Your verification code is $this->verificationCode";
+        $value =array("کد ورود شما :",$this->verificationCode,"مرکز خدمات پرستاری ثمین");
+        return implode(',',$value);
     }
 
     /**
