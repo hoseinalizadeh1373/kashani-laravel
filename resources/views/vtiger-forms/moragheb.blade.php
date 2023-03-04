@@ -33,7 +33,7 @@
           </div> --}}
           <div class="tabs">
             <span data-tab-value="#tab_1" id="tab_payeh">اطلاعات پایه</span>
-            <span data-tab-value="#tab_2" id="tab_sanad">بارگزاری اسناد</span>
+            <span data-tab-value="#tab_2" id="tab_sanad">بارگذاری اسناد</span>
             
         </div>
           <table class="tab-content">
@@ -889,9 +889,9 @@ $.ajaxSetup({
             success:function(response)
             {
               $('#myModal').css('display','none');
-                  snack("با موفقیت سند بارگزاری شد","seagreen");
+                  snack("با موفقیت سند بارگذاری شد","seagreen");
                   document.getElementById('select_asnad').selectedOptions[0].classList.add("selected_option");
-                 document.getElementById("div").innerHTML += " <div class='alert alert-success' role='alert'>  با موفقیت "+textt+"   بارگزاری شد! </div>"
+                 document.getElementById("div").innerHTML += " <div class='alert alert-success' role='alert'>  با موفقیت "+textt+"   بارگذاری شد! </div>"
 
             },
             error: function(response) {
