@@ -22,16 +22,17 @@ class User extends Authenticatable
     const CONTACT_TYPE_NURSE = 2;
     const CONTACT_TYPE_DOCTOR = 3;
 
-    // const MOBILE_BELONG_YES = 1;
-    // const MOBILE_BELONG_NO = 0;
-    // const MOBILE_BELONG_NOT_CHECK = -1;
-    // const MOBILE_BELONG_MANUAL = -2;
+    const MOBILE_BELONG_YES = 1;
+    const MOBILE_BELONG_NO = 0;
+    const MOBILE_BELONG_NOT_CHECK = -1;
+    const MOBILE_BELONG_MANUAL = -2;
+    const MOBILE_BELONG_HAS_ERROR =-3;
 
-    const MOBILE_BELONG_YES = "معتبر";
-    const MOBILE_BELONG_NO = "نامعتبر";
-    const MOBILE_BELONG_NOT_CHECK = "نامشخص";
-    const MOBILE_BELONG_MANUAL = "دستی";
-    const MOBILE_BELONG_HAS_ERROR ="خطا";
+    // const MOBILE_BELONG_YES = "معتبر";
+    // const MOBILE_BELONG_NO = "نامعتبر";
+    // const MOBILE_BELONG_NOT_CHECK = "نامشخص";
+    // const MOBILE_BELONG_MANUAL = "دستی";
+    // const MOBILE_BELONG_HAS_ERROR ="خطا";
 
     /**
      * The attributes that are mass assignable.

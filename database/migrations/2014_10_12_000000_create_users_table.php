@@ -29,8 +29,8 @@ return new class extends Migration
             $table->json('crm_fields')->nullable();
             $table->integer('contact_type')->default(User::CONTACT_TYPE_MORAGHEB);
             $table->timestamp('email_verified_at')->nullable();
-            // $table->integer('mobile_verify_status')->default(User::MOBILE_BELONG_NOT_CHECK); 
-            $table->string('mobile_verify_status')->default(User::MOBILE_BELONG_NOT_CHECK); 
+            $table->integer('mobile_verify_status')->default(User::MOBILE_BELONG_NOT_CHECK); 
+            // $table->in('mobile_verify_status')->default(User::MOBILE_BELONG_NOT_CHECK); 
             $table->timestamp('mobile_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();

@@ -54,7 +54,8 @@ class CrmEntranceController extends Controller
         // if($contact->cf_1934!="" or $contact->cf_1934!="نامشخص"){
         //     $user->updateVerifyStatusFromCrm($contact->cf_1934);    
         // }
-        if($contact->cf_1934 == "دستی")
+        
+        if($contact->cf_1934 == config('Fields.'.User::MOBILE_BELONG_MANUAL))
         {
             $user->updateVerifyStatusFromCrm($contact->cf_1934);
         }

@@ -35,16 +35,13 @@ class SendMobileBelongesFeedbackToCrm
         // field codemelli va mobile verification
         $data = [
             "id"=> $event->user->crm_contact_id,
-            "cf_1934" => $searchlineStatus
+            "cf_1934" => config('Fields.'.$searchlineStatus),
         ];
 
         $crm = new CrmMethods();
         $crm->updateContactInformation($data);
 
-        Log::alert("listener",[
-            "user"=>$user,
-            "sta"=>$searchlineStatus,
-        ]);
+        
 
     }
 }
