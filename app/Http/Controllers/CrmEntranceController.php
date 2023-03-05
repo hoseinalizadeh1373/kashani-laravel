@@ -51,7 +51,14 @@ class CrmEntranceController extends Controller
         
 
         // اگر وضعیت تعلق موبایل در سی آر ام مشخص شده بود .. نامشخ نبود .. جدول خودمان را آپدیت میکنیم و میگذریم
-        
+        // if($contact->cf_1934!="" or $contact->cf_1934!="نامشخص"){
+        //     $user->updateVerifyStatusFromCrm($contact->cf_1934);    
+        // }
+        if($contact->cf_1934 == "دستی")
+        {
+            $user->updateVerifyStatusFromCrm($contact->cf_1934);
+        }
+
         // اگر وضعیت سی آر ام مشخص بود از این مرحله عبور میکنیم
         if(!$user->checkMobileBelongsTo()){
             //return 'mobile number not belongs to this person';

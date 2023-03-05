@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Events\SearchLineChecked;
+use App\Events\ErrorSearchLine;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -21,10 +22,16 @@ class User extends Authenticatable
     const CONTACT_TYPE_NURSE = 2;
     const CONTACT_TYPE_DOCTOR = 3;
 
-    const MOBILE_BELONG_YES = 1;
-    const MOBILE_BELONG_NO = 0;
-    const MOBILE_BELONG_NOT_CHECK = -1;
-    const MOBILE_BELONG_MANUAL = -2;
+    // const MOBILE_BELONG_YES = 1;
+    // const MOBILE_BELONG_NO = 0;
+    // const MOBILE_BELONG_NOT_CHECK = -1;
+    // const MOBILE_BELONG_MANUAL = -2;
+
+    const MOBILE_BELONG_YES = "معتبر";
+    const MOBILE_BELONG_NO = "نامعتبر";
+    const MOBILE_BELONG_NOT_CHECK = "نامشخص";
+    const MOBILE_BELONG_MANUAL = "دستی";
+    const MOBILE_BELONG_HAS_ERROR ="خطا";
 
     /**
      * The attributes that are mass assignable.
@@ -70,12 +77,18 @@ class User extends Authenticatable
         $this->save();
     }
 
+    public function updateVerifyStatusFromCrm($cf_1934)
+    {
+        $this->mobile_verify_status = $cf_1934;
+        $this->save();
+    }
+
     public function checkMobileBelongsTo(){
 
         if($this->mobile_verify_status != self::MOBILE_BELONG_NOT_CHECK){
 
             //if not blongs
-            if($this->mobile_verify_status===self::MOBILE_BELONG_NO)
+            if($this->mobile_verify_status===self::MOBILE_BELONG_NO or $this->mobile_verify_status ===self::MOBILE_BELONG_HAS_ERROR)
                 return false;
 
             // if belongs or manual
@@ -97,7 +110,8 @@ class User extends Authenticatable
 
             
             case ($isBelong===null):
-                $status = self::MOBILE_BELONG_MANUAL;
+                $status = self::MOBILE_BELONG_HAS_ERROR;
+                ErrorSearchLine::dispatch($this);
                 break;
         }
 
@@ -105,7 +119,7 @@ class User extends Authenticatable
         $this->save();
 
         SearchLineChecked::dispatch($this,$status);
-                
+        
         return $isBelong;
 
     }

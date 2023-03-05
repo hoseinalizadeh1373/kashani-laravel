@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\ErrorSearchLine;
 use App\Events\SearchLineChecked;
+use App\Listeners\SendErrorSearchLine;
 use App\Listeners\SendMobileBelongesFeedbackToCrm;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -23,6 +25,10 @@ class EventServiceProvider extends ServiceProvider
 
         SearchLineChecked::class =>[
             SendMobileBelongesFeedbackToCrm::class,
+        ],
+
+        ErrorSearchLine::class =>[
+            SendErrorSearchLine::class,
         ],
     ];
 
