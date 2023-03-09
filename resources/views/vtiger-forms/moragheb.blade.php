@@ -885,7 +885,7 @@ $.ajaxSetup({
               $('#myModal').css('display','none');
                   snack("با موفقیت سند بارگذاری شد","seagreen");
                   document.getElementById('select_asnad').selectedOptions[0].classList.add("selected_option");
-                 document.getElementById("div").innerHTML += " <div class='alert alert-success' role='alert'>  با موفقیت "+textt+"   بارگذاری شد! </div>"
+                 document.getElementById("div").innerHTML += " <div class='alert alert-success fade show h6 small p-2' role='alert'>  با موفقیت "+textt+"   بارگذاری شد! </div>"
 
             },
             error: function(response) {
