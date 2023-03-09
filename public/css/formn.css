@@ -739,7 +739,7 @@ textarea:focus {padding:8px 35px 0 30px !important}
   position: fixed; /* Stay in place */
   top: 0vh;  
   left: 0;  
-  z-index: 100; /* Sit on top */
+  z-index: 10000; /* Sit on top */
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
@@ -751,8 +751,9 @@ textarea:focus {padding:8px 35px 0 30px !important}
 .modalProgress-content {
   background-color: transparent;
   margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  position: fixed;  
+  padding: 0px;
+  position: absolute;
+  left: 5%;
   width: 80%; /* Could be more or less, depending on screen size */
 }
 .loaderProgress {
@@ -761,6 +762,8 @@ textarea:focus {padding:8px 35px 0 30px !important}
   width: 50px;
   height: 50px;
   position: fixed;
+  margin-left: auto;
+  margin-right: auto;
   border: 3px solid rgba(255,255,255,.3);
   border-radius: 50%;
   border-top-color: #fff;
@@ -770,12 +773,13 @@ textarea:focus {padding:8px 35px 0 30px !important}
 .modalProgress-content h5{
   display: inline-block;
   top: 50%;
+
   margin-top: 51px;
-  margin-left: auto;
-  margin-right: auto;
+ 
   width: auto;
   height: auto;
-  position: fixed;
+  left: 5%;
+  position: relative;
 
 }
 
@@ -829,42 +833,6 @@ textarea:focus {padding:8px 35px 0 30px !important}
   from {bottom: 30px; opacity: 1;}
   to {bottom: 0; opacity: 0;}
 }
-/* 
-.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-}
-
-
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 17px;
-}
-
-
-.tab button:hover {
-  background-color: #ddd;
-}
-
-
-.tab button.active {
-  background-color: #ccc;
-}
-
-
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
-} */
 [data-tab-info] {
   display: none;
 }
@@ -915,6 +883,7 @@ textarea:focus {padding:8px 35px 0 30px !important}
   margin-left: auto;
    margin-right: auto;
    display:block;
+   max-height: 70vh;
 }
 .btn_error_catch{
 background: transparent;
@@ -948,4 +917,42 @@ background-color: #8edb8e !important;
 .selected_option{
   background-color: #8edb8e !important;
   color: #009000;
+}
+
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.container2{
+  width: 350px;
+  height: auto;
+  background: transparent;
+}
+.span3 {
+  width: 25.6%;
+  height: auto;
+  display: inline-block;
+}
+.circle {
+  position: relative;
+  border-radius: 50%;
+  width: 100%;
+  height: auto;
+  
+  padding-top: 100%;
+  background: rgba(255, 255, 255, 0.11);
+  border: 5px double #162916;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
 }

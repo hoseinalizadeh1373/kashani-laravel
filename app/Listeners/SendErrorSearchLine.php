@@ -4,10 +4,10 @@ namespace App\Listeners;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Services\Sms\UseMeliPayamak;
 use Illuminate\Support\Facades\Log;
-use App\VTiger\CrmMethods;
 
-class SendMobileBelongesFeedbackToCrm
+class SendErrorSearchLine
 {
     /**
      * Create the event listener.
@@ -28,20 +28,13 @@ class SendMobileBelongesFeedbackToCrm
     public function handle($event)
     {
         $user = $event->user;
-        $searchlineStatus = $event->searchlineStatus;
 
-
-        // crm method -> update
-        // field codemelli va mobile verification
-        $data = [
-            "id"=> $event->user->crm_contact_id,
-            "cf_1934" => config('Fields.'.$searchlineStatus),
-        ];
-
-        $crm = new CrmMethods();
-        $crm->updateContactInformation($data);
 
         
+        $payamak = new UseMeliPayamak();
+        $error ="کاربر با کد کاربری".$user->crm_contact_number."برای ورود به سامانه از طریق سرچ لاین به مشکل خورد";
 
+        $payamak->send($error,"09332999173");
+        
     }
 }

@@ -7,7 +7,15 @@ var ava = $( "[required]" )[aa];
 var c = jQuery(ava).closest("tr").find("label")[0];
 jQuery(c).attr("class","req").html();
 }
-    });   
+let oldvalue  = document.getElementById('credit-card').value;
+if(oldvalue !=null || oldvalue !=""){
+ 
+  fromDataBase(oldvalue);
+}
+
+    }
+    
+    );   
 
   $( "textarea" ).bind('input keyup keydown paste', function() {
 
@@ -16,6 +24,8 @@ jQuery(c).attr("class","req").html();
         elem.style.height = (elem.scrollHeight + 6)+"px";
 
 });
+
+
 
 $(function () {
    $("input[type=number]").change(function() {
@@ -369,14 +379,19 @@ $("#beforecard").replaceWith("<span id='beforecard' class='icon fixicon'>&#xe85d
         setTimeout(function(){ format_and_pos(''); }, 50);
     });
     
-
+    $("#credit-card").on('input',function(e){
+      setTimeout(function(){format_and_pos('');},50);
+    });
 };
 
 
 
 input_credit_card(document.getElementById('credit-card'));
 
-
+function fromDataBase(cardData){
+  document.getElementById('credit-card').value += cardData;
+  $("#credit-card").trigger('input');
+}
 
 function checkCartDigit(code)
 {

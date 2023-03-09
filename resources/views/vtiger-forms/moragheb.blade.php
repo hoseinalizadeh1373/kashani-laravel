@@ -4,7 +4,7 @@
     <div class="main">
       <div align="center" class="d1">
           <form id="__vtigerWebForm" name="ثبت نام مراقب" autocomplete="off" method="post" accept-charset="utf-8" enctype="multipart/form-data">
-          <div style="position:relative;z-index:999999999;display:block;min-width:100%;background-color:white">
+          <div style="position:relative;z-index:999;display:block;min-width:100%;background-color:white">
             <img src="/img/1.png" class="mimg">
 
             <div class="container">
@@ -27,10 +27,7 @@
           <input type="hidden" name="publicid" value="0aafdfb29022103bd606aae21811360e">
           <input type="hidden" name="urlencodeenable" value="1">
           <input type="hidden" name="name" value="ثبت نام مراقب">
-          {{-- <div class="tab">
-            <button class="tablinks" onclick="openCity(event,'payeh')" >اطلاعات پایه</button>
-            <button class="tablinks" onclick="openCity(event,'document')" >آپلود مدارک</button>
-          </div> --}}
+      
           <div class="tabs">
             <span data-tab-value="#tab_1" id="tab_payeh">اطلاعات پایه</span>
             <span data-tab-value="#tab_2" id="tab_sanad">بارگذاری اسناد</span>
@@ -46,7 +43,7 @@
                   <span class="i">
                     <span class="icon">&#xe826;</span>
                   </span>
-                  {{-- @dd($collection->first) --}}
+               
                  <img src="/{{$contact->id}}.jpg" width="50px" height="50px">
                 </td>
               </tr>
@@ -825,7 +822,7 @@ return(decodeURIComponent(S));
 </script>
 
 <script>
-
+  
 // var modal = document.getElementById("myModal");
 $.ajaxSetup({
     headers: {
@@ -875,9 +872,6 @@ $.ajaxSetup({
      document.getElementById("upload_moragheb_asnad").action = func;
      $('#myModal').css('display','block');
     
-     
-    
-    
      $.ajax({
             url: func,
             method: 'POST',
@@ -891,7 +885,7 @@ $.ajaxSetup({
               $('#myModal').css('display','none');
                   snack("با موفقیت سند بارگذاری شد","seagreen");
                   document.getElementById('select_asnad').selectedOptions[0].classList.add("selected_option");
-                 document.getElementById("div").innerHTML += " <div class='alert alert-success' role='alert'>  با موفقیت "+textt+"   بارگذاری شد! </div>"
+                 document.getElementById("div").innerHTML += " <div class='alert alert-success fade show h6 small p-2' role='alert'>  با موفقیت "+textt+"   بارگذاری شد! </div>"
 
             },
             error: function(response) {

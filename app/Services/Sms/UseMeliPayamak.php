@@ -21,8 +21,8 @@ class UseMeliPayamak implements SmsInterface
 
     public function send($message,$to){
         try{
-            $text = 'تست وب سرویس ملی پیامک';
-            $response = $this->client->send("09370331680","",$message);
+            $text = $message;
+            $response = $this->client->send($to,"",$message);
             $json = json_decode($response);
         }catch(\Exception $e){
             dd($e->getMessage());
