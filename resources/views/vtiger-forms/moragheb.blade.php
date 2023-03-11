@@ -41,7 +41,7 @@
                 </td>
                 <td>
                   <span class="i">
-                    <span class="icon">&#xe826;</span>
+                    {{-- <span class="icon">&#xe826;</span> --}}
                   </span>
                
                  <img src="/{{$contact->id}}.jpg" width="50px" height="50px">
@@ -839,7 +839,7 @@ $.ajaxSetup({
       $.post("/client/update",data).then(res => {
          console.log(res);
         if(res.success){
-           snack("با موفقیت ویرایش صورت گرفت","darkgreen");
+           snack("! ویرایش با موفقیت  صورت گرفت" ,"darkgreen");
         }
         else{
           snack(" no متاسفانه خطایی رخ داد ، مجدد سعی کنید","tomato");
@@ -885,7 +885,9 @@ $.ajaxSetup({
               $('#myModal').css('display','none');
                   snack("با موفقیت سند بارگذاری شد","seagreen");
                   document.getElementById('select_asnad').selectedOptions[0].classList.add("selected_option");
-                 document.getElementById("div").innerHTML += " <div class='alert alert-success fade show h6 small p-2' role='alert'>  با موفقیت "+textt+"   بارگذاری شد! </div>"
+                  document.getElementById("div").classList.remove('d-none');
+                  document.getElementById("div").classList.add('d-block'); 
+                 document.getElementById("div").innerHTML += "   با موفقیت "+textt+"   بارگذاری شد! " +"<br>"+ "<br>";
 
             },
             error: function(response) {

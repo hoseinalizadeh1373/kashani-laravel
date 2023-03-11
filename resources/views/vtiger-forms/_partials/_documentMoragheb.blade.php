@@ -97,7 +97,7 @@
      <form id="upload_moragheb_asnad" action="{{ url ('/createDocument')}}"  method="post" enctype="multipart/form-data">
       @csrf
       {{-- @method('POST') --}}
-      <div id="div"></div>
+      <div id="div"class="alert alert-success fade show h6 small p-2' d-none" role='alert' >  </div>
 <tr id="tr">
   <td > 
      <select id="select_asnad" name="upload_file" data-label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AA%D8%A7%D9%87%D9%84" required="required" pattern="">
@@ -125,7 +125,7 @@
 </td>
 <tr>
   <td>
-    <input type="submit" class="btn-green" value="بارگزاری">
+    <input type="submit" class="btn-green" value="بارگذاری">
   </td>
 </tr>
 </form>
