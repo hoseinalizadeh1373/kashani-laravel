@@ -18,7 +18,10 @@ Route::get("/",function(){
 Route::get("/testing",function(){
    $crm = new CrmMethods;
    $con = $crm->getContactByNationalCode("5729906803");
-   dd($con);
+   $data = ($con->getRaw());
+dd($data);
+   $data["mobile"]="09370331680";
+   $crm->updateContactInformation($data);
 });
 
 // crm entrance

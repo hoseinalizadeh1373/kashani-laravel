@@ -42,6 +42,8 @@ class Searchline
 
     private function connect($parameters){
 
+        Log::info("searchline",$parameters);
+
         $handler = curl_init("https://inquery.ir/:70");
 		curl_setopt($handler, CURLOPT_CUSTOMREQUEST, "POST");
 		curl_setopt($handler, CURLOPT_POSTFIELDS, $parameters);
