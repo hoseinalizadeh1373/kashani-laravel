@@ -22,7 +22,8 @@ Route::get("/testing",function(){
 });
 
 // crm entrance
-Route::get("/crme/{token}",[App\Http\Controllers\CrmEntranceController::class,"entrance"])->middleware(["guest"]);
+Route::post("/crme/checkContact",[App\Http\Controllers\CrmEntranceController::class,"checkContact"])->middleware(["guest"]);
+Route::get("/crme/{token}",[App\Http\Controllers\CrmEntranceController::class,"welcome"])->middleware(["guest"]);
 
 Route::middleware("auth")->prefix("client")->as("client.")->group(function(){
     Route::middleware("fullVerified")->group(function(){

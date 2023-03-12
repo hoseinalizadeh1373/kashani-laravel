@@ -77,7 +77,7 @@ class CrmMethods
      * Undocumented function
      *
      * @param [type] $contactNumber
-     * @return void
+     * @return CrmContact
      */
     public function getContactByContactNumber($contactNumber)
     {
@@ -89,7 +89,6 @@ class CrmMethods
             "GET"
         );
 
-        
         return isset($contact[0]) ? (new CrmContact($contact[0])) : null;
     }
 
