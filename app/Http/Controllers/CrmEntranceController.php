@@ -88,7 +88,10 @@ class CrmEntranceController extends Controller
            
         return response()->json([
             "success"=>true,
-            "message"=>"Sms Sent To Contact"
+            "message"=>"Sms Sent To Contact",
+            "data"=>[
+                "mobile"=>$user->mobile
+            ]
         ]);
 
     }

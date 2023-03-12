@@ -180,12 +180,16 @@ export default {
   },
   computed:{
     filteredMobile(){
+      if(!this.mobile) return ""
       return this.mobile.substr(7,4).concat("******").concat(this.mobile.substr(0,2))
     }
   },
   mounted() {
-    if(this.mode == "checkSms")
+    if(this.mode == "checkSms"){
       this.step="getVerificationCode"
+
+    }
+
     this.mobile=this.contactMobile;
     
   },
