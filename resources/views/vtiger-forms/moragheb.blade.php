@@ -153,7 +153,7 @@
                   <span class="i">
                     <span class="icon fixicon">&#xf2bc;</span>
                   </span>
-                  <input id="meli" type="text" name="cf_pcf_irc_1122" data-label="" spin="none" value="{{ old("national_code",$contact->national_code) }}" required maxlength="10" size="10" inputmode="numeric" pattern="[a-z]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);check();" onkeypress="return checkcode(event);"  oninvalid="setCustomValidity(' لطفا کد ملی را صحیح وارد کنید')>
+                  <input id="meli" type="text" name="cf_pcf_irc_1122" data-label="" spin="none" value="{{ old("national_code",$contact->national_code) }}" required maxlength="10" size="10" @disabled(true) inputmode="numeric" pattern="[a-z]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);check();" onkeypress="return checkcode(event);"  oninvalid="setCustomValidity(' لطفا کد ملی را صحیح وارد کنید')>
                   <span class="iii"></span>
                 </td>
               </tr>

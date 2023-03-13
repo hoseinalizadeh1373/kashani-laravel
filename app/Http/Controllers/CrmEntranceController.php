@@ -37,7 +37,7 @@ class CrmEntranceController extends Controller
             return response()->json([
                 "success"=>false,
                 "code"=>"120",
-                "message"=>"Could not connect to Crm"
+                "message"=>trans('vtiger.'."Could not connect to Crm")
             ]);
            
         }
@@ -48,7 +48,7 @@ class CrmEntranceController extends Controller
             return response()->json([
                 "success"=>false,
                 "code"=>"121",
-                "message"=>"Crm Contact Not Found"
+                "message"=>trans('vtiger.'."Crm Contact Not Found")
             ]);
 
         }
@@ -79,7 +79,7 @@ class CrmEntranceController extends Controller
             return response()->json([
                 "success"=>false,
                 "code"=>"122",
-                "message"=>"Mobile number not belongs to contact"
+                "message"=>trans('vtiger.'."Mobile number not belongs to contact")
             ]);
         }
 

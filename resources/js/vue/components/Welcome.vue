@@ -6,6 +6,10 @@
    <div v-if="step=='checkSms'">
       <login-form mode="checkSms" :contact-mobile="userMobile"></login-form>
    </div>
+   <div v-if="step=='hasError'">
+      <login-form mode="hasError" :contact-error="login_error"></login-form>
+   </div>
+
   </div>
 </template>
 
@@ -17,6 +21,7 @@ export default {
       loading: false,
       step: "welcome",
       userMobile: "",
+      login_error:"",
     };
   },
   methods: {
@@ -30,13 +35,19 @@ export default {
             this.step = "checkSms"
             this.userMobile = res.data.data.mobile;
           } else {
-            alert("error");
-            if (res.data.code == 120) {
-            }
-            if (res.data.code == 121) {
-            }
-            if (res.data.code == 122) {
-            }
+            
+            // if (res.data.code == 120) {
+            //  this.login_error =res.data.message;
+            // }
+            // if (res.data.code == 121) {
+            //   this.login_error =res.data.message;
+            // }
+            // if (res.data.code == 122) {
+            //   this.login_error =res.data.message;
+            // }
+            this.login_error =res.data.message;
+            this.step = "hasError";
+
           }
         })
         .catch((err) => {})
