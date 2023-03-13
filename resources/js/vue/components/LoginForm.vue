@@ -106,17 +106,24 @@
         </div>
       </div>
     </div>
+
+    <!-- form 3 -->
+    <div v-if="step=='showError'">
+
+      <p>{{ this.login_error }}</p>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["mode", "contactMobile"],
+  props: ["mode", "contactMobile","contactError"],
   data: function () {
     return {
       loading: false,
       step: "getMobile",
       mobile: "",
+      login_error:"",
       verification_code: "",
       national_code: "",
       national_code_required: false,
@@ -187,11 +194,13 @@ export default {
   mounted() {
     if(this.mode == "checkSms"){
       this.step="getVerificationCode"
-
+    }
+    if(this.mode == "hasError"){
+      this.step ="showError";
     }
 
     this.mobile=this.contactMobile;
-    
+    this.login_error = this.contactError;
   },
 };
 </script>
