@@ -1,15 +1,14 @@
 <template>
   <div>
-   <div v-if="step=='welcome'">
-    در حال بررسی اطلاعات شما هستیم، لطفا چند لحظه صبر کنید ...
-   </div>
-   <div v-if="step=='checkSms'">
+    <div v-if="step == 'welcome'">
+      در حال بررسی اطلاعات شما هستیم، لطفا چند لحظه صبر کنید ...
+    </div>
+    <div v-if="step == 'checkSms'">
       <login-form mode="checkSms" :contact-mobile="userMobile"></login-form>
-   </div>
-   <div v-if="step=='hasError'">
+    </div>
+    <div v-if="step == 'hasError'">
       <login-form mode="hasError" :contact-error="login_error"></login-form>
-   </div>
-
+    </div>
   </div>
 </template>
 
@@ -19,12 +18,23 @@ export default {
   data: function () {
     return {
       loading: false,
+      countDown: 0,
       step: "welcome",
       userMobile: "",
-      login_error:"",
+      login_error: "",
     };
   },
   methods: {
+    countDownTimer(countDown) {
+      let vm = this;
+      vm.countDown = countDown;
+      if (this.countDown > 0) {
+        setTimeout(() => {
+          vm.countDown =vm.countDown - 1;
+          vm.countDownTimer(vm.countDown);
+        }, 1000);
+      }
+    },
     startChecking() {
       this.loading = true;
 
@@ -32,23 +42,18 @@ export default {
         .post("/crme/checkContact", { token: this.token })
         .then((res) => {
           if (res.data.success) {
-            this.step = "checkSms"
+            this.step = "checkSms";
             this.userMobile = res.data.data.mobile;
-          } else {
-            
-            // if (res.data.code == 120) {
-            //  this.login_error =res.data.message;
-            // }
-            // if (res.data.code == 121) {
-            //   this.login_error =res.data.message;
-            // }
-            // if (res.data.code == 122) {
-            //   this.login_error =res.data.message;
-            // }
-            this.login_error =res.data.message;
-            this.step = "hasError";
-
+            return;
           }
+
+          if (res.data.code == 123) {
+            this.step = "checkSms";
+            return;
+          }
+
+          this.login_error = res.data.message;
+          this.step = "hasError";
         })
         .catch((err) => {})
         .then(() => {

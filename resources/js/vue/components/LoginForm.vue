@@ -100,6 +100,7 @@
             type="button"
             class="btn btn-primary"
             @click="checkVerificationCode"
+            :disabled="loading"
           >
             تایید کد اعتبار سنجی
           </button>
@@ -175,7 +176,10 @@ export default {
           },
         })
         .then((res) => {
-          window.location = "/client/form";
+          if(res.data.success)
+            window.location = "/client/form";
+          else
+            alert("کد ورود اشتباه وارد شده است")  
         })
         .catch((err) => {
           console.log(err);
