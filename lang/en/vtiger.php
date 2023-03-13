@@ -7,5 +7,6 @@ return [
     "bad_background_image" => "تصویر عدم سوء پیشینه",
     "Could not connect to Crm" =>"متاسفانه مشکلی در اتصال به سامانه به وجود آمد!",
     "Crm Contact Not Found" => "مخاطب پیدا نشد",
-    "Mobile number not belongs to contact" => "شماره همراه مخاطب با کد ملی مطابقت ندارد ! "
+    "Mobile number not belongs to contact" => "شماره همراه مخاطب با کد ملی مطابقت ندارد ! ",
+    "Too Many Attempts" => "محدودیت ارسال پیامک ! "
 ];
