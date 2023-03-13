@@ -1,4 +1,5 @@
 $( document ).ready(function() {
+  
 var mylen = $( "[required]" ).length;
 for(var aa=0;aa<=mylen;aa++){
 var ava = $( "[required]" )[aa];
