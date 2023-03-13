@@ -6,7 +6,7 @@
           <form id="__vtigerWebForm" name="ثبت نام مراقب" autocomplete="off" method="post" accept-charset="utf-8" enctype="multipart/form-data">
           <div style="position:relative;z-index:999;display:block;min-width:100%;background-color:white">
             <img src="/img/1.png" class="mimg">
-
+            
             <div class="container">
               <div class="text" style="">
                 <p style="font-size: 20px;margin-bottom:0;"> فرم استخدام مراقب </p>
@@ -43,8 +43,7 @@
                   <span class="i">
                     {{-- <span class="icon">&#xe826;</span> --}}
                   </span>
-               
-                 <img src="/{{$contact->id}}.jpg" width="50px" height="50px">
+                 <img src="/{{$contact->id}}.jpg" width="50px" height="50px" >
                 </td>
               </tr>
               <tr>
@@ -830,7 +829,30 @@ $.ajaxSetup({
     }
 });
 
+let docs_sended = {{Js::from(Auth::User()->docs_sended)}};
+
   $("document").ready(()=>{
+
+    let selecttag = document.getElementById('select_asnad');
+    console.log(docs_sended.length)
+    // const array = docs_sended.split(',');
+    if(docs_sended !==null){
+      // alert("array.length")
+      for (let index = 1; index <= selecttag.options.length; index++) {
+        
+        for (let j = 0; j < docs_sended.length; j++) {
+          
+          if(selecttag.options[index].value === docs_sended[j]){
+            document.getElementById('select_asnad')[index].classList.add("selected_option");
+            break;
+          }
+          
+        }
+        
+      }
+    }
+    
+
     $("#__vtigerWebForm").submit((e)=>{
       $('#myModal').css('display','block');
       $('#__vtigerWebForm').prop("disabled",true);
