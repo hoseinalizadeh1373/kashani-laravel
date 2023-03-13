@@ -100,8 +100,11 @@ class VtigerFormsController extends Controller
     public function storeSended($doc){
         $user = User::where('crm_contact_id',Auth::User()->crm_contact_id)->firstOrFail();
         $array =array($user->docs_sended);
-       
-        array_push($array,$doc);
+        if($user->docs_sended===null)
+            $array = $doc;
+            else
+            array_push($array,$doc);
+
         $user->docs_sended = $array;
         $user->save();
     }
