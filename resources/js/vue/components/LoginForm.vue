@@ -179,7 +179,7 @@ export default {
           if(res.data.success)
             window.location = "/client/form";
           else
-            alert("کد ورود اشتباه وارد شده است")  
+            alert("کد تایید اشتباه وارد شده است")  
         })
         .catch((err) => {
           console.log(err);
