@@ -1,15 +1,11 @@
 {
-  "node_modules/vazir-font/dist/Vazir-Regular.eot": {
-    "file": "assets/Vazir-Regular.d9793ae8.eot",
-    "src": "node_modules/vazir-font/dist/Vazir-Regular.eot"
-  },
   "node_modules/vazir-font/dist/Vazir-Bold.eot": {
     "file": "assets/Vazir-Bold.da725d16.eot",
     "src": "node_modules/vazir-font/dist/Vazir-Bold.eot"
   },
-  "node_modules/vazir-font/dist/Vazir-Thin.eot": {
-    "file": "assets/Vazir-Thin.142542b7.eot",
-    "src": "node_modules/vazir-font/dist/Vazir-Thin.eot"
+  "node_modules/vazir-font/dist/Vazir-Regular.eot": {
+    "file": "assets/Vazir-Regular.d9793ae8.eot",
+    "src": "node_modules/vazir-font/dist/Vazir-Regular.eot"
   },
   "node_modules/vazir-font/dist/Vazir-Light.eot": {
     "file": "assets/Vazir-Light.55b3e762.eot",
@@ -18,6 +14,10 @@
   "node_modules/vazir-font/dist/Vazir-Medium.eot": {
     "file": "assets/Vazir-Medium.833778b2.eot",
     "src": "node_modules/vazir-font/dist/Vazir-Medium.eot"
+  },
+  "node_modules/vazir-font/dist/Vazir-Thin.eot": {
+    "file": "assets/Vazir-Thin.142542b7.eot",
+    "src": "node_modules/vazir-font/dist/Vazir-Thin.eot"
   },
   "node_modules/vazir-font/dist/Vazir-Black.eot": {
     "file": "assets/Vazir-Black.a3c40b73.eot",
@@ -31,6 +31,10 @@
     "file": "assets/Vazir-Bold.3b2277e8.woff2",
     "src": "node_modules/vazir-font/dist/Vazir-Bold.woff2"
   },
+  "node_modules/vazir-font/dist/Vazir-Medium.woff2": {
+    "file": "assets/Vazir-Medium.fc6648da.woff2",
+    "src": "node_modules/vazir-font/dist/Vazir-Medium.woff2"
+  },
   "node_modules/vazir-font/dist/Vazir-Light.woff2": {
     "file": "assets/Vazir-Light.046a7674.woff2",
     "src": "node_modules/vazir-font/dist/Vazir-Light.woff2"
@@ -38,10 +42,6 @@
   "node_modules/vazir-font/dist/Vazir-Thin.woff2": {
     "file": "assets/Vazir-Thin.ad3cd4cb.woff2",
     "src": "node_modules/vazir-font/dist/Vazir-Thin.woff2"
-  },
-  "node_modules/vazir-font/dist/Vazir-Medium.woff2": {
-    "file": "assets/Vazir-Medium.fc6648da.woff2",
-    "src": "node_modules/vazir-font/dist/Vazir-Medium.woff2"
   },
   "node_modules/vazir-font/dist/Vazir-Black.woff2": {
     "file": "assets/Vazir-Black.71671477.woff2",
@@ -55,6 +55,10 @@
     "file": "assets/Vazir-Bold.a3603153.woff",
     "src": "node_modules/vazir-font/dist/Vazir-Bold.woff"
   },
+  "node_modules/vazir-font/dist/Vazir-Medium.woff": {
+    "file": "assets/Vazir-Medium.50fa8f94.woff",
+    "src": "node_modules/vazir-font/dist/Vazir-Medium.woff"
+  },
   "node_modules/vazir-font/dist/Vazir-Light.woff": {
     "file": "assets/Vazir-Light.b9e40442.woff",
     "src": "node_modules/vazir-font/dist/Vazir-Light.woff"
@@ -63,10 +67,6 @@
     "file": "assets/Vazir-Thin.7029f2f0.woff",
     "src": "node_modules/vazir-font/dist/Vazir-Thin.woff"
   },
-  "node_modules/vazir-font/dist/Vazir-Medium.woff": {
-    "file": "assets/Vazir-Medium.50fa8f94.woff",
-    "src": "node_modules/vazir-font/dist/Vazir-Medium.woff"
-  },
   "node_modules/vazir-font/dist/Vazir-Black.woff": {
     "file": "assets/Vazir-Black.164eba92.woff",
     "src": "node_modules/vazir-font/dist/Vazir-Black.woff"
@@ -74,6 +74,10 @@
   "node_modules/vazir-font/dist/Vazir-Regular.ttf": {
     "file": "assets/Vazir-Regular.7bc35750.ttf",
     "src": "node_modules/vazir-font/dist/Vazir-Regular.ttf"
+  },
+  "node_modules/vazir-font/dist/Vazir-Medium.ttf": {
+    "file": "assets/Vazir-Medium.193a80b0.ttf",
+    "src": "node_modules/vazir-font/dist/Vazir-Medium.ttf"
   },
   "node_modules/vazir-font/dist/Vazir-Bold.ttf": {
     "file": "assets/Vazir-Bold.26b01415.ttf",
@@ -87,16 +91,12 @@
     "file": "assets/Vazir-Thin.fbf69c15.ttf",
     "src": "node_modules/vazir-font/dist/Vazir-Thin.ttf"
   },
-  "node_modules/vazir-font/dist/Vazir-Medium.ttf": {
-    "file": "assets/Vazir-Medium.193a80b0.ttf",
-    "src": "node_modules/vazir-font/dist/Vazir-Medium.ttf"
-  },
   "node_modules/vazir-font/dist/Vazir-Black.ttf": {
     "file": "assets/Vazir-Black.a1e789d4.ttf",
     "src": "node_modules/vazir-font/dist/Vazir-Black.ttf"
   },
   "resources/js/app.js": {
-    "file": "assets/app.cdde13fd.js",
+    "file": "assets/app.1148356c.js",
     "src": "resources/js/app.js",
     "isEntry": true
   },
