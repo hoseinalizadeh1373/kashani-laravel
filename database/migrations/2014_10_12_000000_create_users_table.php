@@ -30,7 +30,7 @@ return new class extends Migration
             $table->integer('contact_type')->default(User::CONTACT_TYPE_MORAGHEB);
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('mobile_verify_status')->default(User::MOBILE_BELONG_NOT_CHECK); 
-            // $table->in('mobile_verify_status')->default(User::MOBILE_BELONG_NOT_CHECK); 
+            $table->string('docs_sended')->nullable(); 
             $table->timestamp('mobile_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();
