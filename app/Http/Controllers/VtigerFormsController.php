@@ -88,12 +88,25 @@ class VtigerFormsController extends Controller
             );
 
         $crm->addRelatedDoc(Auth::User()->crm_contact_id,$docid);
-         //Cache::store('redis')->put('name',$request->get('upload_file'));
+         
+        //store in databse docs_Sended
+        $this->storeSended($request->get("upload_file"));
+
         return response()->json(['success'=>'you']);
         // return redirect('/client/form');
 
     }
-    
+
+    public function storeSended($doc){
+        $user = User::where('crm_contact_id',Auth::User()->crm_contact_id)->firstOrFail();
+        $array =array($user->docs_sended);
+       
+        array_push($array,$doc);
+        $user->docs_sended = $array;
+        $user->save();
+    }
+
+
     public function update(Request $request)
     {
         $this->validate($request, [
