@@ -46,7 +46,7 @@ class VtigerFormsController extends Controller
     public function uploadPic(Request $request){
         $id = Auth::User()->crm_contact_id;
         $base64 = base64_encode(file_get_contents($request->file('file_upload')->path()));
-       
+        
         $crm = new CrmMethods();
         $crm->uploadDocuments($base64,$id);
     }
@@ -62,6 +62,7 @@ class VtigerFormsController extends Controller
         $crm = new CrmMethods();
         $crm->uploadProfilePic($request->file('file_upload'),Auth::User()->crm_contact_id);
         
+        $this->storeSended($request->get("upload_file"));
         return response()->json(['success'=>'you']);
         // return redirect('/client/form');
     }
@@ -99,11 +100,18 @@ class VtigerFormsController extends Controller
 
     public function storeSended($doc){
         $user = User::where('crm_contact_id',Auth::User()->crm_contact_id)->firstOrFail();
-        $array =array($user->docs_sended);
-        if($user->docs_sended===null)
-            $array = $doc;
-            else
-            array_push($array,$doc);
+        // $array =array($user->docs_sended);
+        // if($user->docs_sended===null)
+        //     $array = $doc;
+        //     else
+        //     array_push($array,$doc);
+        $array = $user->docs_sended;
+       
+          if($user->docs_sended===null)
+        $array[0]=$doc;
+        else{
+        array_push($array,$doc);
+        }
 
         $user->docs_sended = $array;
         $user->save();

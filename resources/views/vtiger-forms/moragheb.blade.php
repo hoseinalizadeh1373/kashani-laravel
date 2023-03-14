@@ -39,11 +39,11 @@
                 <td>
                   <label>عکس پرسنلی</label>
                 </td>
-                <td>
+                <td style="margin-left:80%">
                   <span class="i">
                     {{-- <span class="icon">&#xe826;</span> --}}
                   </span>
-                 <img src="/{{$contact->id}}.jpg" width="50px" height="50px" >
+                 <img src="/{{$contact->id}}.jpg" width="50px" height="50px"  >
                 </td>
               </tr>
               <tr>
@@ -152,7 +152,7 @@
                   <span class="i">
                     <span class="icon fixicon">&#xf2bc;</span>
                   </span>
-                  <input id="meli" type="text" name="cf_pcf_irc_1122" data-label="" spin="none" value="{{ old("national_code",$contact->national_code) }}" required maxlength="10" size="10" @disabled(true) inputmode="numeric" pattern="[a-z]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);check();" onkeypress="return checkcode(event);"  oninvalid="setCustomValidity(' لطفا کد ملی را صحیح وارد کنید')>
+                  <input id="meli" type="text" readonly name="cf_pcf_irc_1122" data-label="" spin="none" value="{{ old("national_code",$contact->national_code) }}" required maxlength="10" size="10"  inputmode="numeric" pattern="[a-z]" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);check();" onkeypress="return checkcode(event);"  oninvalid="setCustomValidity(' لطفا کد ملی را صحیح وارد کنید')>
                   <span class="iii"></span>
                 </td>
               </tr>
@@ -819,25 +819,13 @@ return(decodeURIComponent(S));
 
 }
 </script>
-
 <script>
-  
-// var modal = document.getElementById("myModal");
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
-let docs_sended = {{Js::from(Auth::User()->docs_sended)}};
-
-  $("document").ready(()=>{
-
+  let docs_sended = {{Js::from(Auth::User()->docs_sended)}};
     let selecttag = document.getElementById('select_asnad');
-    console.log(docs_sended.length)
-    // const array = docs_sended.split(',');
+    
+    
     if(docs_sended !==null){
-      // alert("array.length")
+      
       for (let index = 1; index <= selecttag.options.length; index++) {
         
         for (let j = 0; j < docs_sended.length; j++) {
@@ -850,9 +838,23 @@ let docs_sended = {{Js::from(Auth::User()->docs_sended)}};
         }
         
       }
+    } 
+  </script>
+<script>
+  
+      
+// var modal = document.getElementById("myModal");
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
-    
+});
 
+
+
+  $("document").ready(()=>{
+    
+   
     $("#__vtigerWebForm").submit((e)=>{
       $('#myModal').css('display','block');
       $('#__vtigerWebForm').prop("disabled",true);
@@ -880,6 +882,11 @@ let docs_sended = {{Js::from(Auth::User()->docs_sended)}};
       return false;
       
     })
+
+
+    
+
+
     $("#upload_moragheb_asnad").submit((e)=>{
     $('#upload_moragheb_asnad').prop("disabled",true);
 
@@ -921,10 +928,11 @@ let docs_sended = {{Js::from(Auth::User()->docs_sended)}};
         });
         return false;    
         
+    }); 
     
-
-    });  
     return false; 
+
+    
   })
 
   
