@@ -43,7 +43,7 @@
                   <span class="i">
                     {{-- <span class="icon">&#xe826;</span> --}}
                   </span>
-                 <img src="/{{$contact->id}}.jpg" width="50px" height="50px"  >
+                 <img src="/img/profile_image/{{$contact->id}}.jpg" width="50px" height="50px"  >
                 </td>
               </tr>
               <tr>
@@ -821,8 +821,10 @@ return(decodeURIComponent(S));
 </script>
 <script>
   let docs_sended = {{Js::from(Auth::User()->docs_sended)}};
+
+
+  
     let selecttag = document.getElementById('select_asnad');
-    
     
     if(docs_sended !==null){
       
@@ -839,7 +841,20 @@ return(decodeURIComponent(S));
         
       }
     } 
+
+
+    function checkfileds($filed){
+      for (let j = 0; j < docs_sended.length; j++) {
+          
+          if($filed === docs_sended[j]){
+            snack("این سند قبلا بارگذاری شده ، در صورت تمایل می توانید مجدد ارسال کنید","orange");
+            break;
+          }
+        }
+    }
   </script>
+
+
 <script>
   
       
@@ -884,7 +899,10 @@ $.ajaxSetup({
     })
 
 
-    
+    document.getElementById("select_asnad").addEventListener('change',function (e){
+      if(e.target.value!="personal_image")
+      checkfileds(e.target.value)
+    })
 
 
     $("#upload_moragheb_asnad").submit((e)=>{
@@ -912,15 +930,22 @@ $.ajaxSetup({
             success:function(response)
             {
               $('#myModal').css('display','none');
-                  snack("با موفقیت سند بارگذاری شد","seagreen");
-                  document.getElementById('select_asnad').selectedOptions[0].classList.add("selected_option");
-                  document.getElementById("div").classList.remove('d-none');
-                  document.getElementById("div").classList.add('d-block'); 
-                 document.getElementById("div").innerHTML += "   با موفقیت "+textt+"   بارگذاری شد! " +"<br>"+ "<br>";
+              document.getElementById('select_asnad').selectedIndex = 0;
+            
+              document.getElementById('select_asnad').selectedOptions[0].classList.add("selected_option");
+              document.getElementById("div").classList.remove('d-none');
+              document.getElementById("div").classList.add('d-block'); 
+
+             
+              
+               var $el = $('#file_upload');
+              $el.wrap('<form>').closest('form').get(0).reset();
+               snack(textt +" با موفقیت بارگذاری شد   !" ,"seagreen");
+
 
             },
             error: function(response) {
-              snack(" no متاسفانه خطایی رخ داد ، مجدد سعی کنید","tomato");
+              snack("متاسفانه در ارسال سند خطایی رخ داد، مجدد سعی کنید","tomato");
               // document.getElementById("div").innerHTML += " <div class='alert alert-success' role='alert'>  متاسفانه خطایی رخ داد ! </div>"
               $('#myModal').css('display','none');
             }
@@ -948,7 +973,7 @@ $.ajaxSetup({
   x.innerHTML = message;
   x.style.backgroundColor = color;
   // After 3 seconds, remove the show class from DIV
-  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 4000);
   }
   document.getElementById("tab_payeh").classList.add("selected_tab");
 
