@@ -10,6 +10,7 @@ use App\VTiger\CrmMethods;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\RateLimiter;
 
 class CrmEntranceController extends Controller
 {
@@ -27,19 +28,17 @@ class CrmEntranceController extends Controller
 
     public function checkContact()
     {
-
         $token = request()->get("token");
         try {
             $contact = $this->getCrmContactWithToken($token);
         } catch(\Exception $err) {
             //dd($err->getMessage());
-           
+
             return response()->json([
                 "success"=>false,
                 "code"=>"120",
                 "message"=>trans('vtiger.'."Could not connect to Crm")
             ]);
-           
         }
 
 
@@ -50,7 +49,6 @@ class CrmEntranceController extends Controller
                 "code"=>"121",
                 "message"=>trans('vtiger.'."Crm Contact Not Found")
             ]);
-
         }
 
         $user = User::whereNationalCode($contact->national_code)->first();
@@ -83,9 +81,25 @@ class CrmEntranceController extends Controller
             ]);
         }
 
-        $user->sendMobileVerificationCode();
-        
-           
+
+        $executed = RateLimiter::attempt(
+            'sendMobileVerification:'.$user->id,
+            $perMinute = 1,
+            function () use ($user) {
+                $user->sendMobileVerificationCode();
+            }
+        );
+
+        if (! $executed) {
+            $seconds = RateLimiter::availableIn('sendMobileVerification:'.$user->id);
+            return response()->json([
+                "success"=>false,
+                "code"=>"123",
+                "data"=>["remain_seconds"=>$seconds],
+                "message"=>trans('vtiger.'."Too Many Attempts")
+            ]);
+        }
+
         return response()->json([
             "success"=>true,
             "message"=>"Sms Sent To Contact",
@@ -93,7 +107,6 @@ class CrmEntranceController extends Controller
                 "mobile"=>$user->mobile
             ]
         ]);
-
     }
 
     public function entrance($token)
@@ -140,7 +153,7 @@ class CrmEntranceController extends Controller
             return view('errors.errorCatch', ['url'=>$url,'params'=>$params]);
         }
 
-        $user->sendMobileVerificationCode();
+
         return view("auth.login", ["mode"=>"checkSms", "mobile"=>$user->mobile]);
     }
 
