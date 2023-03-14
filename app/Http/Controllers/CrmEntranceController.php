@@ -36,7 +36,7 @@ class CrmEntranceController extends Controller
 
             return response()->json([
                 "success"=>false,
-                "code"=>"120",
+                "code"=>120,
                 "message"=>trans('vtiger.'."Could not connect to Crm")
             ]);
         }
@@ -46,7 +46,7 @@ class CrmEntranceController extends Controller
             // return "contact not exists on crm";
             return response()->json([
                 "success"=>false,
-                "code"=>"121",
+                "code"=>121,
                 "message"=>trans('vtiger.'."Crm Contact Not Found")
             ]);
         }
@@ -76,7 +76,7 @@ class CrmEntranceController extends Controller
             //return 'mobile number not belongs to this person';
             return response()->json([
                 "success"=>false,
-                "code"=>"122",
+                "code"=>122,
                 "message"=>trans('vtiger.'."Mobile number not belongs to contact")
             ]);
         }
@@ -94,8 +94,11 @@ class CrmEntranceController extends Controller
             $seconds = RateLimiter::availableIn('sendMobileVerification:'.$user->id);
             return response()->json([
                 "success"=>false,
-                "code"=>"123",
-                "data"=>["remain_seconds"=>$seconds],
+                "code"=>123,
+                "data"=> [
+                    "remain_seconds"=>$seconds,
+                    "mobile"=>$user->mobile
+                ],
                 "message"=>trans('vtiger.'."Too Many Attempts")
             ]);
         }
