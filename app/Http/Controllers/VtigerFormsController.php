@@ -22,7 +22,7 @@ class VtigerFormsController extends Controller
            
             $crm = new CrmMethods();
             $base64 =  $crm->getImage($contact->imageattachmentids);
-            file_put_contents($contact->id .'.jpg',base64_decode($base64));
+            file_put_contents("img/profile_image/".$contact->id .'.jpg',base64_decode($base64));
            }
            $caches_asnad  = Cache::get('name');
             

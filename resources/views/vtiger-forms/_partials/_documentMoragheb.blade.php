@@ -97,7 +97,7 @@
      <form id="upload_moragheb_asnad" action="{{ url ('/createDocument')}}"  method="post" enctype="multipart/form-data">
       @csrf
       {{-- @method('POST') --}}
-      <div id="div"class="alert alert-success fade show h6 small p-2' d-none" role='alert' >  </div>
+      {{-- <div id="div"class="alert alert-success fade show h6 small p-2' d-none" role='alert' >  </div> --}}
 <tr id="tr">
   <td > 
      <select id="select_asnad" name="upload_file" data-label="label:%D9%88%D8%B6%D8%B9%DB%8C%D8%AA+%D8%AA%D8%A7%D9%87%D9%84" required="required" pattern="">
@@ -114,7 +114,7 @@
       <span class="i">
         <span class="icon fas" style="opacity:1;top:-15px;"><button class="upFile">انتخاب فایل</button></span>
       </span>
-      <input type="file" id="file_upload" name="file_upload"  class="file" required="" accept="image/gif, image/jpeg, image/png" title="انتخاب فایل"/>
+      <input type="file" id="file_upload" type="file" name="file_upload"  class="file" required="" accept="image/gif, image/jpeg, image/png" title="انتخاب فایل"/>
       <span class="iii"></span>
       <p class="ftxt" style="line-height:20px;font-size:11px;padding:3px 20px 2px 0;color:black;">
 حجم مجاز 150 کیلو بایت | فایل های مجاز 
