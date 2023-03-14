@@ -956,3 +956,9 @@ background-color: #8edb8e !important;
   animation: spin 1s ease-in-out infinite;
   -webkit-animation: spin 1s ease-in-out infinite;
 }
+@media all and (max-width: 767px) {
+  .image_mobile {
+      padding-left: 35% !important;
+      padding-right: 35% !important;
+  }
+}

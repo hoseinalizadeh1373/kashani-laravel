@@ -41,7 +41,7 @@
                 </td>
                 
                 <td>
-                 <img src="/img/profile_image/{{$contact->id}}.jpg" width="50px" height="50px"  >
+                 <img src="/img/profile_image/{{$contact->id}}.jpg" width="50px" height="50px" class="image_mobile" >
                 </td>
                 
               </tr>
