@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\VTiger\CrmMethods;
+use Faker\Core\File;
+use Illuminate\Http\File as HttpFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class VtigerFormsController extends Controller
 {
@@ -22,6 +25,11 @@ class VtigerFormsController extends Controller
            
             $crm = new CrmMethods();
             $base64 =  $crm->getImage($contact->imageattachmentids);
+            $path = "img/profile_image";
+            if(!file_exists($path)){
+                //  Storage::makeDirectory($path);
+                mkdir($path);
+            }
             file_put_contents("img/profile_image/".$contact->id .'.jpg',base64_decode($base64));
            }
            $caches_asnad  = Cache::get('name');

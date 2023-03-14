@@ -39,13 +39,13 @@
                 <td>
                   <label>عکس پرسنلی</label>
                 </td>
-                <td style="margin-left:80%">
-                  <span class="i">
-                    {{-- <span class="icon">&#xe826;</span> --}}
-                  </span>
-                 <img src="/img/profile_image/{{$contact->id}}.jpg" width="50px" height="50px"  >
+                
+                <td>
+                 <img src="/img/profile_image/{{$contact->id}}.jpg" width="50px" height="50px" class="image_mobile" >
                 </td>
+                
               </tr>
+
               <tr>
                 <td>
                   <label>نام</label>
@@ -930,17 +930,16 @@ $.ajaxSetup({
             success:function(response)
             {
               $('#myModal').css('display','none');
-              document.getElementById('select_asnad').selectedIndex = 0;
+              snack(textt +" با موفقیت بارگذاری شد   !" ,"seagreen");
+              
             
               document.getElementById('select_asnad').selectedOptions[0].classList.add("selected_option");
-              document.getElementById("div").classList.remove('d-none');
-              document.getElementById("div").classList.add('d-block'); 
-
-             
+              document.getElementById('select_asnad').selectedIndex = 0;
               
-               var $el = $('#file_upload');
-              $el.wrap('<form>').closest('form').get(0).reset();
-               snack(textt +" با موفقیت بارگذاری شد   !" ,"seagreen");
+              document.getElementById("file_upload").value  ="";
+              
+              
+               
 
 
             },
@@ -973,7 +972,7 @@ $.ajaxSetup({
   x.innerHTML = message;
   x.style.backgroundColor = color;
   // After 3 seconds, remove the show class from DIV
-  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 4000);
+  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3500);
   }
   document.getElementById("tab_payeh").classList.add("selected_tab");
 
