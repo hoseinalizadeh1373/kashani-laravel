@@ -17,7 +17,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(SmsInterface::class,UseMeliPayamak::class);
+        if(app()->isProduction())
+            $this->app->bind(SmsInterface::class,UseMeliPayamak::class);
+        else 
+            $this->app->bind(SmsInterface::class,FakeSmsPanel::class);
+                
     }
 
     /**
