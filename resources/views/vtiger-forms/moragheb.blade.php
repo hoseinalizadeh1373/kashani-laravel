@@ -827,13 +827,15 @@ return(decodeURIComponent(S));
     let selecttag = document.getElementById('select_asnad');
     
     if(docs_sended !==null){
-      
+      document.getElementById("div").classList.remove('d-none');
+      document.getElementById("div").classList.remove('d-block');
       for (let index = 1; index <= selecttag.options.length; index++) {
         
         for (let j = 0; j < docs_sended.length; j++) {
           
           if(selecttag.options[index].value === docs_sended[j]){
             document.getElementById('select_asnad')[index].classList.add("selected_option");
+            document.getElementById("div").innerHTML += "<br>"+document.getElementById('select_asnad')[index].text;
             break;
           }
           
@@ -847,6 +849,7 @@ return(decodeURIComponent(S));
       for (let j = 0; j < docs_sended.length; j++) {
           
           if($filed === docs_sended[j]){
+
             snack("این سند قبلا بارگذاری شده ، در صورت تمایل می توانید مجدد ارسال کنید","orange");
             break;
           }
@@ -938,7 +941,11 @@ $.ajaxSetup({
               
               document.getElementById("file_upload").value  ="";
               
-              
+              document.getElementById("div").classList.remove('d-none');
+              document.getElementById("div").classList.add('d-block'); 
+             
+              if(!document.getElementById("div").textContent.includes(textt))
+              document.getElementById("div").innerHTML += "<br>" + textt;
                
 
 
