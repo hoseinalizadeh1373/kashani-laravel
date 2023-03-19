@@ -828,7 +828,7 @@ return(decodeURIComponent(S));
     
     if(docs_sended !==null){
       document.getElementById("div").classList.remove('d-none');
-      document.getElementById("div").classList.remove('d-block');
+      document.getElementById("div").classList.add('d-block');
       for (let index = 1; index <= selecttag.options.length; index++) {
         
         for (let j = 0; j < docs_sended.length; j++) {
@@ -944,8 +944,12 @@ $.ajaxSetup({
               document.getElementById("div").classList.remove('d-none');
               document.getElementById("div").classList.add('d-block'); 
              
-              if(!document.getElementById("div").textContent.includes(textt))
-              document.getElementById("div").innerHTML += "<br>" + textt;
+              if(!document.getElementById("div").textContent.includes(textt)){
+                document.getElementById("div").classList.remove('d-none');
+                document.getElementById("div").classList.add('d-block');
+                document.getElementById("div").innerHTML += "<br>" + textt;
+              }
+              
                
 
 
