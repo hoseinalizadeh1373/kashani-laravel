@@ -433,8 +433,9 @@ var sbank=0;
   if( checkCartDigit(ccvbank)){
     var number = ccvbank.substring(6,-16);
 var b=bnk[number];
-var a="./bank-iran/";
+var a="/bank-iran/";
 var adr= a+b+".png";
+
 $("#beforecard").replaceWith("<span id='beforecard' class='icon im'><img class='ic' id='beforecardimg' style='width:32px;height:32px;margin-top:-7px;margin-right:-6px;' src=''></span>");
 var imgToSwap = document.getElementById("beforecardimg");
 imgToSwap.src=adr; // alert(ccvbank);
