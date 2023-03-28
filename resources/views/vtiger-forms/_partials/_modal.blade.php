@@ -11,7 +11,7 @@
     </div>
   </div>
 </div> --}}
-<img src="/img/loading.gif"  width="250" height="250" alt="">
+{{-- <img src="/img/loading.gif"  width="250" height="250" alt=""> --}}
 
 
  
