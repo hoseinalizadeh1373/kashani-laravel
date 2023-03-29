@@ -31,8 +31,7 @@
           <div class="tabs">
             <span data-tab-value="#tab_1" id="tab_payeh">اطلاعات پایه</span>
             <span data-tab-value="#tab_2" id="tab_sanad">بارگذاری اسناد</span>
-            
-        </div>
+          </div>
           <table class="tab-content">
             <tbody class="tabs__tab active" id="tab_1" data-tab-info>
               <tr>
@@ -819,54 +818,13 @@ return(decodeURIComponent(S));
 
 }
 </script>
-<script>
-  let docs_sended = {{Js::from(Auth::User()->docs_sended)}};
 
-
-  
-    let selecttag = document.getElementById('select_asnad');
-    
-    if(docs_sended !==null){
-      document.getElementById("div").classList.remove('d-none');
-      document.getElementById("div").classList.add('d-block');
-      for (let index = 1; index <= selecttag.options.length; index++) {
-        
-        for (let j = 0; j < docs_sended.length; j++) {
-          
-          if(selecttag.options[index].value === docs_sended[j]){
-            document.getElementById('select_asnad')[index].classList.add("selected_option");
-            document.getElementById("div").innerHTML += "<br>"+document.getElementById('select_asnad')[index].text;
-            break;
-          }
-          
-        }
-        
-      }
-    } 
-
-
-    function checkfileds($filed){
-      for (let j = 0; j < docs_sended.length; j++) {
-          
-          if($filed === docs_sended[j]){
-
-            snack("این سند قبلا بارگذاری شده ، در صورت تمایل می توانید مجدد ارسال کنید","orange");
-            break;
-          }
-        }
-    }
-  </script>
 
 
 <script>
   
       
 // var modal = document.getElementById("myModal");
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
 
 
 
@@ -902,10 +860,7 @@ $.ajaxSetup({
     })
 
 
-    document.getElementById("select_asnad").addEventListener('change',function (e){
-      if(e.target.value!="personal_image")
-      checkfileds(e.target.value)
-    })
+   
 
 
     $("#upload_moragheb_asnad").submit((e)=>{
@@ -973,42 +928,7 @@ $.ajaxSetup({
   
 
 
-  function snack(message,color) {
-  // Get the snackbar DIV
-  var x = document.getElementById("snackbar");
-
-  // Add the "show" class to DIV
-  x.className = "show";
-
-  x.innerHTML = message;
-  x.style.backgroundColor = color;
-  // After 3 seconds, remove the show class from DIV
-  setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3500);
-  }
-  document.getElementById("tab_payeh").classList.add("selected_tab");
-
-
-const tabs = document.querySelectorAll('[data-tab-value]')
-        const tabInfos = document.querySelectorAll('[data-tab-info]')
-        
-        tabs.forEach(tab => {
-        
-            tab.addEventListener('click', () => {
-                const target = document
-                    .querySelector(tab.dataset.tabValue);
-                  
-                tabInfos.forEach(tabInfo => {
-                    tabInfo.classList.remove('active')
-                    console.log(tab)
-                    tabs[0].classList.remove("selected_tab");
-                    tabs[1].classList.remove("selected_tab");
-                    tab.classList.add("selected_tab")
-                  
-                })
-                target.classList.add('active');
-           
-            })
-        })
+  
 
        
 </script>
