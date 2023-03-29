@@ -4,7 +4,7 @@
       <div align="center" class="d1">
 
  <form id="__vtigerWebForm" name="ثبت نام پرستار"  autocomplete="off" method="post" accept-charset="utf-8" enctype="multipart/form-data"> 
-          <div style="position:relative;z-index:999999999;display:block;min-width:100%;background-color:white">
+          <div style="position:relative;z-index:999;display:block;min-width:100%;background-color:white">
             <img src="/img/1.png" class="mimg" title="مرکز مشاور پزشکی ثمین">
            
             <div class="container">
@@ -78,7 +78,7 @@
                   <span class="i">
                     <span class="icon" style="padding:13px 16px;">&#xe86f;</span>
                   </span>
-                  <input type="text" name="mobile"  data-label="" value="{{ old("mobile",$contact->mobile) }}" spin="none" inputmode="numeric" required="" maxlength="11" size="11" pattern="09([0-9]{9})" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeydown="return checkcode(event);">
+                  <input type="text" name="mobile"  data-label="" value="{{ old("mobile",$contact->mobile) }}" spin="none" inputmode="numeric" required="" maxlength="11" size="11" pattern="09([0-9]{9})" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" onkeydown="return checkcode(event);"  oninvalid="setCustomValidity(' لطفا شماره موبایل را صحیح وارد کنید')"  @disabled(true)>
                   <label for="mobile" class="hide"> لطفا شماره موبایل خود را وارد کنید مثال: 09191234567 </label>
                   <span class="iii"></span>
                 </td>
@@ -704,6 +704,21 @@ return(decodeURIComponent(S));
 
 
   })
+  function checkfileds($filed){
+       
+          for (let j = 0; j < docs_sended.length; j++) {
+              
+              if($filed === docs_sended[j]){
+    
+                snack("این سند بارگذاری شده ، می توانید مجدد نیز ارسال کنید","orange");
+                break;
+              }
+            }
+        }
 
+        document.getElementById("select_asnad").addEventListener('change',function (e){
+      if(e.target.value!="personal_image")
+      checkfileds(e.target.value)
+    })
   </script>
 @endsection

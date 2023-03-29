@@ -105,21 +105,7 @@ $.ajaxSetup({
         } 
     
     
-        function checkfileds($filed){
-          for (let j = 0; j < docs_sended.length; j++) {
-              
-              if($filed === docs_sended[j]){
-    
-                snack("این سند قبلا بارگذاری شده ، در صورت تمایل می توانید مجدد ارسال کنید","orange");
-                break;
-              }
-            }
-        }
-
-        document.getElementById("select_asnad").addEventListener('change',function (e){
-      if(e.target.value!="personal_image")
-      checkfileds(e.target.value)
-    })
+       
       </script>
     <script>
       function snack(message,color) {

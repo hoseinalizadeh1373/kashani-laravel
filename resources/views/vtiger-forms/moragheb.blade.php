@@ -927,7 +927,22 @@ return(decodeURIComponent(S));
 
   
 
+  function checkfileds($filed){
+         
+          for (let j = 0; j < docs_sended.length; j++) {
+              
+              if($filed === docs_sended[j]){
+    
+                snack("این سند بارگذاری شده ، می توانید مجدد نیز ارسال کنید","orange");
+                break;
+              }
+            }
+        }
 
+        document.getElementById("select_asnad").addEventListener('change',function (e){
+      if(e.target.value!="personal_image")
+      checkfileds(e.target.value)
+    })
   
 
        
