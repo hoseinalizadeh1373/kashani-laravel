@@ -52,7 +52,7 @@ Route::post("createDocument",[VtigerFormsController::class,"UploadCreateDocument
 Route::get("addrelated",[VtigerFormsController::class,"addRelated"]);
 Route::get("getrelated",[VtigerFormsController::class,"getrelated"]);
 
-Auth::routes(["login"=>false, "register"=>false]);
+Auth::routes();
 
 
 
