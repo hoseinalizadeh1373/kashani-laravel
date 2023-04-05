@@ -2,19 +2,19 @@
 
 use App\Http\Controllers\Auth\SmsLoginController;
 use App\Http\Controllers\VtigerFormsController;
-use App\Services\ContactVerifier;
-use App\Services\Searchline\Searchline;
 use Illuminate\Support\Facades\Route;
 use App\VTiger\CrmMethods;
 
 
-Route::get("/",function(){
+/* Route::get("/",function(){
 
     // $serach = new Searchline;
     // $res = $serach->isMobileBelongsToPerson("09155326344","0901328928");
     // dd($res);
     return view("home");
-});
+}); */
+
+
 Route::get("/testing",function(){
    $crm = new CrmMethods;
    $con = $crm->getContactByNationalCode("5729906803");
@@ -54,18 +54,6 @@ Route::get("getrelated",[VtigerFormsController::class,"getrelated"]);
 
 Auth::routes();
 
-
-
-// Route::get('/',[VtigerFormsController::class,"index"]);
-// Route::get('/test',[VtigerFormsController::class,"test"]);
-// Route::post('/register',[VtigerFormsController::class,"register"]);
-/* 
-Route::get('/describe',function(){
-    dd((new CrmMethods)->describe());
-});
-Route::get('/me',function(){
-    dd((new CrmMethods)->me());
-});
-Route::get('/hsy',function(){
-    dd((new CrmMethods)->getContactByNationalCode("5729906803"));
-}); */
+Route::get('{path}', function () {
+    return view('spa');
+})->where('path', '(.*)');

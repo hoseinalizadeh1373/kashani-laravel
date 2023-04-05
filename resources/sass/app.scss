@@ -3,11 +3,11 @@
 // Variables
 @import 'variables';
 
-// Bootstrap
-@import "./vendor/bootstrap.rtl.min.css";
-
-@import "vazir-font/dist/font-face.css";
-
-body{
-    font-family: "Vazir";
+@font-face {
+    font-family: "yekan";
+    src: url("./../fonts/yekan.woff");
 }
+
+
+
+@import "../css/light-editor.css"
