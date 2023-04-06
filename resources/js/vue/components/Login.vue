@@ -14,7 +14,7 @@ const dialog = computed(() => {
 const router = useRouter();
 
 const data = reactive({
-  mode: "login",
+  mode: "loginRequestToken",
   loading: false,
   image: null,
 
@@ -62,14 +62,16 @@ function requestToken() {
   auth
     .requestToken(data.mobile)
     .then(async (res) => {
-      const user = await auth.fetchUser();
+      data.mode = "loginWithToken"
+      /* const user = await auth.fetchUser();
       if (intendedUrl !== "") {
         router.push({ path: intendedUrl });
       }
-      auth.hideLoginform();
+      auth.hideLoginform(); */
     })
     .catch(function (error) {
       if (error.response) {
+        data.formErrors = error.response.data.errors;
         if (error.response.status == 422) {
           data.formErrors = error.response.data.errors;
         }

@@ -23,9 +23,9 @@ Route::group([
     'namespace'=>"\App\Http\Controllers\Api"
     ], function ($router) {
         Route::post('requestToken', 'AuthController@requestToken');
-        Route::post('checkToken', 'AuthController@requestToken');
+        Route::post('loginWithToken', 'AuthController@loginWithToken');
         Route::post('logout', 'AuthController@logout');
         Route::post('refresh', 'AuthController@refresh');
         Route::post('me', 'AuthController@me');
-        Route::post('register', 'RegisterController@register');
+        Route::post('register', 'AuthController@register');
     });

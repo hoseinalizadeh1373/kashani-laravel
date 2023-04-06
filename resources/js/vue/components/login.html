@@ -2,13 +2,125 @@
     <v-row justify="center">
         <v-col cols="10" sm="8" md="6">
             <v-expand-transition>
-                <template v-if="data.mode=='login'">
+                <template v-if="data.mode=='loginRequestToken'">
                     <v-card  v-if="!auth.isLogedIn" prepend-icon="mdi-account">
                         <template v-slot:title>
                             <v-container>
                                 <v-row>
                                     <v-col class="d-flex pa-0">
                                         ورود کاربر
+                                        <v-spacer>
+                                        </v-spacer>
+                                        <v-btn color="gray" @click="auth.hideLoginform()" fab elevation="0"
+                                            icon="mdi-window-close" class="ma-0 pa-0" size="x-small">
+                                        </v-btn>
+                                    </v-col>
+
+                                </v-row>
+                            </v-container>
+
+
+                        </template>
+                        <v-divider></v-divider>
+                        <v-card-text>
+                            <v-form v-model="data.loginForm">
+                                <v-container>
+                                    <v-row justify="center">
+                                        <v-col cols="12" sm="10" class="pa-0">
+                                            <v-text-field :error-messages="data.formErrors.mobile" density="compact"
+                                                label="شماره تلفن همراه" name="mobile" required
+                                                v-model="data.mobile"></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row justify="center">
+                                        <v-col cols="12" sm="10" class="pa-0">
+                                            <v-text-field
+                                                label="رمز عبور" 
+                                                :error-messages="data.formErrors.password"
+                                                density="compact" name="password"
+                                                :append-icon="data.showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                                                @click:append="data.showPassword = !data.showPassword"
+                                                :type="data.showPassword ? 'text' : 'password'"
+                                                class="input-group"
+                                                v-model="data.password"></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row justify="center">
+                                        <v-col cols="12" sm="10" class="pa-0">
+                                            <v-spacer></v-spacer>
+                                            <v-btn color="primary" variant="tonal" @click="requestToken"
+                                                :loading="data.loading" :disabled="data.loading">
+                                                ورود
+                                            </v-btn>
+                                        </v-col>
+                                    </v-row>
+                                </v-container>
+                            </v-form>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-actions>
+
+                            <v-btn color="primary" variant="text" @click="data.mode = 'register' ;data.formErrors={}"
+                                :disabled="data.loading" prepend-icon="mdi-account-plus">
+                                ثبت نام
+                            </v-btn>
+                            <v-spacer></v-spacer>
+                            <v-btn color="gray" variant="text" @click="auth.hideLoginform()">
+                                انصراف
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                    <v-card  v-if="auth.isLogedIn" prepend-icon="mdi-account">
+                        <template v-slot:title>
+                            <v-container>
+                                <v-row>
+                                    <v-col class="d-flex pa-0">
+                                        اطلاعات کاربر
+                                        <v-spacer>
+
+                                        </v-spacer>
+                                        <v-btn color="gray" @click="auth.hideLoginform()" fab elevation="0"
+                                            icon="mdi-window-close" class="ma-0 pa-0" size="x-small">
+
+                                        </v-btn>
+                                    </v-col>
+
+                                </v-row>
+                            </v-container>
+                        </template>
+                        <v-divider></v-divider>
+                        <v-card-text>
+                            <v-container>
+                                <v-row justify="center">
+                                    <v-col cols="12" sm="10">
+                                        کاربر: {{ auth.user.name }}
+                                    </v-col>
+                                    <v-col cols="12" sm="10">
+                                        موبایل: {{ auth.user.mobile }}
+                                    </v-col>
+                                </v-row>
+                                <v-row justify="center">
+                                    <v-col cols="12" align="left">
+
+                                        <v-btn color="primary" variant="tonal" @click="logout()" :loading="data.loading"
+                                            :disabled="data.loading">
+                                            خروج کاربر
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+
+                            </v-container>
+                        </v-card-text>
+                    </v-card>
+                </template>
+
+                <template v-if="data.mode=='loginWithToken'">
+                    <v-card  v-if="!auth.isLogedIn" prepend-icon="mdi-account">
+                        <template v-slot:title>
+                            <v-container>
+                                <v-row>
+                                    <v-col class="d-flex pa-0">
+                                        ورasdود کاربر
                                         <v-spacer>
                                         </v-spacer>
                                         <v-btn color="gray" @click="auth.hideLoginform()" fab elevation="0"
@@ -137,35 +249,14 @@
                             <v-container>
                                 <v-row justify="center">
                                     <v-col cols="12" sm="10" class="pa-0" hide-details>
-                                        <v-text-field :error-messages="data.formErrors.firstname" label="نام" required
-                                            density="compact" v-model="data.firstname"></v-text-field>
-                                    </v-col>
-                                </v-row>
-                                <v-row justify="center">
-                                    <v-col cols="12" sm="10" class="pa-0" hide-details>
-                                        <v-text-field :error-messages="data.formErrors.lastname" label="نام خانوادگی"
-                                            density="compact" required v-model="data.lastname"></v-text-field>
+                                        <v-text-field :error-messages="data.formErrors.national_code" label="کد ملی" required
+                                            density="compact" v-model="data.national_code"></v-text-field>
                                     </v-col>
                                 </v-row>
                                 <v-row justify="center">
                                     <v-col cols="12" sm="10" class="pa-0">
                                         <v-text-field :error-messages="data.formErrors.mobile" label="شماره موبایل"
                                             density="compact" required v-model="data.mobile"></v-text-field>
-                                    </v-col>
-                                </v-row>
-                                <v-row justify="center">
-                                    <v-col cols="12" sm="10" class="pa-0" hide-details>
-                                        <v-text-field type="password" :error-messages="data.formErrors.password"
-                                            label="رمز عبور" density="compact" multiple
-                                            v-model="data.password"></v-text-field>
-                                    </v-col>
-                                </v-row>
-                                <v-row justify="center">
-                                    <v-col cols="12" sm="10" class="pa-0" hide-details>
-                                        <v-text-field type="password"
-                                            :error-messages="data.formErrors.password_confirmation" label="رمز عبور"
-                                            density="compact" multiple
-                                            v-model="data.password_confirmation"></v-text-field>
                                     </v-col>
                                 </v-row>
                                 <v-row justify="center">

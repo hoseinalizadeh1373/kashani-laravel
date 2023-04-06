@@ -1,10 +1,13 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Models\User;
 use App\Services\ContactVerification\SmsLoginGetUserException;
+use App\Services\ContactVerification\Statuses;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -17,7 +20,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','logout', 'requestToken']]);
+        $this->middleware('auth:api', ['except' => ['login','logout', 'requestToken', 'register']]);
     }
 
     /**
@@ -31,6 +34,7 @@ class AuthController extends Controller
             "mobile"=>"required",
             "password"=>"required",
         ]);
+
         $credentials = request(['mobile', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
@@ -38,6 +42,27 @@ class AuthController extends Controller
         }
 
         return $this->respondWithToken($token);
+    }
+
+    /**
+     *
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function register(Request $request)
+    {
+        $this->validate($request, [
+            "mobile"=>"required|unique:users",
+            "national_code"=>"required|unique:users",
+        ]);
+
+        $user = User::create(request(['mobile', 'national_code']));
+
+
+        return response()->json([
+            "success"=>true,
+        ]);
+
     }
 
     /**
@@ -74,39 +99,45 @@ class AuthController extends Controller
      */
     public function requestToken(Request $request)
     {
-        $this->validate($request, [
-            "mobile"=>"required|exists:users",
-        ]);
-        
-        try {
-            $user = $this->getUser($request);
-        } 
-        catch(SmsLoginGetUserException $e) {
-            
-            return response()->json([
-                "success" => false,
-                "status_code" => $e->getCode(),
-                "status_message" => $e->getMessage(),
-            ]);
-        }
-        catch(Exception $e){
-            return response()->json([
-                "success" => false,
-                "status_code" => 500,
-                "status_message" => $e->getMessage(),
-            ]);
-        }
+        $this->validate(
+            $request,
+            [
+                "mobile"=>"required|exists:users",
+            ],
+            [
+                "exists"=>"کاربری با این شماره موبایل وجود ندارد، لطفا ثبت نام کنید.",
+            ]
+        );
 
+
+        $user = $this->getUserByMobile($request->mobile);
         $user->sendMobileVerificationCode();
+
+
+        /*
+                try {
+                    $user = $this->getUser($request);
+                } catch(SmsLoginGetUserException $e) {
+                    return response()->json([
+                        "success" => false,
+                        "status_code" => $e->getCode(),
+                        "status_message" => $e->getMessage(),
+                    ], 400);
+                } catch(Exception $e) {
+                    return response()->json([
+                        "success" => false,
+                        "status_code" => 500,
+                        "status_message" => $e->getMessage(),
+                    ], 500);
+                } */
 
         return response()->json([
             "success"=>true,
         ]);
-
     }
 
 
-    
+
 
     /**
      * Get the authenticated User.
@@ -154,5 +185,37 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
+    }
+
+
+
+
+
+
+    private function getUserByMobile($mobile)
+    {
+        return User::whereMobile($mobile)->first();
+    }
+
+
+    private function getUser($request)
+    {
+        $user = $this->getUserByMobile($request->mobile);
+
+        if (!$user and !$request->national_code) {
+            throw new SmsLoginGetUserException(Statuses::USER_NOT_REGISTERED);
+        }
+
+        $searchLine = new \App\Services\Searchline\Searchline();
+
+        if (!$user) {
+            $mobileBelogsToUser = $searchLine->isMobileBelongsToPerson($request->mobile, $request->national_code);
+            if (!$mobileBelogsToUser) {
+                throw new SmsLoginGetUserException(Statuses::MOBILE_NOT_BELONGS_TO_USER);
+            }
+            $user = $this->registerUser($request);
+        }
+
+        return $user;
     }
 }

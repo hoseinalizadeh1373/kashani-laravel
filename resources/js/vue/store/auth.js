@@ -39,20 +39,20 @@ export const useAuthStore = defineStore('auth', () => {
         return new Promise((resolve, reject) => {
 
             axios.post("/api/auth/requestToken", {
-               mobile: mobile,
-               
+                mobile: mobile,
+
             })
-            .then((res) => {
-                resolve (res);
-               
-            })
-            .catch((err) => {
-               reject(err)
-                //
-            })
-            
+                .then((res) => {
+                    resolve(res);
+
+                })
+                .catch((err) => {
+                    reject(err)
+                    //
+                })
+
         });
-           
+
     }
 
 
@@ -81,15 +81,7 @@ export const useAuthStore = defineStore('auth', () => {
         return new Promise((resolve, reject) => {
             axios.post("/api/auth/register", data)
                 .then(res => {
-
-                    if (!res.data.hasOwnProperty("access_token")) {
-                        reject("NoAccessToken");
-                    }
-
-                    Cookies.set('token', res.data.access_token, { expires: true ? 365 : null })
-
                     resolve(true)
-
                 })
                 .catch(err => {
                     reject(err)
