@@ -56,7 +56,7 @@
 import NavDrawer from "./default/drawer.vue";
 import Breadcrumbs from "@/components/Breadcrumbs.vue";
 import AppProgress from "@/components/AppProgress.vue";
-import { computed, ref, defineCustomElement } from "vue";
+import { computed, ref } from "vue";
 import { useAuthStore } from "@/store/auth";
 import { useOptionsStore } from "@/store/options";
 import { useRoute, useRouter } from "vue-router";

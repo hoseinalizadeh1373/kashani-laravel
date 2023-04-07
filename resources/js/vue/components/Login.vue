@@ -1,9 +1,30 @@
-<template src="./login.html"></template>
+<template >
+  <v-dialog v-model="dialog" persistent>
+    <v-row justify="center">
+      <v-col cols="10" sm="8" md="6">
+        <v-expand-transition>
+          <login-form
+            v-model:user="data.user"
+            v-if="data.mode == 'login'"
+            @changeMode="changeMode"
+          />
+          <register-form
+            v-if="data.mode == 'register'"
+            @changeMode="changeMode"
+            v-model:user="data.user"
+          />
+        </v-expand-transition>
+      </v-col>
+    </v-row>
+  </v-dialog>
+</template>
 
 <script setup>
 import { reactive, computed, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useAuthStore } from "@/store/auth";
+import LoginForm from "./login/LoginForm.vue";
+import RegisterForm from "./login/RegisterForm.vue";
 
 const auth = useAuthStore();
 const route = useRoute();
@@ -14,21 +35,13 @@ const dialog = computed(() => {
 const router = useRouter();
 
 const data = reactive({
-  mode: "loginRequestToken",
+  mode: "login",
   loading: false,
-  image: null,
-
   loginForm: null,
   formErrors: {},
-
-  mobile: "",
-  firstname: "",
-  lastname: "",
-  password: "",
-  entrance_fee: "",
-  credit_ratio: "",
-  title: "",
-  showPassword: false,
+  user: {
+    mobile: "09370331680",
+  },
 });
 
 const intendedUrl = auth.intendedUrl;
@@ -38,48 +51,13 @@ function register() {
   data.formErrors = {};
   data.loading = true;
   auth
-    .register(data)
+    .register(data.user)
     .then(async (res) => {
-      const user = await auth.fetchUser();
-      if (intendedUrl !== "") {
-        router.push({ path: intendedUrl });
-      }
-      auth.hideLoginform();
+      data.mode = "enterToken"
     })
     .catch((error) => {
       if (error.response.status == 422) {
         data.formErrors = error.response.data.errors;
-      }
-    })
-    .then(() => {
-      data.loading = false;
-    });
-}
-
-function requestToken() {
-  data.loading = true;
-  data.formErrors = {};
-  auth
-    .requestToken(data.mobile)
-    .then(async (res) => {
-      data.mode = "loginWithToken"
-      /* const user = await auth.fetchUser();
-      if (intendedUrl !== "") {
-        router.push({ path: intendedUrl });
-      }
-      auth.hideLoginform(); */
-    })
-    .catch(function (error) {
-      if (error.response) {
-        data.formErrors = error.response.data.errors;
-        if (error.response.status == 422) {
-          data.formErrors = error.response.data.errors;
-        }
-        if (error.response.status == 401) {
-          data.formErrors = {
-            mobile: "شماره موبایل یا رمز عبور اشتباه است",
-          };
-        }
       }
     })
     .then(() => {
@@ -93,5 +71,13 @@ async function logout() {
   data.loading = false;
   auth.hideLoginform();
   if (route.meta.requireAuth) router.push("/");
+}
+
+function changeMode(newMode) {
+  data.mode = newMode;
+}
+
+function upuser(ev){
+  console.log("evvv",ev)
 }
 </script>

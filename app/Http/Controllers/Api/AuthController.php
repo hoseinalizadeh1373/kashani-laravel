@@ -20,7 +20,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','logout', 'requestToken', 'register']]);
+        $this->middleware('auth:api', ['except' => ['login','logout', 'requestToken', 'loginWithToken', 'register']]);
     }
 
     /**
@@ -56,8 +56,8 @@ class AuthController extends Controller
             "national_code"=>"required|unique:users",
         ]);
 
-        $user = User::create(request(['mobile', 'national_code']));
-
+        $user = User::create(request(['national_code','mobile','firstname','lastname']));
+        $user->sendMobileVerificationCode();
 
         return response()->json([
             "success"=>true,
@@ -74,17 +74,14 @@ class AuthController extends Controller
     {
         $this->validate($request, [
             "mobile"=>"required|exists:users,mobile",
-            "code"=>"required",
+            "token"=>"required",
         ]);
 
         $user=$this->getUserByMobile($request->mobile);
-        $verification = $user->checkMobileVerifyCode($request->code);
-
+        $verification = $user->checkMobileVerifyCode($request->token);
         if ($verification) {
-            Auth::login($user);
-            return response()->json([
-                    "success"=>true,
-            ]);
+            $token = auth()->login($user);
+            return $this->respondWithToken($token);
         }
 
         return response()->json([

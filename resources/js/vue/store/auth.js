@@ -15,7 +15,13 @@ export const useAuthStore = defineStore('auth', () => {
     // getters
     // const user = computed(function(){return authenticatedUser.value})
     const
-        user = computed(() => authenticatedUser.value),
+        user = computed(() => {
+            authenticatedUser.value.name =
+                _.get(authenticatedUser.value, 'firstname', '') +
+                ' ' +
+                _.get(authenticatedUser.value, 'lastname', '');
+            return authenticatedUser.value
+        }),
         isLogedIn = computed(() => authenticatedUser.value !== null),
         intendedUrl = computed(() => intended_url.value),
         access_token = computed(() => Cookies.get('token')),
@@ -34,7 +40,21 @@ export const useAuthStore = defineStore('auth', () => {
         loginFormDisplay.value = false
     }
 
+    function register(data) {
+        return new Promise((resolve, reject) => {
+            axios.post("/api/auth/register", data)
+                .then((res) => {
+                    resolve(res);
 
+                })
+                .catch((err) => {
+                    reject(err)
+                    //
+                })
+
+        });
+
+    }
     function requestToken(mobile) {
         return new Promise((resolve, reject) => {
 
@@ -56,9 +76,10 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
 
-    function login(mobile, password) {
+    function loginWithToken(user) {
+        console.log("user", user)
         return new Promise((resolve, reject) => {
-            axios.post("/api/auth/login", { mobile, password })
+            axios.post("/api/auth/loginWithToken", { mobile: user.mobile, token: user.token })
                 .then(res => {
 
                     if (!res.data.hasOwnProperty("access_token")) {
@@ -77,18 +98,6 @@ export const useAuthStore = defineStore('auth', () => {
 
     }
 
-    function register(data) {
-        return new Promise((resolve, reject) => {
-            axios.post("/api/auth/register", data)
-                .then(res => {
-                    resolve(true)
-                })
-                .catch(err => {
-                    reject(err)
-                });
-        });
-
-    }
 
     function logout() {
         return new Promise((resolve, reject) => {
@@ -141,6 +150,7 @@ export const useAuthStore = defineStore('auth', () => {
         hideLoginform,
         requestToken,
 
+        loginWithToken,
         register,
         logout,
         logoutAndShowLoginForm,
