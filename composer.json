@@ -9,6 +9,7 @@
         "arcanedev/log-viewer": "^9.0",
         "guzzlehttp/guzzle": "^7.2",
         "hekmatinasser/verta": "^8.1",
+        "hsyir/baloot": "^3.1",
         "ippanel/php-rest-sdk": "^2.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
