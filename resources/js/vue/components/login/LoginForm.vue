@@ -61,7 +61,7 @@
             <v-row justify="center">
               <v-col cols="12" sm="10" class="pa-0">
                 <v-text-field
-                  :error-messages="data.formErrors.mobile"
+                  :error-messages="data.formErrors.token"
                   density="compact"
                   label="کد تایید"
                   required
@@ -153,20 +153,26 @@
 <script setup>
 import { reactive, onMounted, defineEmits, watch, defineProps } from "vue";
 import { useAuthStore } from "@/store/auth";
-
+import { useRouter, useRoute } from "vue-router";
 const emit = defineEmits([
   "requestToken",
   "loginWithToken",
   "update:user",
   "changeMode",
 ]);
-const props = defineProps(["user"]);
 
 const auth = useAuthStore();
+const intendedUrl = auth.intendedUrl;
+auth.setIntendedUrl("");
+
+const route = useRoute();
+const router = useRouter();
+
+const props = defineProps(["user"]);
 
 const data = reactive({
   formErrors: {},
-  mode:'enterMobile',
+  mode: "enterMobile",
   user: {
     mobile: "",
     token: "",
@@ -180,13 +186,9 @@ function requestToken() {
     .requestToken(data.user.mobile)
     .then(async (res) => {
       data.mode = "enterToken";
-      /* const user = await auth.fetchUser();
-      if (intendedUrl !== "") {
-        router.push({ path: intendedUrl });
-      }
-      auth.hideLoginform(); */
     })
     .catch(function (error) {
+        console.log(error.response)
       if (error.response) {
         data.formErrors = error.response.data.errors;
         if (error.response.status == 422) {
@@ -210,7 +212,12 @@ function loginWithToken() {
   auth
     .loginWithToken(data.user)
     .then(async (res) => {
-     console.log("ressss" ,res)
+      const user = await auth.fetchUser();
+      if (intendedUrl !== "") {
+        router.push({ path: intendedUrl });
+      }
+      alert("با موفقیت وارد شده اید");
+      auth.hideLoginform();
     })
     .catch(function (error) {
       if (error.response) {
@@ -242,7 +249,6 @@ onMounted(() => {
 function changeMode(mode) {
   emit("changeMode", mode);
 }
-
 
 async function logout() {
   data.loading = true;

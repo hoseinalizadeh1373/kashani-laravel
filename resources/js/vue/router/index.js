@@ -10,11 +10,11 @@ let router = createRouter(createWebHistory());
 axios.interceptors.response.use(response => response, err => {
     // const status = get(err, 'response.status')
 
-    if (err.response.status == 401) {
+  /*   if (err.response.status == 401) {
         const auth = useAuthStore();
         auth.logoutAndShowLoginForm();
     }
-
+ */
     return Promise.reject(err)
 
 })

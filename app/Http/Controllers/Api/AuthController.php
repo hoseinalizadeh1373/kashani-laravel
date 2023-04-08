@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Rules\BelongsToNationalCode;
+use App\Rules\LoginTokenIsValid;
 use App\Services\ContactVerification\SmsLoginGetUserException;
 use App\Services\ContactVerification\Statuses;
 use Exception;
@@ -53,7 +55,7 @@ class AuthController extends Controller
     {
         $this->validate($request, [
             "mobile"=>"required|unique:users",
-            "national_code"=>"required|unique:users",
+            "national_code"=>['required','unique:users',new BelongsToNationalCode()],
         ]);
 
         $user = User::create(request(['national_code','mobile','firstname','lastname']));
@@ -73,20 +75,15 @@ class AuthController extends Controller
     public function loginWithToken(Request $request)
     {
         $this->validate($request, [
-            "mobile"=>"required|exists:users,mobile",
-            "token"=>"required",
+            "mobile"=>"required|iran_mobile|exists:users,mobile",
+            "token"=>["required",new LoginTokenIsValid()],
         ]);
 
         $user=$this->getUserByMobile($request->mobile);
-        $verification = $user->checkMobileVerifyCode($request->token);
-        if ($verification) {
-            $token = auth()->login($user);
-            return $this->respondWithToken($token);
-        }
 
-        return response()->json([
-                "success"=>false,
-        ]);
+        $token = auth()->login($user);
+        return $this->respondWithToken($token);
+
     }
 
     /**
@@ -99,7 +96,7 @@ class AuthController extends Controller
         $this->validate(
             $request,
             [
-                "mobile"=>"required|exists:users",
+                "mobile"=>"required|iran_mobile|exists:users",
             ],
             [
                 "exists"=>"کاربری با این شماره موبایل وجود ندارد، لطفا ثبت نام کنید.",
@@ -183,10 +180,6 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);
     }
-
-
-
-
 
 
     private function getUserByMobile($mobile)

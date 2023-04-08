@@ -25,18 +25,6 @@
 
     <v-list density="compact" v-if="isLogedIn">
       <v-list-subheader>عملیات کاربر</v-list-subheader>
-      <v-list-item active-color="primary" :to="{ name: 'wallet' }">
-        <template v-slot:prepend>
-          <v-icon icon="mdi-wallet"></v-icon>
-        </template>
-        <v-list-item-title>کیف پول</v-list-item-title>
-      </v-list-item>
-      <v-list-item active-color="primary" :to="{ name: 'history' }">
-        <template v-slot:prepend>
-          <v-icon icon="mdi-phone-log"></v-icon>
-        </template>
-        <v-list-item-title>تاریخچه تماس ها</v-list-item-title>
-      </v-list-item>
     </v-list>
 
     <v-list density="compact" v-if="isLogedIn && auth.isAdmin">
@@ -46,51 +34,6 @@
           <v-icon icon="mdi-account-multiple"></v-icon>
         </template>
         <v-list-item-title>مدیریت کاربران</v-list-item-title>
-      </v-list-item>
-      <v-list-item active-color="primary" :to="{ name: 'admin.advisors' }">
-        <template v-slot:prepend>
-          <v-icon icon="mdi-account-multiple-outline"></v-icon>
-        </template>
-        <v-list-item-title>مدیریت مشاورین</v-list-item-title>
-      </v-list-item>
-      <v-list-item active-color="primary" :to="{ name: 'admin.categories' }">
-        <template v-slot:prepend>
-          <v-icon icon="mdi-format-list-bulleted-type"></v-icon>
-        </template>
-        <v-list-item-title>مدیریت دسته بندی ها</v-list-item-title>
-      </v-list-item>
-      <v-list-item active-color="primary" :to="{ name: 'admin.calls' }">
-        <template v-slot:prepend>
-          <v-icon icon="mdi-phone-log"></v-icon>
-        </template>
-        <v-list-item-title>تماس ها</v-list-item-title>
-      </v-list-item>
-      <v-list-item active-color="primary" :to="{ name: 'admin.options' }">
-        <template v-slot:prepend>
-          <v-icon icon="mdi-cog"></v-icon>
-        </template>
-        <v-list-item-title> تنظیمات سیستم</v-list-item-title>
-      </v-list-item>
-    </v-list>
-    <v-list density="compact" v-if="isLogedIn && auth.isAdvisor">
-      <v-list-subheader>عملیات مشاور</v-list-subheader>
-      <v-list-item active-color="primary" :to="{ name: 'advisor.dashboard' }">
-        <template v-slot:prepend>
-          <v-icon icon="mdi-view-dashboard"></v-icon>
-        </template>
-        <v-list-item-title>داشبورد مشاور</v-list-item-title>
-      </v-list-item>
-      <v-list-item active-color="primary" :to="{ name: 'commingsoon' }">
-        <template v-slot:prepend>
-          <v-icon icon="mdi-timetable"></v-icon>
-        </template>
-        <v-list-item-title>برنامه زمان بندی مشاور</v-list-item-title>
-      </v-list-item>
-      <v-list-item active-color="primary" :to="{ name: 'commingsoon' }">
-        <template v-slot:prepend>
-          <v-icon icon="mdi-phone-log"></v-icon>
-        </template>
-        <v-list-item-title>تماس های من</v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>

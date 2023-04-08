@@ -178,7 +178,12 @@ function loginWithToken() {
   auth
     .loginWithToken(data.user)
     .then(async (res) => {
-     console.log("ressss" ,res)
+      const user = await auth.fetchUser();
+      if (intendedUrl !== "") {
+        router.push({ path: intendedUrl });
+      }
+      alert("با موفقیت وارد شده اید");
+      auth.hideLoginform();
     })
     .catch(function (error) {
       if (error.response) {
