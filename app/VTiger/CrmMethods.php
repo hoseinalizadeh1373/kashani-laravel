@@ -1,7 +1,9 @@
 <?php
 
 namespace App\VTiger;
+
 use GuzzleHttp\Psr7;
+
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v.2.0.
  * If a copy of the MPL was not distributed with this file,
@@ -16,13 +18,13 @@ class CrmMethods
      * @var [type]
      */
     private $api;
-    
+
     /**
      * Undocumented function
      */
     public function __construct()
     {
-        $this->api = new ApiCall;
+        $this->api = new ApiCall();
     }
 
     /**
@@ -36,7 +38,7 @@ class CrmMethods
             "default/me",
         );
     }
-    
+
     /**
      * Undocumented function
      *
@@ -52,7 +54,7 @@ class CrmMethods
             "GET"
         );
     }
-    
+
     /**
      * Undocumented function
      *
@@ -66,12 +68,30 @@ class CrmMethods
             [
                 "query"=>"select * from Contacts where cf_pcf_irc_1122 = '$nationalCode';",
             ],
-            "GET"
-            ,null
+            "GET",
+            null
         );
 
         return new CrmContact($contact[0] ?? null);
     }
+
+    public function getRelatedDocuments($id = null)
+    {
+        $data = [
+            "id" => "12x235156",
+            "relatedType" => "Contacts",
+            "relatedLabel"=>"Contacts",
+
+        ];
+        $documents =  $this->api->call(
+            "default/retrieve_related",
+            $data,
+            "GET"
+        );
+
+        dd($documents);
+    }
+
 
     /**
      * Undocumented function
@@ -123,9 +143,9 @@ class CrmMethods
             $data,
             "POST"
         );
-       
+
         return true;
-        
+
     }
 
 
@@ -137,7 +157,7 @@ class CrmMethods
      * @param [type] $name
      * @return void
      */
-    public function CreateDocument($fileAddress,$contactId,$filename, $title)
+    public function CreateDocument($fileAddress, $contactId, $filename, $title)
     {
         $base64 = $this->toBase64($fileAddress);
 
@@ -151,13 +171,13 @@ class CrmMethods
                 "content" => $base64,
             ])
         ];
-            
+
         $res = $this->api->call(
             "extended/createdocument",
             $data,
             "POST"
         );
-        
+
         return $res->docid ?? null;
 
     }
@@ -173,13 +193,13 @@ class CrmMethods
     public function addRelatedDoc($contactId, $docid)
     {
         $data = [
-            
+
             "sourceRecordId" => $contactId,
             "relatedRecordId" => "15x" . $docid,
             "relationIdLabel"=>"Documents",
-            
+
         ];
-        
+
         $res = $this->api->call(
             "extended/add_related_records",
             $data,
@@ -226,10 +246,9 @@ class CrmMethods
             ],
             "POST"
         );
-        
+
         return new CrmContact($contact);
     }
-
 
     /**
      * Undocumented function
@@ -239,10 +258,10 @@ class CrmMethods
      */
     public function createNewContact($data)
     {
-        
+
         $data[config('Fields.contact_type')] = "مراقب";
         $data["assigned_user_id"] = "19x5";
-        
+
         $contact =  $this->api->call(
             "default/create",
             [
@@ -251,7 +270,7 @@ class CrmMethods
             ],
             "POST"
         );
-        
+
         return new CrmContact($contact);
     }
 
@@ -278,136 +297,132 @@ class CrmMethods
     }
 
 
-    //سمانه نوروزی
-    // 12x111
-    // cf_pcf_irc_1122
-    //0630185646
-    //09055116302
-    /*
-    "firstname"=>"samane",
-    "lastname"=>"norozi",
-    "mobile"=>"09055116302",
-    "CON32"=>"CON32",
-    'assigned_user_id' => '19x5',
-     */
-
-
-
-     public function query_related()
+     public function getDocuments($id)
      {
-        $data = [
-            
-            "query" => "select * from Documents ",
-            "id" => "12x227595",
-            "relatedLabel"=>"Documents",
-            
-        ];
-        
-        $res = $this->api->call(
-            "default/query_related",
-            $data,
-            "GET"
-        );
+         $data = [
+             "query" => "select * from Documents ",
+             "id" => $id,
+             "relatedLabel"=>"Documents",
+         ];
 
-        dd($res);
+         return $this->api->call(
+             "default/query_related",
+             $data,
+             "GET"
+         );
+
+         
+
+     }
+     public function getFile($id)
+     {
+         $data = [
+             "file_id" => $id,
+         ];
+
+         return $this->api->call(
+             "extended/file_retrieve_by_id",
+             $data,
+             "GET"
+         )[0] ??  null;         
 
      }
 
      public function retrieve_related()
      {
-        $data = [
-            
-            
-            "id" => "12x227595",
-            "relatedType" => "Documents",
-            "relatedLabel"=>"Documents",
-            
-        ];
-        
-        $res = $this->api->call(
-            "default/retrieve_related",
-            $data,
-            "GET"
-        );
+         $data = [
 
-        dd($res);
+
+             "id" => "12x227595",
+             "relatedType" => "Documents",
+             "relatedLabel"=>"Documents",
+
+         ];
+
+         $res = $this->api->call(
+             "default/retrieve_related",
+             $data,
+             "GET"
+         );
+
+         dd($res);
 
      }
      public function getImage($imageid)
      {
-        $data = [
-            
-            "file_id" => $imageid,
-        ];
-        
-        $res = $this->api->call(
-            "extended/file_retrieve_by_id",
-            $data,
-            "GET"
-        );
+         $data = [
 
-        return ($res[0]->filepath);
+             "file_id" => $imageid,
+         ];
+
+         $res = $this->api->call(
+             "extended/file_retrieve_by_id",
+             $data,
+             "GET"
+         );
+
+         return ($res[0]->filepath);
 
      }
 
 
-     
+
 }
 
-    /* 
+/*
 
-    public function uploadDocuments($data){
-        // id hossein 12x227595
-        // field name file_8_1
-        
-        $data = [
-            "format"=> 1,
-            "files" => json_encode(
+public function uploadDocuments($data){
+    // id hossein 12x227595
+    // field name file_8_1
+
+    $data = [
+        "format"=> 1,
+        "files" => json_encode(
+            [
                 [
-                    [
-                        "name"=>"testfile.jpg",
-                        "content"=>base64_encode(file_get_contents("1-5.jpg"))
-                    ],
-                ]
-            )
-        ];
+                    "name"=>"testfile.jpg",
+                    "content"=>base64_encode(file_get_contents("1-5.jpg"))
+                ],
+            ]
+        )
+    ];
 
-        $res = $this->api->call(
-            "extended/uploadbase64file",
-            $data,
-            "POST"
-        );
-        
-        $data = [
-            "id"=> "12x227595",
-            "cf_pcf_ulf_1016" => $res[0]
-        ];
-        
-        $res = $this->updateContactInformation($data);
+    $res = $this->api->call(
+        "extended/uploadbase64file",
+        $data,
+        "POST"
+    );
 
-        dd($res);
-        
-    } */
+    $data = [
+        "id"=> "12x227595",
+        "cf_pcf_ulf_1016" => $res[0]
+    ];
+
+    $res = $this->updateContactInformation($data);
+
+    dd($res);
+
+} */
 
 
-    
-   /*  public function getContactRelatedDocs()
-    {
-         $data= [
-            "id"=>"12x227595",
-            "relatedType"=>"Documents",
-            "relatedLabel"=>"Documents",
-        ];
 
-        
+/*  public function getContactRelatedDocs()
+ {
+      $data= [
+         "id"=>"12x227595",
+         "relatedType"=>"Documents",
+         "relatedLabel"=>"Documents",
+     ];
 
-        $res = $this->api->call(
-            "default/retrieve_related",
-            $data,
-            "GET"
-        );
 
-        dd($res);
 
-        exit;
-    } */
+     $res = $this->api->call(
+         "default/retrieve_related",
+         $data,
+         "GET"
+     );
+
+     dd($res);
+
+     exit;
+ } */

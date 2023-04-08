@@ -5,6 +5,7 @@ namespace App\VTiger;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7;
+
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v.2.0.
  * If a copy of the MPL was not distributed with this file,
@@ -21,13 +22,13 @@ class ApiCall
 
     public function call($address, $params=[], $method="GET")
     {
-            $res = $this
-                ->httpClient
-                ->request(
-                    $method,
-                    "$address",
-                    $this->getRequestOptions($params, $method)
-                );
+        $res = $this
+            ->httpClient
+            ->request(
+                $method,
+                "$address",
+                $this->getRequestOptions($params, $method)
+            );
 
         $contents = $res->getBody()->getContents();
         $contents = json_decode($contents);
@@ -57,7 +58,7 @@ class ApiCall
 
         return
           array_merge(
-            ['auth' => [env('CRM_USERNAME'),env("CRM_PASSWORD")],],
+              ['auth' => [env('CRM_USERNAME'),env("CRM_PASSWORD")],],
               $parameters
           );
     }

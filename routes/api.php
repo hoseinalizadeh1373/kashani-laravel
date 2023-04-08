@@ -29,3 +29,14 @@ Route::group([
         Route::post('me', 'AuthController@me');
         Route::post('register', 'AuthController@register');
     });
+
+
+    
+Route::group([
+    'middleware' => ['api',"auth:api"],
+    'namespace'=> "\App\Http\Controllers\Api",
+ ], function ($router) {
+     Route::get('users/{user}/documents', 'DocumentsController@list');
+     Route::get('users/{user}/documents/{doc}', 'DocumentsController@getDoc');
+ });
+

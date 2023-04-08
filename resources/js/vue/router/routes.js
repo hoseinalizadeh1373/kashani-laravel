@@ -3,6 +3,7 @@ import { createRouter } from 'vue-router'
 import Homepage from '@/pages/publics/home/Home.vue';
 import Forbidden from '@/pages/publics/Forbidden.vue';
 
+import Documents from '@/pages/user/Documents/Documents.vue';
 import Profile from '@/pages/user/Profile.vue';
 import Users from '@/pages/admin/users/Users.vue';
 import Options from '@/pages/admin/options/Options.vue';
@@ -25,6 +26,15 @@ const routes = [
   },
 
 
+  {
+    path: "/user/documents",
+    name: "user.documents",
+    component: Documents,
+    meta: { requireAuth: true, },
+    children: [
+      // { path: 'base', component: Walleti },
+    ]
+  },
   {
     path: "/admin/users",
     name: "admin.users",
