@@ -17,6 +17,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('national_code')->unique();
+            $table->string('mobile')->unique();
             $table->string('firstname')->nullable();
             $table->string('lastname')->nullable();
             $table->string('email')->nullable();
@@ -24,14 +26,11 @@ return new class extends Migration
             $table->string('crm_contact_number')->nullable();
             $table->string('crm_contact_id')->nullable();
 
-            $table->string('national_code')->unique();
-            $table->string('mobile')->unique();
             $table->json('crm_fields')->nullable();
-            $table->integer('contact_type')->default(User::CONTACT_TYPE_MORAGHEB);
+            $table->integer('contact_type')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->integer('mobile_verify_status')->default(User::MOBILE_BELONG_NOT_CHECK); 
             $table->json('docs_sended')->nullable(); 
-            $table->timestamp('mobile_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();
             $table->timestamps();
