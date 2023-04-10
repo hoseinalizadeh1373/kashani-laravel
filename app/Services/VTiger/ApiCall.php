@@ -33,7 +33,6 @@ class ApiCall
         if (!$contents->success) {
             return false;
         }
-        dd($address,$params,$contents->result);
         return $contents->result;
     }
 
