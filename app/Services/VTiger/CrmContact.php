@@ -2,6 +2,7 @@
 
 namespace App\Services\VTiger;
 
+use App\Models\User;
 use App\Services\Searchline\Searchline;
 use Hekmatinasser\Verta\Verta;
 
@@ -20,7 +21,16 @@ class CrmContact
 
         $crmRawFields = [
             "national_code" => "cf_pcf_irc_1122",
-            "type" => "cf_931",
+
+
+            "type" => function () {
+                return [
+                    "مراقب"=>User::CONTACT_TYPE_MORAGHEB,
+                    "پرستار"=>User::CONTACT_TYPE_NURSE,
+                    "دکتر"=>User::CONTACT_TYPE_DOCTOR,
+                ][$this->cf_931] ?? null;
+            },
+
             "bjalali" => function () {
                 return Verta($this->birthday)->format("Y-n-j");
             },

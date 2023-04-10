@@ -22,8 +22,12 @@ class User extends Authenticatable implements JWTSubject
     use UseVtigerUser;
 
     const CONTACT_TYPE_MORAGHEB = 1;
-    const CONTACT_TYPE_NURSE = 2;
+    const CONTACT_TYPE_PARASTAR = 2;
     const CONTACT_TYPE_DOCTOR = 3;
+    const CONTACT_TYPE_SP_DOCTOR = 4;
+    const CONTACT_TYPE_HAMKAR = 5;
+    const CONTACT_TYPE_MADADJOO = 6;
+    const CONTACT_TYPE_MOSHTARAK = 7;
 
     const MOBILE_BELONG_YES = 1;
     const MOBILE_BELONG_NO = 0;
@@ -148,6 +152,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+
 
 
 }

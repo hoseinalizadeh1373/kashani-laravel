@@ -20,6 +20,8 @@ class UserResource extends JsonResource
             "lastname"=>$this->lastname,
             "mobile"=>$this->mobile,
             "national_code"=>$this->national_code,
+            "crm_registered"=>$this->is_registered_in_crm,
+            "contact_type"=>$this->contact_type,
         ];
     }
 }
