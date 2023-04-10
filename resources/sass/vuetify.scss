@@ -1,0 +1,9 @@
+// settings.scss
+@use 'vuetify/settings' with (
+  $color-pack: true,
+  $body-font-family: "yekan",
+  $button-text-letter-spacing: 0,
+  $overlay-opacity: 80%,
+  $navigation-drawer-scrim-opacity: 80%,
+  $font-size-root: 14px,
+);

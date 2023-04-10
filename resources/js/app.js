@@ -5,4 +5,4 @@
  */
 
 import './bootstrap';
-import './vue'
+import "./vue";

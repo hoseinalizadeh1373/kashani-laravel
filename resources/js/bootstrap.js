@@ -1,7 +1,7 @@
 import _ from 'lodash';
 window._ = _;
 
-import 'bootstrap';
+// import 'bootstrap';
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -11,6 +11,18 @@ import 'bootstrap';
 
 import axios from 'axios';
 window.axios = axios;
+
+// axios.interceptors.response.use(response => response, err => {
+    // console.log("axerr",err)
+   /*  const status = get(err, 'response.status')
+  
+    if (status === 419) {
+      // Do something
+    }
+  
+    return Promise.reject(err) */
+  // })
+
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 

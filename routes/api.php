@@ -15,11 +15,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 
-Route::get("/hook",function(Request $request){
-    Log::info($request->get("text"),$request->all());
-});
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth',
+    'namespace'=>"\App\Http\Controllers\Api"
+    ], function ($router) {
+        Route::post('requestToken', 'AuthController@requestToken');
+        Route::post('loginWithToken', 'AuthController@loginWithToken');
+        Route::post('logout', 'AuthController@logout');
+        Route::post('refresh', 'AuthController@refresh');
+        Route::post('me', 'AuthController@me');
+        Route::post('register', 'AuthController@register');
+    });
+
+
+    
+Route::group([
+    'middleware' => ['api',"auth:api"],
+    'namespace'=> "\App\Http\Controllers\Api",
+ ], function ($router) {
+     Route::get('users/{user}/documents', 'DocumentsController@list');
+     Route::get('users/{user}/documents/{doc}', 'DocumentsController@getDoc');
+ });
+

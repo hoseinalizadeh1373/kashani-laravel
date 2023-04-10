@@ -1,0 +1,13 @@
+// Fonts
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import "./vendor/bootstrap.rtl.min.css";
+
+@import "vazir-font/dist/font-face.css";
+
+body{
+    font-family: "Vazir";
+}
