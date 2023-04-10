@@ -12,12 +12,14 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use \App\Services\ContactVerification\VerifyContactMobile;
 use App\Services\Searchline\Searchline;
+use App\Services\VTiger\UseVtigerUser;
 use Illuminate\Support\Facades\Log;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
     
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable, VerifyContactMobile;
+    use UseVtigerUser;
 
     const CONTACT_TYPE_MORAGHEB = 1;
     const CONTACT_TYPE_NURSE = 2;

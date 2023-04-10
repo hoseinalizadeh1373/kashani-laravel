@@ -1,6 +1,6 @@
 <?php
 
-namespace App\VTiger;
+namespace App\Services\VTiger;
 
 use GuzzleHttp\Psr7;
 
@@ -59,7 +59,7 @@ class CrmMethods
      * Undocumented function
      *
      * @param [type] $nationalCode
-     * @return void
+     * @return CrmContact
      */
     public function getContactByNationalCode($nationalCode)
     {

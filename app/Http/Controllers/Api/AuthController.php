@@ -80,6 +80,8 @@ class AuthController extends Controller
         ]);
 
         $user=$this->getUserByMobile($request->mobile);
+        
+        $user->checkCrmContactId();
 
         $token = auth()->login($user);
         return $this->respondWithToken($token);

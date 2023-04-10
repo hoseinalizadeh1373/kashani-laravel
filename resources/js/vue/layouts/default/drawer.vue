@@ -1,15 +1,10 @@
 <template>
   <v-navigation-drawer v-model="drawer" class="side">
-    <v-list dense v-if="!isLogedIn" color="primary">
-    
-    </v-list>
+    <v-list dense v-if="!isLogedIn" color="primary"> </v-list>
     <v-list dense v-if="isLogedIn" color="primary">
       <v-list-item>
-        <v-list-item-content>
           <v-list-item-title class="text-h6">{{ user.name }}</v-list-item-title>
-          <v-list-item-subtitle>
-            اعتبار: {{ user.remain_credit }}
-          </v-list-item-subtitle>
+          <v-list-item-subtitle> </v-list-item-subtitle>
           <v-list-item-subtitle>
             <v-btn
               size="x-small"
@@ -19,7 +14,6 @@
               >خروج</v-btn
             >
           </v-list-item-subtitle>
-        </v-list-item-content>
       </v-list-item>
     </v-list>
 
@@ -45,7 +39,7 @@ import { useAuthStore } from "@/store/auth";
 import { useOptionsStore } from "@/store/options";
 import { useRoute, useRouter } from "vue-router";
 
-const emit = defineEmits(['drawerChanged'])
+const emit = defineEmits(["drawerChanged"]);
 
 const props = defineProps(["drawer"]);
 
@@ -76,7 +70,7 @@ watch(
 watch(
   () => drawer.value,
   (first) => {
-    emit("drawerChanged",first)
+    emit("drawerChanged", first);
   }
 );
 

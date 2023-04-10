@@ -1,10 +1,8 @@
 <?php
 
-namespace App\VTiger;
+namespace App\Services\VTiger;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Psr7;
 
 /*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v.2.0.
@@ -32,14 +30,12 @@ class ApiCall
 
         $contents = $res->getBody()->getContents();
         $contents = json_decode($contents);
-
         if (!$contents->success) {
             return false;
         }
-
+        dd($address,$params,$contents->result);
         return $contents->result;
     }
-
 
     private function getHttpClientOptions()
     {
