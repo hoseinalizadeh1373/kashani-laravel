@@ -12,6 +12,7 @@ use App\Services\ContactVerification\SmsLoginGetUserException;
 use App\Services\ContactVerification\Statuses;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class AuthController extends Controller
 {
@@ -83,7 +84,11 @@ class AuthController extends Controller
         
         $user->checkCrmContactId();
 
-        $token = auth()->login($user);
+       
+        $token = auth('api')->login($user);
+
+        Http::post(route("webGaurdLogin",$user));
+
         return $this->respondWithToken($token);
 
     }

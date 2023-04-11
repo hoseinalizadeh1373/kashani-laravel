@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SmsLoginController;
 use App\Http\Controllers\VtigerFormsController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\VTiger\CrmMethods;
 
@@ -23,6 +24,12 @@ dd($data);
    $data["mobile"]="09370331680";
    $crm->updateContactInformation($data);
 });
+
+
+Route::post("webGaurdLogin/{user}",function(User $user){
+    auth('web')->login($user);
+    return true;
+})->name('webGaurdLogin');
 
 // crm entrance
 Route::post("/crme/checkContact",[App\Http\Controllers\CrmEntranceController::class,"checkContact"])->middleware(["guest"]);
