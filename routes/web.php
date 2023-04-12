@@ -5,7 +5,7 @@ use App\Http\Controllers\VtigerFormsController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\VTiger\CrmMethods;
-
+use Illuminate\Support\Facades\Log;
 
 /* Route::get("/",function(){
 
@@ -26,7 +26,8 @@ dd($data);
 });
 
 
-Route::post("webGaurdLogin/{user}",function(User $user){
+Route::get("webGaurdLogin/{user}",function(User $user){
+    Log::alert("gasadasdsad");
     auth('web')->login($user);
     return true;
 })->name('webGaurdLogin');

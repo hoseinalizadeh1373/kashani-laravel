@@ -83,11 +83,8 @@ class AuthController extends Controller
         $user=$this->getUserByMobile($request->mobile);
         
         $user->checkCrmContactId();
-
        
         $token = auth('api')->login($user);
-
-        Http::post(route("webGaurdLogin",$user));
 
         return $this->respondWithToken($token);
 

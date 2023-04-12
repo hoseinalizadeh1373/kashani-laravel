@@ -5,6 +5,7 @@ import Forbidden from '@/pages/publics/Forbidden.vue';
 
 import Documents from '@/pages/user/Documents/Documents.vue';
 import Jobs from '@/pages/user/Jobs/Jobs.vue';
+import JobsForm from '@/pages/user/Jobs/Form.vue';
 import Profile from '@/pages/user/Profile.vue';
 import Users from '@/pages/admin/users/Users.vue';
 import Options from '@/pages/admin/options/Options.vue';
@@ -41,6 +42,15 @@ const routes = [
     path: "/user/jobs",
     name: "user.jobs",
     component: Jobs,
+    meta: { requireAuth: true, },
+    children: [
+      // { path: 'base', component: Walleti },
+    ]
+  },
+  {
+    path: "/user/jobs/form",
+    name: "user.jobs.form",
+    component: JobsForm,
     meta: { requireAuth: true, },
     children: [
       // { path: 'base', component: Walleti },

@@ -168,7 +168,11 @@
                 </td>
               </tr>
         <tr style="margin-top:0 !important;">
-                <td><select name="cf_1279" data-label="label:%D9%81%D8%B1%D9%85+%D8%A2%D9%86%D9%84%D8%A7%DB%8C%D9%86+%D8%A7%D8%B2+%D8%B3%D8%A7%DB%8C%D8%AA%D8%9F" hidden=""><option value="">انتخاب مقدار</option><option value="بلی" selected="">بلی</option><option value="خیر">خیر</option></select></td>
+                <td>
+                  <select name="cf_1279" data-label="label:%D9%81%D8%B1%D9%85+%D8%A2%D9%86%D9%84%D8%A7%DB%8C%D9%86+%D8%A7%D8%B2+%D8%B3%D8%A7%DB%8C%D8%AA%D8%9F" hidden="">
+                    <option value="">انتخاب مقدار</option><option value="بلی" selected="">بلی</option><option value="خیر">خیر</option>
+                  </select>
+                </td>
         </tr>
               <tr>
                 <td>
@@ -319,15 +323,7 @@
                 <td>
                  
                   @php 
-                  $options = [
-                    'شمال',
-                    'جنوب',
-                    'مرکز',
-                    'شرق',
-                    'غرب',
-                    'حومه',
-                    'تمامی مناطق'
-                    ];
+                  $options = ;
                   @endphp
                   <x-select
                     name="cf_1193[]"
@@ -371,20 +367,7 @@
                 <td>
                  
                   @php 
-                  $options = [
-                    'پارسی',
-                    'ترکی',
-                    'گیلکی',
-                    'مازنی',
-                    'لری',
-                    'لکی',
-                    'عربی',
-                    'بلوچی',
-                    'ترکمن',
-                    'دری',
-                    'پشتو',
-                    'ارمنی'
-                    ];
+                  $options = ;
                   @endphp
                   <x-select
                     name="cf_1529[]"
