@@ -31,12 +31,10 @@
                       با تشکر از شما، فرم اعلام همکاری شما به عنوان
                       {{ collaboratePosition }}
                       در این سیستم ثبت شده است. جهت تکمیل فرم ثبت نام و یا
-                      ویرایش اطلاعات خود
-                      <v-btn variant="text">اینجا</v-btn>
-                      یا روی لینک زیر کلیک کنید .
+                      ویرایش اطلاعات خود روی لینک زیر کلیک کنید .
                       <div class="pt-3" align="center">
-                        <v-btn :color="color" href="/client/form">
-                          تکمیل / ویرایش فرم همکاری
+                        <v-btn :color="color" :to="{ name: 'user.jobs.form' }">
+                          تکمیل / ویرایش فرم همکاری {{ collaboratePosition }}
                         </v-btn>
                       </div>
                     </div>
@@ -63,10 +61,13 @@
                   >
                     برای شروع همکاری به عنوان پزشک از طریق لینک زیر اقدام نمایید
                     <div class="pt-3" align="center">
-                      <v-btn color="blue-darken-4"> ثبت نام </v-btn>
+                      <v-btn color="blue-darken-4" @click="colabAs(3)" :disabled="loadingColab">
+                        ثبت نام
+                      </v-btn>
                     </div>
-                  </v-alert> </v-col
-                ><v-col>
+                  </v-alert>
+                </v-col>
+                <v-col>
                   <v-alert
                     border="bottom"
                     variant="tonal"
@@ -76,7 +77,7 @@
                     برای شروع همکاری به عنوان پرستار از طریق لینک زیر اقدام
                     نمایید
                     <div class="pt-3" align="center">
-                      <v-btn color="teal"> ثبت نام </v-btn>
+                      <v-btn color="teal" @click="colabAs(2)" :disabled="loadingColab"> ثبت نام </v-btn>
                     </div>
                   </v-alert> </v-col
                 ><v-col>
@@ -89,7 +90,9 @@
                     برای شروع همکاری به عنوان مراقب از طریق لینک زیر اقدام
                     نمایید
                     <div class="pt-3" align="center">
-                      <v-btn color="purple-lighten-1"> ثبت نام </v-btn>
+                      <v-btn color="purple-lighten-1" @click="colabAs(1)" :disabled="loadingColab">
+                        ثبت نام
+                      </v-btn>
                     </div>
                   </v-alert>
                 </v-col>
@@ -99,33 +102,27 @@
         </card>
       </v-col>
     </v-row>
-    <document
-      v-if="showDoc"
-      :document="selectedDoc"
-      @cancel="
-        showDoc = false;
-        selectedDoc = null;
-      "
-      >asdasd</document
-    >
   </v-container>
 </template>
 
 <script>
 import { useAuthStore } from "@/store/auth";
+import { useRoute, useRouter } from "vue-router";
 
 export default {
-  name: "documents",
+  name: "jobs",
 
   data() {
     return {
       loading: false,
-      documents: [],
-      showDoc: false,
-      selectedDoc: null,
+      loadingColab: false,
     };
   },
   computed: {
+
+    router() {
+      return useRouter();
+    },
     auth() {
       return useAuthStore();
     },
@@ -141,27 +138,26 @@ export default {
       return this.collaborating;
     },
     collaboratePosition() {
-      return ["مراقب", "پرستار", "پزشک", "پزشک"][this.user.contact_type];
+      return ["مراقب", "پرستار", "پزشک", "پزشک"][this.user.contact_type - 1];
     },
-    color(){
-      return [
-        "purple-lighten-1",
-        "teal",
-        "blue-darken-4",
-        "blue-darken-4"
-      ][this.user.contact_type];
-    }
+    color() {
+      return ["purple-lighten-1", "teal", "blue-darken-4", "blue-darken-4"][
+        this.user.contact_type - 1
+      ];
+    },
   },
   methods: {
-    async loadDocuments() {
-      this.loading = true;
-      const { data } = await axios.get(`/api/users/${this.user.id}/documents`);
-      this.documents = data;
-      this.loading = false;
+    async colabAs(type) {
+      this.loadingColab = true;
+      const { data } = await axios.put(`/api/users/${this.user.id}/colabAs`, {
+        colab_as: type,
+      });
+      this.loadingColab = false;
+      if(data.success==true){
+        this.router.push({name:"user.jobs.form"});
+      }
     },
   },
-  mounted() {
-    this.loadDocuments();
-  },
+  mounted() {},
 };
 </script>

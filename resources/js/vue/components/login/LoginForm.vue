@@ -188,7 +188,7 @@ function requestToken() {
       data.mode = "enterToken";
     })
     .catch(function (error) {
-        console.log(error.response)
+      console.log(error.response);
       if (error.response) {
         data.formErrors = error.response.data.errors;
         if (error.response.status == 422) {
@@ -212,9 +212,12 @@ function loginWithToken() {
   auth
     .loginWithToken(data.user)
     .then(async (res) => {
+      console.log("i2n", intendedUrl);
       const user = await auth.fetchUser();
+        router.push({ path: "/" });
       if (intendedUrl !== "") {
-        router.push({ path: intendedUrl });
+        console.log("in", intendedUrl);
+        router.push({ path: "/" });
       }
       alert("با موفقیت وارد شده اید");
       auth.hideLoginform();

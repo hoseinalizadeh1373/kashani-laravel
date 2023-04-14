@@ -4,7 +4,7 @@ use App\Http\Controllers\Auth\SmsLoginController;
 use App\Http\Controllers\VtigerFormsController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
-use App\VTiger\CrmMethods;
+use App\Services\VTiger\CrmMethods;
 use Illuminate\Support\Facades\Log;
 
 /* Route::get("/",function(){
@@ -18,11 +18,13 @@ use Illuminate\Support\Facades\Log;
 
 Route::get("/testing",function(){
    $crm = new CrmMethods;
-   $con = $crm->getContactByNationalCode("5729906803");
-   $data = ($con->getRaw());
-dd($data);
-   $data["mobile"]="09370331680";
-   $crm->updateContactInformation($data);
+   $des =  $crm->describe("default/create");
+   $des = collect($des->fields);
+   dump($des->where("editable","=",false))->dd();
+   $des->map(function($item){
+    dump($item->mandatory);
+   });
+
 });
 
 

@@ -3,22 +3,40 @@
     <v-list dense v-if="!isLogedIn" color="primary"> </v-list>
     <v-list dense v-if="isLogedIn" color="primary">
       <v-list-item>
-          <v-list-item-title class="text-h6">{{ user.name }}</v-list-item-title>
-          <v-list-item-subtitle> </v-list-item-subtitle>
-          <v-list-item-subtitle>
-            <v-btn
-              size="x-small"
-              color="primary lighten-4"
-              class="pa-0 px-2 mt-1"
-              @click="logout"
-              >خروج</v-btn
-            >
-          </v-list-item-subtitle>
+        <v-list-item-title class="text-h6">{{ user.name }}</v-list-item-title>
+        <v-list-item-subtitle> </v-list-item-subtitle>
+        <v-list-item-subtitle>
+          <v-btn
+            size="x-small"
+            color="primary lighten-4"
+            class="pa-0 px-2 mt-1"
+            @click="logout"
+            >خروج</v-btn
+          >
+        </v-list-item-subtitle>
       </v-list-item>
     </v-list>
 
     <v-list density="compact" v-if="isLogedIn">
       <v-list-subheader>عملیات کاربر</v-list-subheader>
+      <v-list-item active-color="primary" :to="{ name: 'user.jobs' }">
+        <template v-slot:prepend>
+          <v-icon icon="mdi-account-multiple"></v-icon>
+        </template>
+        <v-list-item-title>اعلام همکاری</v-list-item-title>
+      </v-list-item>
+      <v-list-item active-color="primary" :to="{ name: 'user.jobs.form' }">
+        <template v-slot:prepend>
+          <v-icon icon="mdi-account-multiple"></v-icon>
+        </template>
+        <v-list-item-title>ویرایش اطلاعات</v-list-item-title>
+      </v-list-item>
+      <v-list-item active-color="primary" :to="{ name: 'user.jobs.documents' }">
+        <template v-slot:prepend>
+          <v-icon icon="mdi-account-multiple"></v-icon>
+        </template>
+        <v-list-item-title>ارسال مدارک</v-list-item-title>
+      </v-list-item>
     </v-list>
 
     <v-list density="compact" v-if="isLogedIn && auth.isAdmin">

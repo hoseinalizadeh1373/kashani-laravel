@@ -13,6 +13,33 @@ class CrmUser
         $this->user = $user;
     }
 
+
+    public function register($data)
+    {
+        return $this->crmMethods->createNewContact($data);
+    }
+
+    public function update($data)
+    {
+        return $this->crmMethods->updateContact($data);
+    }
+
+
+    public function uploadDocument($fileBase64, $filename, $title)
+    {
+        $docid = $this->crmMethods->createDocument(
+            $this->user->crm_contact_id,
+            $fileBase64,
+            $filename,
+            $title
+        );
+
+        $this->crmMethods->addRelatedDoc($this->user->crm_contact_id, $docid);
+
+        return true;
+    }
+
+
     public function __call($name, $arguments)
     {
         $this->user->checkCrmContactId();
@@ -22,6 +49,8 @@ class CrmUser
                 $this->user->crm_contact_id,
                 ...$arguments
             );
+        } else {
+            throw new \Exception("Crm Method Not Found.");
         }
     }
 }

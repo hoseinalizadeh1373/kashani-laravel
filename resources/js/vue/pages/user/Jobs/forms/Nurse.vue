@@ -95,7 +95,9 @@
           </v-row>
           <v-row>
             <v-col>
+              شسی
               <v-select
+                @click="asd"
                 label="وضعیت تاهل"
                 v-model="contact.cf_1058"
                 density="compact"
@@ -172,7 +174,7 @@
                 label="سابقه محکومیت کیفری"
                 v-model="contact.cf_1205"
                 density="compact"
-                :items="[ 'دارم', 'ندارم']"
+                :items="['', 'دارم', 'ندارم']"
               />
             </v-col>
           </v-row>
@@ -324,7 +326,7 @@
                 label="وسیله نقلیه"
                 multiple
                 density="compact"
-                :items="['موتور', 'ماشین']"
+                :items="['بدون وسیله', 'موتور', 'ماشین']"
               />
             </v-col>
           </v-row>
@@ -444,13 +446,6 @@
               ></v-checkbox>
             </v-col>
           </v-row>
-          <v-row>
-            <v-col>
-              <v-btn color="primary" :loading="loading" @click="$emit('save', contact)"
-                >ذخیره</v-btn
-              >
-            </v-col>
-          </v-row>
         </card>
       </v-col>
     </v-row>
@@ -463,9 +458,9 @@ import { useAuthStore } from "@/store/auth";
 export default {
   name: "JobsForm",
 
-  props: ["contactInfo","loading"],
   data() {
     return {
+      loading: false,
       contact: {},
       terms: false,
     };
@@ -478,9 +473,16 @@ export default {
       return this.auth.user;
     },
   },
-  methods: {},
+  methods: {
+    async loadDocuments() {
+      this.loading = true;
+      const { data } = await axios.get(`/api/users/${this.user.id}/documents`);
+      this.documents = data;
+      this.loading = false;
+    },
+  },
   mounted() {
-    this.contact = this.contactInfo;
+    this.loadDocuments();
   },
 };
 </script>

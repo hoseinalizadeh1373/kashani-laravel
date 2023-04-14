@@ -20,7 +20,11 @@ trait UseVtigerUser
         if(!$this->crm_contact_id) {
             $crmMethods = new CrmMethods();
             $contact = $crmMethods->getContactByNationalCode($this->national_code);
-            if(!$contact) return false;
+
+            if(!$contact) {
+                return false;
+            }
+
             $this->crm_contact_id = $contact->id;
             $this->crm_contact_number = $contact->contact_no;
             $this->contact_type = $contact->type;
@@ -29,7 +33,8 @@ trait UseVtigerUser
         return true;
     }
 
-    public function getIsRegisteredInCrmAttribute(){
+    public function getIsRegisteredInCrmAttribute()
+    {
         return $this->checkCrmContactId();
     }
 

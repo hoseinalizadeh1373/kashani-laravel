@@ -17,7 +17,6 @@ class VtigerFormsController extends Controller
     
     public function form()
     {
-        dd(Auth::user('api'));
         try{
             $contact = (new CrmMethods())->getContactByNationalCode(Auth::user('api')->national_code);
             

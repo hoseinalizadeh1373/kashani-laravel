@@ -27,12 +27,13 @@ class ApiCall
                 "$address",
                 $this->getRequestOptions($params, $method)
             );
-
+            
         $contents = $res->getBody()->getContents();
         $contents = json_decode($contents);
         if (!$contents->success) {
             return false;
         }
+        
         return $contents->result;
     }
 

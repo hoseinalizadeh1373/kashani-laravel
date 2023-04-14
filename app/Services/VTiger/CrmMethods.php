@@ -27,33 +27,50 @@ class CrmMethods
         $this->api = new ApiCall();
     }
 
-    /**
-     * Undocumented function
-     *
-     * @return void
-     */
-    public function me()
-    {
-        return $this->api->call(
-            "default/me",
-        );
-    }
+
 
     /**
      * Undocumented function
      *
+     * @param [type] $data
      * @return void
      */
-    public function describe()
+    public function createNewContact($data)
     {
-        return $this->api->call(
-            "default/describe",
+
+        $data["assigned_user_id"] = "19x5";
+        $contact =  $this->api->call(
+            "default/create",
             [
-                 "elementType"=>"Contacts",
+                "elementType"=>"Contacts",
+                "element"=>json_encode($data),
+            ],
+            "POST"
+        );
+
+        return new CrmContact($contact);
+    }
+
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $contactNumber
+     * @return CrmContact
+     */
+    public function getContact($id)
+    {
+        $contact =  $this->api->call(
+            "default/query",
+            [
+                "query"=>"select * from Contacts where id = '$id';",
             ],
             "GET"
         );
+
+        return isset($contact[0]) ? (new CrmContact($contact[0])) : null;
     }
+
 
     /**
      * Undocumented function
@@ -72,24 +89,7 @@ class CrmMethods
             null
         );
 
-        return new CrmContact($contact[0] ?? null);
-    }
-
-    public function getRelatedDocuments($id = null)
-    {
-        $data = [
-            "id" => "12x235156",
-            "relatedType" => "Contacts",
-            "relatedLabel"=>"Contacts",
-
-        ];
-        $documents =  $this->api->call(
-            "default/retrieve_related",
-            $data,
-            "GET"
-        );
-
-        dd($documents);
+        return isset($contact[0]) ? new CrmContact($contact[0]) : null;
     }
 
 
@@ -111,6 +111,46 @@ class CrmMethods
 
         return isset($contact[0]) ? (new CrmContact($contact[0])) : null;
     }
+
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $data
+     * @return void
+     */
+    public function updateContact($data)
+    {
+
+        $contact =  $this->api->call(
+            "default/revise",
+            [
+                "element"=>json_encode($data),
+            ],
+            "POST"
+        );
+
+        return $contact;
+    }
+
+
+    public function getRelatedDocuments($id = null)
+    {
+        $data = [
+            "id" => "12x235156",
+            "relatedType" => "Contacts",
+            "relatedLabel"=>"Contacts",
+
+        ];
+        $documents =  $this->api->call(
+            "default/retrieve_related",
+            $data,
+            "GET"
+        );
+
+        dd($documents);
+    }
+
 
     /**
      * Undocumented function
@@ -152,15 +192,13 @@ class CrmMethods
     /**
      * Undocumented function
      *
-     * @param [type] $fileAddress
+     * @param [type] $fileBase64
      * @param [type] $contactId
      * @param [type] $name
      * @return void
      */
-    public function CreateDocument($fileAddress, $contactId, $filename, $title)
+    public function CreateDocument($contactId, $fileBase64, $filename, $title)
     {
-        $base64 = $this->toBase64($fileAddress);
-
         $data = [
             "element"=>json_encode([
                 "assigned_user_id"=>$contactId,
@@ -168,7 +206,7 @@ class CrmMethods
             ]),
             "file"=>json_encode([
                 "name" => $filename,
-                "content" => $base64,
+                "content" => $fileBase64,
             ])
         ];
 
@@ -210,26 +248,6 @@ class CrmMethods
 
     }
 
-    /**
-     * Undocumented function
-     *
-     * @param [type] $data
-     * @return void
-     */
-    public function updateContactInformation($data)
-    {
-
-        $contact =  $this->api->call(
-            "default/revise",
-            [
-                "element"=>json_encode($data),
-            ],
-            "POST"
-        );
-
-        return $contact;
-    }
-
 
     /**
      * Undocumented function
@@ -243,30 +261,6 @@ class CrmMethods
             "default/delete",
             [
                 "id"=>$contactId,
-            ],
-            "POST"
-        );
-
-        return new CrmContact($contact);
-    }
-
-    /**
-     * Undocumented function
-     *
-     * @param [type] $data
-     * @return void
-     */
-    public function createNewContact($data)
-    {
-
-        $data[config('Fields.contact_type')] = "مراقب";
-        $data["assigned_user_id"] = "19x5";
-
-        $contact =  $this->api->call(
-            "default/create",
-            [
-                "elementType"=>"Contacts",
-                "element"=>json_encode($data),
             ],
             "POST"
         );
@@ -311,7 +305,7 @@ class CrmMethods
              "GET"
          );
 
-         
+
 
      }
      public function getFile($id)
@@ -324,7 +318,7 @@ class CrmMethods
              "extended/file_retrieve_by_id",
              $data,
              "GET"
-         )[0] ??  null;         
+         )[0] ??  null;
 
      }
 
@@ -366,6 +360,33 @@ class CrmMethods
      }
 
 
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function me()
+    {
+        return $this->api->call(
+            "default/me",
+        );
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function describe()
+    {
+        return $this->api->call(
+            "default/describe",
+            [
+                 "elementType"=>"Contacts",
+            ],
+            "GET"
+        );
+    }
 
 }
 
