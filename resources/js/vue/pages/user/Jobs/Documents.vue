@@ -2,12 +2,12 @@
   <v-container>
     <v-row>
       <v-col>
-        <card title="بارگزاری سند" class="mb-5">
+        <card title="بارگزاری مدارک" class="mb-5">
           <v-card-text>
-            <uploader />
+            <uploader @uploaded="loadDocuments" />
           </v-card-text>
         </card>
-        <card :loading="loading" title="اسناد">
+        <card :loading="loading" title="مدارک بارگزاری شده">
           <v-table>
             <thead>
               <th></th>

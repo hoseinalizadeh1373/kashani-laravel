@@ -37,6 +37,12 @@
         </template>
         <v-list-item-title>ارسال مدارک</v-list-item-title>
       </v-list-item>
+      <v-list-item active-color="primary" :to="{ name: 'user.documents' }">
+        <template v-slot:prepend>
+          <v-icon icon="mdi-account-multiple"></v-icon>
+        </template>
+        <v-list-item-title>مشاهده پرونده پزشکی</v-list-item-title>
+      </v-list-item>
     </v-list>
 
     <v-list density="compact" v-if="isLogedIn && auth.isAdmin">
