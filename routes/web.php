@@ -5,6 +5,7 @@ use App\Http\Controllers\VtigerFormsController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Services\VTiger\CrmMethods;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 
 /* Route::get("/",function(){
@@ -15,6 +16,9 @@ use Illuminate\Support\Facades\Log;
     return view("home");
 }); */
 
+Route::get("installJwt",function(){
+    Artisan::call("jwt:secret");
+});
 
 Route::get("/testing",function(){
    $crm = new CrmMethods;
