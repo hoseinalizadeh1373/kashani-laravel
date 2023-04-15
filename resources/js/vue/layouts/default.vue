@@ -9,7 +9,7 @@
         :absolute="!drawer"
         class="appbar"
       >
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer" v-if="auth.isLogedIn"></v-app-bar-nav-icon>
         <a
           href="#"
           style="margin: 0; padding: 0"

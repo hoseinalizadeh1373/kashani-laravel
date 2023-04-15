@@ -2,18 +2,48 @@
 <v-container class="home">
     <v-row justify="center">
         <v-col>
-                <v-img src="/images/banner.png"></v-img>
+            <v-img src="/images/banner.png"></v-img>
         </v-col>
     </v-row>
-    
+
     <v-row>
         <v-col>
             <v-sheet>
-                کاربر گرامی، به سامانه مراقبت و نگهداری ثمین خوش آمدید.
-                <br>
-                <br>
-                <v-btn color="primary" title="مشاهده اسناد" :to="{name:'user.documents'}">مشاهده اسناد</v-btn>
-                <v-btn color="primary" title="همکاری" :to="{name:'user.jobs'}">همکاری</v-btn>
+                <div class="text-h4 text-center text-primary mb-15">کامل ترین خدمات پرستاری در منزل و آنلاین</div>
+                <v-alert elevation="3" border="bottom" color="blue-darken-4" rounded class="pa-10" v-if="!auth.isLogedIn">
+                    <div class="text-h6 text-center">
+                        جهت ورود به محدوده کاربری سامانه app.saminplus.com و اطلاع از خدمات مورد نظر خود روی کلید زیر کلیک کنید
+                    </div>
+                    
+                    <div class="text-center pt-5">
+                        <v-btn color="blue" prepend-icon="mdi-account" @click="auth.showLoginForm()" >ورود به محدوده کاربری</v-btn>
+                    </div>
+                </v-alert>
+
+                <v-alert v-if="auth.isLogedIn" elevation="3" border="bottom" color="blue-darken-4" rounded class="pa-10" >
+                    <div class="text-h6 text-center">
+                        به محدوده کاربری نرم افزار خدمات پرستاری ثمین خوش آمدید، لطفا از بخش منو سایت وارد بخش خدمات مورد نظر خود شوید.
+                    </div>
+                    <div class="text-center mt-5">
+                        <v-btn color="blue" :to="{name:'user.documents'}" class="me-1">مشاهده مستندات</v-btn>
+                        <v-btn color="blue" :to="{name:'user.jobs'}">همکاری با ثمین پلاس</v-btn>
+                    </div>
+                  
+                </v-alert>
+
+                <div class="text-h5 my-5">
+                    درباره مرکز خدمات پرستاری در منزل ثمین | ™Saminplus
+                    <div class="text-body-1 text-justify py-1 text-blue">
+                         به مرکز مشاوره و ارائه خدمات پرستاری در منزل ثمین خوش آمدید.
+                        مرکز خدمات پرستاری در منزل ثمین در راستای ارائه بهترین خدمات پرستاری، درمانی و مراقبتی از
+                        بیماران عزیز در بیمارستانها و منازل ایشان و همراهی و همدلی صمیمانه با بستگان بیماران تاسیس
+                        گردیده است. هدف کادر مجرب و با سابقه درخشان این مرکز جلب رضایت هموطنان نیازمند به خدمات بالینی
+                        است تا بیماران و سالمندان در کوتاه ترین زمان با حال عمومی خوب به جمع خانواده بازگردند.
+
+                        کلیه خدمات مرکز پرستاری در منزل ثمین در تمامی مناطق شهر تهران (شرق، غرب، جنوب، مرکز و شمال) با
+                        قیمت مناسب و با پرستاران مجرب بصورت شبانه روزی ارائه می‌گردد.
+                    </div>
+                </div>
             </v-sheet>
         </v-col>
     </v-row>
