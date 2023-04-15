@@ -60,6 +60,9 @@
           <v-container>
             <v-row justify="center">
               <v-col cols="12" sm="10" class="pa-0">
+                <div class="mb-3 text-green font-weight-bold">
+                  لطفا کد تایید ارسال شده به موبایل خود را وارد کنید:
+                </div>
                 <v-text-field
                   :error-messages="data.formErrors.token"
                   density="compact"
