@@ -40,7 +40,7 @@ const data = reactive({
   loginForm: null,
   formErrors: {},
   user: {
-    mobile: "09370331680",
+    mobile: "",
   },
 });
 
