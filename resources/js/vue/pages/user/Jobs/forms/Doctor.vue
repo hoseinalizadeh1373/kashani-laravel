@@ -2,7 +2,7 @@
   <v-container>
     <v-row justify="center">
       <v-col cols="12" sm="8" md="6" lg="4">
-        <card title="ویرایش اطلاعات پزشک">
+        <card title="ویرایش اطلاعات پزشک" v-if="false">
           <v-row>
             <v-col>
               <v-text-field

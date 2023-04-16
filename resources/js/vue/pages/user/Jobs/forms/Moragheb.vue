@@ -2,7 +2,7 @@
   <v-container>
     <v-row justify="center">
       <v-col cols="12" sm="8" md="6" lg="4">
-        <v-form @submit.prevent="submit" validate-on="submit">
+        <v-form @submit.prevent="submit" >
           <card title="ویرایش اطلاعات مراقب">
             <v-row>
               <v-col>
@@ -554,7 +554,6 @@ export default {
       const results = await event;
       this.hasErrors = !results.valid;
       if (!results.valid) return;
-
       this.$emit("save", this.contact);
     },
   },

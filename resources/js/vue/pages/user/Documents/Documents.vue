@@ -13,7 +13,6 @@
                 <td>{{ doc.createdtime }}</td>
                 <td>
                   <v-btn
-                    size="x-small"
                     @click="
                       showDoc = true;
                       selectedDoc = doc;

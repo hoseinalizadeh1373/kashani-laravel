@@ -5,7 +5,7 @@
         <v-breadcrumbs
           v-if="pages[route.name]"
           :items="breadItems"
-          color="blue"
+          color="primary"
           active-color="grey"
         >
           <template v-slot:prepend>
@@ -24,95 +24,52 @@ export default {
   data: () => {
     return {
       pages: {
-        history: [
+        "user.jobs": [
           {
             title: "صفحه اصلی",
             disabled: false,
             to: "/",
           },
           {
-            title: "تاریخچه تماس ها",
+            title: "همکاری با ثمین",
             disabled: true,
-            to: "history",
+            to: "/user/jobs",
           },
         ],
-        advisor: [
+        "user.jobs.form": [
           {
             title: "صفحه اصلی",
             disabled: false,
             to: "/",
+          },
+          {
+            title: "ویرایش اطلاعات",
+            disabled: true,
+            to: "/user/jobs/form",
           },
         ],
-        "admin.advisors": [
+        "user.jobs.documents": [
           {
             title: "صفحه اصلی",
             disabled: false,
             to: "/",
           },
           {
-            title: "مدیریت مشاورین",
+            title: "ارسال مدارک",
             disabled: true,
-            to: "/admin/advisors",
+            to: "/user/jobs/documents",
           },
         ],
-        "admin.users": [
+        "user.documents": [
           {
             title: "صفحه اصلی",
             disabled: false,
             to: "/",
           },
           {
-            title: "مدیریت کاربران",
+            title: "مشاهده اسناد",
             disabled: true,
-            to: "/admin/users",
-          },
-        ],
-        "admin.categories": [
-          {
-            title: "صفحه اصلی",
-            disabled: false,
-            to: "/",
-          },
-          {
-            title: "مدیریت دسته بندی ها",
-            disabled: true,
-            to: "/admin/categories",
-          },
-        ],
-        "admin.options": [
-          {
-            title: "صفحه اصلی",
-            disabled: false,
-            to: "/",
-          },
-          {
-            title: "تنظیمات",
-            disabled: true,
-            to: "/admin/options",
-          },
-        ],
-        "admin.calls": [
-          {
-            title: "صفحه اصلی",
-            disabled: false,
-            to: "/",
-          },
-          {
-            title: "گزارش تماس ها",
-            disabled: true,
-            to: "/admin/calls",
-          },
-        ],
-        wallet: [
-          {
-            title: "صفحه اصلی",
-            disabled: false,
-            to: "/",
-          },
-          {
-            title: "کیف پول",
-            disabled: true,
-            to: "/wallet",
+            to: "/user/documents",
           },
         ],
       },

@@ -28,13 +28,14 @@
           @update:modelValue="imageSelected"
           label="اینجا کلیک کنید"
           :rules="rules.file"
+          hint="فایل مورد نظر باید jpg یا  png باشد و از 150 کیلو بایت بیشتر نباشد"
         >
         </v-file-input>
       </v-col>
     </v-row>
     <v-row>
       <v-col align="left">
-        <v-btn type="submit" :loading="loading" color="primary" variant="tonal"
+        <v-btn type="submit" :loading="loading" color="primary" variant="tonal" size="large"
           >بارگزاری</v-btn
         >
       </v-col>

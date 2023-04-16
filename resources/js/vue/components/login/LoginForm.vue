@@ -47,6 +47,7 @@
                   @click="requestToken"
                   :loading="data.loading"
                   :disabled="data.loading"
+                  size="large"
                 >
                   ورود
                 </v-btn>

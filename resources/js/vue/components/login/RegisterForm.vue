@@ -76,6 +76,7 @@
                 @click="register"
                 :loading="data.loading"
                 :disabled="data.loading"
+                  size="large"
               >
                 ثبت نام
               </v-btn>
