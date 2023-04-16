@@ -1,6 +1,12 @@
 import { createApp } from 'vue';
 // import { createMetaManager } from 'vue-meta'
 
+
+import VueMask from '@devindex/vue-mask'; 
+
+
+
+
 import App from './App.vue'
 
 
@@ -11,13 +17,16 @@ const app = createApp(App)
 // import store from './store'
 import pinia from "./store"
 
+
 app.use(router)
     // .use(store)
     .use(vuetify)
     .use(pinia)
+    .use(VueMask)
     // .use(createMetaManager()) 
     .mount('#app');
 
+    
 
 
 

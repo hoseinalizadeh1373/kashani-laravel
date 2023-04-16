@@ -16,55 +16,59 @@ use Illuminate\Support\Facades\Log;
     return view("home");
 }); */
 
-Route::get("installJwt",function(){
+Route::get("installJwt", function () {
     Artisan::call("jwt:secret");
 });
 
-Route::get("/testing",function(){
-   $crm = new CrmMethods;
-   $des =  $crm->describe("default/create");
-   $des = collect($des->fields);
-   dump($des->where("editable","=",false))->dd();
-   $des->map(function($item){
-    dump($item->mandatory);
-   });
+Route::get("migrate-fresh", function () {
+    Artisan::call("migrate:fresh");
+});
+
+Route::get("/testing", function () {
+    $crm = new CrmMethods();
+    $des =  $crm->describe("default/create");
+    $des = collect($des->fields);
+    dump($des->where("editable", "=", false))->dd();
+    $des->map(function ($item) {
+        dump($item->mandatory);
+    });
 
 });
 
 
-Route::get("webGaurdLogin/{user}",function(User $user){
+Route::get("webGaurdLogin/{user}", function (User $user) {
     Log::alert("gasadasdsad");
     auth('web')->login($user);
     return true;
 })->name('webGaurdLogin');
 
 // crm entrance
-Route::post("/crme/checkContact",[App\Http\Controllers\CrmEntranceController::class,"checkContact"])->middleware(["guest"]);
-Route::get("/crme/{token}",[App\Http\Controllers\CrmEntranceController::class,"welcome"])->middleware(["guest"]);
+Route::post("/crme/checkContact", [App\Http\Controllers\CrmEntranceController::class,"checkContact"])->middleware(["guest"]);
+Route::get("/crme/{token}", [App\Http\Controllers\CrmEntranceController::class,"welcome"])->middleware(["guest"]);
 
-Route::middleware("auth")->prefix("client")->as("client.")->group(function(){
-    Route::middleware("fullVerified")->group(function(){
+Route::middleware("auth")->prefix("client")->as("client.")->group(function () {
+    Route::middleware("fullVerified")->group(function () {
 
-        Route::get("/form",[VtigerFormsController::class,"form"])->name("form");    
+        Route::get("/form", [VtigerFormsController::class,"form"])->name("form");
 
-        Route::post("/update",[VtigerFormsController::class,"update"])->name("update");    
+        Route::post("/update", [VtigerFormsController::class,"update"])->name("update");
 
     });
 });
 
-Route::get("/test","TestController@test");
+Route::get("/test", "TestController@test");
 
-Route::middleware("throttle:sendVerifyCodeLimit")->group(function(){
-    Route::get("/mobile/login",[SmsLoginController::class,"login"]);
+Route::middleware("throttle:sendVerifyCodeLimit")->group(function () {
+    Route::get("/mobile/login", [SmsLoginController::class,"login"]);
 });
 
-Route::get("/mobile/check",[SmsLoginController::class,"checkVerification"]);
+Route::get("/mobile/check", [SmsLoginController::class,"checkVerification"]);
 
-Route::post("testupload",[VtigerFormsController::class,"uploadPic"]);
-Route::post("testuploadprofile",[VtigerFormsController::class,"uploadPicProfile"]);
-Route::post("createDocument",[VtigerFormsController::class,"UploadCreateDocument"]);
-Route::get("addrelated",[VtigerFormsController::class,"addRelated"]);
-Route::get("getrelated",[VtigerFormsController::class,"getrelated"]);
+Route::post("testupload", [VtigerFormsController::class,"uploadPic"]);
+Route::post("testuploadprofile", [VtigerFormsController::class,"uploadPicProfile"]);
+Route::post("createDocument", [VtigerFormsController::class,"UploadCreateDocument"]);
+Route::get("addrelated", [VtigerFormsController::class,"addRelated"]);
+Route::get("getrelated", [VtigerFormsController::class,"getrelated"]);
 
 Auth::routes();
 

@@ -38,7 +38,6 @@ router.beforeEach(async (to, from, next) => {
         console.log(err)
     }
 
-    console.log("asdasdas",to.meta , auth.isLogedIn)
 
     if (to.meta.requireAuth && !auth.isLogedIn) {
         console.log("router ... ", to.fullPath)
