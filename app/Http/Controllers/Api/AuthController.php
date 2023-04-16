@@ -26,26 +26,7 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['login','logout', 'requestToken', 'loginWithToken', 'register']]);
     }
 
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function login(Request $request)
-    {
-        $this->validate($request, [
-            "mobile"=>"required",
-            "password"=>"required",
-        ]);
-
-        $credentials = request(['mobile', 'password']);
-
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        return $this->respondWithToken($token);
-    }
+   
 
     /**
      *
@@ -57,6 +38,8 @@ class AuthController extends Controller
         $this->validate($request, [
             "mobile"=>"required|unique:users",
             "national_code"=>['required','unique:users',new BelongsToNationalCode()],
+            "firstname"=>"required",
+            "lastname"=>"required",
         ]);
 
         $user = User::create(request(['national_code','mobile','firstname','lastname']));
