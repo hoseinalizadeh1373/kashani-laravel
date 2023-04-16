@@ -20,6 +20,7 @@
         "vue": "^3.2.37"
     },
     "dependencies": {
+        "@devindex/vue-mask": "^2.0.3",
         "@hannanmiah/light-editor": "^0.0.18",
         "@vue/composition-api": "^1.7.1",
         "@vueup/vue-quill": "^1.1.1",
