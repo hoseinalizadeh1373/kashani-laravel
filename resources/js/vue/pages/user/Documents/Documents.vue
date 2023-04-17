@@ -38,7 +38,7 @@
 
 <script>
 import { useAuthStore } from "@/store/auth";
-import Document from "./Document.vue";
+import Document from "@/components/ViewDocument.vue";
 
 export default {
   name: "documents",
