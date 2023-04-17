@@ -28,12 +28,27 @@
           @update:modelValue="imageSelected"
           label="اینجا کلیک کنید"
           :rules="rules.file"
-          hint="فایل مورد نظر باید jpg یا  png باشد و از 150 کیلو بایت بیشتر نباشد"
+          hint="فایل مورد نظر باید jpg یا  png باشد و از 200 کیلو بایت بیشتر نباشد"
         />
-        <a href="https://b2n.ir/pic-comp">برای کم کردن حجم فایل اینجا کلیک کنید.</a>
+        <v-alert title="توجه کنید!" variant="tonal" color="blue" type="info">
+          حداکثر حجم فایل قابل بارگزاری 200کیلوبایت است
+
+          <br />
+          در صورت لزوم از لینک زیر جهت کم کردن حجم عکس استفاده کنید.
+          <br />
+
+          <div class="text-center py-3">
+            <v-btn
+              href="https://b2n.ir/pic-comp"
+              target="_blank"
+              prepend-icon="mdi-image"
+              variant="tonal"
+            >
+              کم کردن حجم عکس
+            </v-btn>
+          </div>
+        </v-alert>
       </v-col>
-
-
     </v-row>
     <v-row>
       <v-col align="left">
@@ -73,8 +88,8 @@ export default {
             ["image/jpeg", "image/png"].includes(v[0].type) ||
             "فقط فایل های jpg یا png مجاز هستند",
           (v) =>
-            v[0].size < 1024 * 160 ||
-            "فایل انتخابی نباید بیشتر از 160 کیلو باید باشد",
+            v[0].size < 1024 * 200 ||
+            "فایل انتخابی نباید بیشتر از 200 کیلو باید باشد",
         ],
       },
     };
