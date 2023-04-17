@@ -6,7 +6,7 @@
           <card :loading="loading" title="مشاهده سند">
             <v-card-text v-if="doc">
               <v-container>
-                <h4>{{ document.notes_title }}</h4>
+                <h4 class="mb-2">عنوان سند: {{ document.notes_title }}</h4>
                 <v-img :src="docImage" max-height="300" v-if="isImage" />
                 <v-btn  block v-if="isPdf" color="primary" :href="docPdf" :download="document.notes_title + '.pdf'">دانلود سند pdf</v-btn>
               </v-container>
@@ -57,10 +57,10 @@ export default {
       return "data:application/octet-stream;base64, " + this.doc.filepath;
     },
     isImage() {
-      return ["image/jpeg", "image/png"].includes(this.document.filetype);
+      return ["image/jpeg", "image/png"].includes(this.doc.filetype);
     },
     isPdf() {
-      return this.document.filetype == "application/pdf";
+      return this.doc.filetype == "application/pdf";
     },
   },
   methods: {
