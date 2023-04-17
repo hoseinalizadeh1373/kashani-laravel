@@ -23,7 +23,7 @@
       </template>
       <v-divider></v-divider>
       <v-card-text v-if="data.mode == 'enterMobile'">
-        <v-form v-model="data.loginForm">
+        <v-form @submit.prevent="requestToken">
           <v-container>
             <v-row justify="center">
               <v-col cols="12" sm="10" class="pa-0">
@@ -57,7 +57,7 @@
         </v-form>
       </v-card-text>
       <v-card-text v-if="data.mode == 'enterToken'">
-        <v-form v-model="data.loginForm">
+        <v-form @submit.prevent="loginWithToken">
           <v-container>
             <v-row justify="center">
               <v-col cols="12" sm="10" class="pa-0">
@@ -131,12 +131,26 @@
       <v-divider></v-divider>
       <v-card-text>
         <v-container>
+          <v-row v-if="data.helloMessage">
+            <v-col>
+              <v-alert type="success">{{ data.helloMessage }} </v-alert>
+            </v-col>
+          </v-row>
           <v-row justify="center">
             <v-col cols="12" sm="10"> کاربر: {{ auth.user.name }} </v-col>
             <v-col cols="12" sm="10"> موبایل: {{ auth.user.mobile }} </v-col>
           </v-row>
           <v-row justify="center">
             <v-col cols="12" align="left">
+              <v-btn
+                color="green"
+                variant="tonal"
+                @click="auth.hideLoginform()"
+                :disabled="data.loading"
+                class="me-1"
+              >
+                بسیار خب
+              </v-btn>
               <v-btn
                 color="primary"
                 variant="tonal"
@@ -181,6 +195,7 @@ const data = reactive({
     mobile: "",
     token: "",
   },
+  helloMessage: null,
 });
 
 function requestToken() {
@@ -210,6 +225,13 @@ function requestToken() {
     });
 }
 
+function closeDialog(time) {
+  console.log("close ", time);
+  setTimeout(() => {
+    auth.hideLoginform();
+  }, time * 1000);
+}
+
 function loginWithToken() {
   data.loading = true;
   data.formErrors = {};
@@ -218,13 +240,13 @@ function loginWithToken() {
     .then(async (res) => {
       console.log("i2n", intendedUrl);
       const user = await auth.fetchUser();
-        router.push({ path: "/" });
+      router.push({ path: "/" });
       if (intendedUrl !== "") {
         console.log("in", intendedUrl);
         router.push({ path: "/" });
       }
-      alert("با موفقیت وارد شده اید");
-      auth.hideLoginform();
+      closeDialog(2);
+      data.helloMessage = "با موفقیت وارد شدید";
     })
     .catch(function (error) {
       if (error.response) {
