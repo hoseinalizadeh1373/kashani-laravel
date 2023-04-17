@@ -20,7 +20,7 @@
     "src": "resources/fonts/yekan.woff"
   },
   "resources/js/app.css": {
-    "file": "assets/app-884ca1f3.css",
+    "file": "assets/app-35b62484.css",
     "src": "resources/js/app.css"
   },
   "resources/js/app.js": {
@@ -31,9 +31,9 @@
       "assets/materialdesignicons-webfont-a58ecb54.ttf"
     ],
     "css": [
-      "assets/app-884ca1f3.css"
+      "assets/app-35b62484.css"
     ],
-    "file": "assets/app-b06b8c7c.js",
+    "file": "assets/app-0a3d2ba5.js",
     "isEntry": true,
     "src": "resources/js/app.js"
   },
