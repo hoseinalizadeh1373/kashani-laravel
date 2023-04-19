@@ -17,13 +17,17 @@ use Illuminate\Support\Facades\Log;
 }); */
 
 Route::get("installJwt", function () {
-    Artisan::call("jwt:secret");
+    if(! app()->isProduction()) {
+        Artisan::call("jwt:secret");
+    }
 });
 
 Route::get("migrate-fresh", function () {
-    define('STDIN',fopen("php://stdin","r"));
-    $res = Artisan::call("migrate:fresh");
-    dd($res);
+    if(! app()->isProduction()) {
+        define('STDIN', fopen("php://stdin", "r"));
+        $res = Artisan::call("migrate:fresh");
+        dd($res);
+    }
 });
 
 Route::get("/testing", function () {
