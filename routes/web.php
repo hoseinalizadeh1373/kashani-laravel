@@ -21,7 +21,8 @@ Route::get("installJwt", function () {
 });
 
 Route::get("migrate-fresh", function () {
-    Artisan::call("migrate:fresh");
+    $res = Artisan::call("migrate:fresh");
+    dd($res);
 });
 
 Route::get("/testing", function () {
