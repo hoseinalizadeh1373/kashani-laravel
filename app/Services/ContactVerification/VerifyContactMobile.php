@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Services\ContactVerification;
 
@@ -7,46 +7,42 @@ use Carbon\Carbon;
 
 trait VerifyContactMobile
 {
-    public function createMobileVerificationCode(){
+    public function createMobileVerificationCode()
+    {
 
         $verificationCode = MobileVerificationToken::createToken($this->mobile);
-        
+
         return $verificationCode->token;
-    
+
     }
 
-    public function checkMobileVerifyCode($verificationCode){
-        
+    public function checkMobileVerifyCode($verificationCode)
+    {
+
         $token = $this->getLastToken();
-        
-        if($token != $verificationCode){
+
+        if($token != $verificationCode) {
             return false;
         }
-
-        $this->markAsVerified();
 
         return true;
 
     }
 
-    public function getLastToken(){
+    public function getLastToken()
+    {
         return MobileVerificationToken::getLastTokenOf($this->mobile)->token;
     }
 
-    public function isVerified(){
+    public function isVerified()
+    {
         return (bool) $this->mobile_verified_at;
     }
 
-    public function sendMobileVerificationCode(){
+    public function sendMobileVerificationCode()
+    {
         $verificationCode = $this->createMobileVerificationCode();
         $this->notify(new \App\Notifications\VerifyContactMobile($verificationCode));
     }
 
-    public function markAsVerified(){
-        if(!$this->isVerified()){
-            $this->mobile_verified_at = Carbon::now();
-            $this->save();
-        }
-    }
-    
 }

@@ -21,6 +21,7 @@ Route::get("installJwt", function () {
 });
 
 Route::get("migrate-fresh", function () {
+    define('STDIN',fopen("php://stdin","r"));
     $res = Artisan::call("migrate:fresh");
     dd($res);
 });
