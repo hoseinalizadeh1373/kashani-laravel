@@ -42,12 +42,6 @@ Route::get("/testing", function () {
 });
 
 
-Route::get("webGaurdLogin/{user}", function (User $user) {
-    Log::alert("gasadasdsad");
-    auth('web')->login($user);
-    return true;
-})->name('webGaurdLogin');
-
 // crm entrance
 Route::post("/crme/checkContact", [App\Http\Controllers\CrmEntranceController::class,"checkContact"])->middleware(["guest"]);
 Route::get("/crme/{token}", [App\Http\Controllers\CrmEntranceController::class,"welcome"])->middleware(["guest"]);
@@ -62,7 +56,6 @@ Route::middleware("auth")->prefix("client")->as("client.")->group(function () {
     });
 });
 
-Route::get("/test", "TestController@test");
 
 Route::middleware("throttle:sendVerifyCodeLimit")->group(function () {
     Route::get("/mobile/login", [SmsLoginController::class,"login"]);
