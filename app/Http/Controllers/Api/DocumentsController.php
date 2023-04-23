@@ -11,7 +11,7 @@ class DocumentsController extends Controller
 {
     public function list(User $user)
     {
-        return $user->crm->GetDocuments();
+        return $user->crm->getDocuments();
         /*   $crm = new CrmMethods();
           $contact = $crm->getContactByNationalCode($user->national_code);
           $docs = $crm->getDocuments($contact->id);
