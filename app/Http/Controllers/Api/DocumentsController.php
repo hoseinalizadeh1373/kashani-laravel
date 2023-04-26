@@ -9,9 +9,16 @@ use Illuminate\Http\Request;
 
 class DocumentsController extends Controller
 {
-    public function list(User $user)
+    public function relatedDocumentsList(User $user)
     {
-        return $user->crm->getDocuments();
+        $relatedFolders = config("settings.documents.contact_related_folders");
+        return $user->crm->getRelatedDocuments($relatedFolders);
+    }
+
+    public function uploadedDocumentsList(User $user)
+    {
+        $uploadFolderId = config("settings.documents.upload_folder");
+        return $user->crm->getRelatedDocuments($uploadFolderId);
         /*   $crm = new CrmMethods();
           $contact = $crm->getContactByNationalCode($user->national_code);
           $docs = $crm->getDocuments($contact->id);

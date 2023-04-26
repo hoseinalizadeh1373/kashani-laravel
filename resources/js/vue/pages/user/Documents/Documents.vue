@@ -63,7 +63,7 @@ export default {
   methods: {
     async loadDocuments() {
       this.loading = true;
-      const { data } = await axios.get(`/api/users/${this.user.id}/documents`);
+      const { data } = await axios.get(`/api/users/${this.user.id}/documents/related`);
       this.documents = data;
       this.loading = false;
     },

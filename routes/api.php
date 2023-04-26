@@ -36,7 +36,8 @@ Route::group([
     'middleware' => ['api',"auth:api"],
     'namespace'=> "\App\Http\Controllers\Api",
  ], function ($router) {
-     Route::get('users/{user}/documents', 'DocumentsController@list');
+     Route::get('users/{user}/documents/related', 'DocumentsController@relatedDocumentsList');
+     Route::get('users/{user}/documents/uploaded', 'DocumentsController@uploadedDocumentsList');
      Route::post('users/{user}/documents/upload', 'DocumentsController@upload');
      Route::get('users/{user}/documents/{doc}', 'DocumentsController@getDoc');
      Route::get('users/{user}/crmInfo', 'ContactController@getInformation');

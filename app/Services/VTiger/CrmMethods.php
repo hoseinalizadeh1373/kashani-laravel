@@ -27,8 +27,6 @@ class CrmMethods
         $this->api = new ApiCall();
     }
 
-
-
     /**
      * Undocumented function
      *
@@ -133,62 +131,6 @@ class CrmMethods
         return $contact;
     }
 
-
-    public function getRelatedDocuments($id = null)
-    {
-        $data = [
-            "id" => "12x235156",
-            "relatedType" => "Contacts",
-            "relatedLabel"=>"Contacts",
-
-        ];
-        $documents =  $this->api->call(
-            "default/retrieve_related",
-            $data,
-            "GET"
-        );
-
-        dd($documents);
-    }
-
-
-    /**
-     * Undocumented function
-     *
-     * @param [type] $fileAddress
-     * @param [type] $contactId
-     * @return void
-     */
-    public function uploadProfilePic($fileAddress, $contactId)
-    {
-
-        $base64 = $this->toBase64($fileAddress);
-        $ext = $this->getExtension($fileAddress);
-
-        $data= [
-            "record"=> $contactId,
-            "files"=>json_encode(
-                [
-                    [
-                        "name"=>"personal_image.".$ext,
-                        "content" =>$base64
-                    ]
-                ]
-            )
-
-        ];
-
-        $result = $this->api->call(
-            "extended/uploadcontactsimage",
-            $data,
-            "POST"
-        );
-
-        return true;
-
-    }
-
-
     /**
      * Undocumented function
      *
@@ -199,10 +141,11 @@ class CrmMethods
      */
     public function CreateDocument($contactId, $fileBase64, $filename, $title)
     {
+        
         $data = [
             "element"=>json_encode([
                 "assigned_user_id"=>$contactId,
-                "notes_title" => $title
+                "notes_title" => $title,
             ]),
             "file"=>json_encode([
                 "name" => $filename,
@@ -248,6 +191,48 @@ class CrmMethods
 
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param Integer $id
+     * @param Array $folders
+     * @return void
+     */
+    public function getRelatedDocuments($id, $folders = null)
+    {
+        $data = [
+            "query" => "select * from Documents",
+            "id" => $id,
+            "relatedLabel"=>"Documents",
+        ];
+
+        $documents = $this->api->call(
+            "default/query_related",
+            $data,
+            "GET"
+        );
+
+        return $folders !== null
+            ? collect($documents)->whereIn("folderid", $folders)->toArray()
+            : $documents;
+
+    }
+
+
+    public function getFile($id)
+    {
+        $data = [
+            "file_id" => $id,
+        ];
+
+        return $this->api->call(
+            "extended/file_retrieve_by_id",
+            $data,
+            "GET"
+        )[0] ??  null;
+
+    }
+
 
     /**
      * Undocumented function
@@ -272,6 +257,44 @@ class CrmMethods
      * Undocumented function
      *
      * @param [type] $fileAddress
+     * @param [type] $contactId
+     * @return void
+     */
+    public function uploadProfilePic($fileAddress, $contactId)
+    {
+
+        $base64 = $this->toBase64($fileAddress);
+        $ext = $this->getExtension($fileAddress);
+
+        $data= [
+            "record"=> $contactId,
+            "files"=>json_encode(
+                [
+                    [
+                        "name"=>"personal_image.".$ext,
+                        "content" =>$base64
+                    ]
+                ]
+            )
+
+        ];
+
+        $result = $this->api->call(
+            "extended/uploadcontactsimage",
+            $data,
+            "POST"
+        );
+
+        return true;
+
+    }
+
+
+
+    /**
+     * Undocumented function
+     *
+     * @param [type] $fileAddress
      * @return void
      */
     public function getExtension($fileAddress)
@@ -291,36 +314,7 @@ class CrmMethods
     }
 
 
-     public function getDocuments($id)
-     {
-         $data = [
-             "query" => "select * from Documents ",
-             "id" => $id,
-             "relatedLabel"=>"Documents",
-         ];
 
-         return $this->api->call(
-             "default/query_related",
-             $data,
-             "GET"
-         );
-
-
-
-     }
-     public function getFile($id)
-     {
-         $data = [
-             "file_id" => $id,
-         ];
-
-         return $this->api->call(
-             "extended/file_retrieve_by_id",
-             $data,
-             "GET"
-         )[0] ??  null;
-
-     }
 
      public function retrieve_related()
      {
@@ -342,6 +336,8 @@ class CrmMethods
          dd($res);
 
      }
+
+
      public function getImage($imageid)
      {
          $data = [
