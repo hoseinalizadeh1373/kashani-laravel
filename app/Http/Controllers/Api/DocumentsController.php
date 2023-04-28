@@ -40,7 +40,7 @@ class DocumentsController extends Controller
         
         $fileBase64 = base64_encode(file_get_contents($file->path()));
 
-        $user->crm->uploadDocument($fileBase64, $filename, $docTitle);
+        $user->crm->uploadDocument($fileBase64, $filename, $docTitle, config("settings.documents.uploadid"));
         
         return response()->json(['success'=>'you']);
         // return redirect('/client/form');

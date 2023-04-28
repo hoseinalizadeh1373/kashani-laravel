@@ -139,14 +139,20 @@ class CrmMethods
      * @param [type] $name
      * @return void
      */
-    public function CreateDocument($contactId, $fileBase64, $filename, $title)
+    public function CreateDocument($contactId, $fileBase64, $filename, $title, $folderId=null)
     {
+
+        $element = [
+            "assigned_user_id"=>$contactId,
+            "notes_title"=>$title,
+        ];
+
+        if($folderId) {
+            $element["folderid"]=$folderId;
+        }
         
         $data = [
-            "element"=>json_encode([
-                "assigned_user_id"=>$contactId,
-                "notes_title" => $title,
-            ]),
+            "element"=>json_encode($element),
             "file"=>json_encode([
                 "name" => $filename,
                 "content" => $fileBase64,

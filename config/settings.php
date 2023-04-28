@@ -11,6 +11,10 @@ return [
             "22x11",
         ],
 
-        "upload_folder"=>"22x13"
+        "upload_folder"=>"22x13",
+
+        "uploadid"=>"13",
+
+
     ]
 ];
