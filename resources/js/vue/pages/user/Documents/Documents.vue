@@ -3,7 +3,38 @@
     <v-row>
       <v-col>
         <card :loading="loading" title="اسناد">
-          <v-table>
+          <v-list>
+            <template
+              v-for="(documentsGroup, folderid) in documents"
+              :key="folderid"
+            >
+              <v-list-subheader>
+                {{ folders[folderid] }}
+              </v-list-subheader>
+              <v-list-item
+                v-for="doc in documentsGroup"
+                :key="doc"
+                @click="
+                  showDoc = true;
+                  selectedDoc = doc;
+                "
+                border="bottom"
+              >
+                <v-list-item-title>
+                  {{ doc.notes_title }}
+                </v-list-item-title>
+                <!-- <template v-slot:append>
+                  <v-btn
+                    color="grey-lighten-1"
+                    icon="mdi-information"
+                    variant="text"
+                  ></v-btn>
+                </template> -->
+              </v-list-item>
+              <v-divider /> 
+            </template>
+          </v-list>
+          <v-table v-if="false">
             <thead>
               <th></th>
             </thead>
@@ -31,8 +62,12 @@
     <document
       v-if="showDoc"
       :document="selectedDoc"
-      @cancel="showDoc=false;selectedDoc=null"
-    >asdasd</document>
+      @cancel="
+        showDoc = false;
+        selectedDoc = null;
+      "
+      >asdasd</document
+    >
   </v-container>
 </template>
 
@@ -50,6 +85,14 @@ export default {
       documents: [],
       showDoc: false,
       selectedDoc: null,
+      folders: {
+        "22x4": "ریپورت هولتر ضربان",
+        "22x5": "ریپورت نوار مغز",
+        "22x6": "ریپورت هولتر فشار خون",
+        "22x7": "قرارداد مراقبت",
+        "22x10": "جواب آزمایشات",
+        "22x11": "جواب تصویربرداری",
+      },
     };
   },
   computed: {
@@ -63,8 +106,12 @@ export default {
   methods: {
     async loadDocuments() {
       this.loading = true;
-      const { data } = await axios.get(`/api/users/${this.user.id}/documents/related`);
+      const { data } = await axios.get(
+        `/api/users/${this.user.id}/documents/related`
+      );
       this.documents = data;
+      this.documents = _.groupBy(this.documents, "folderid");
+      console.log(this.documents);
       this.loading = false;
     },
   },
