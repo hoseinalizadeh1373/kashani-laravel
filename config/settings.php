@@ -3,6 +3,7 @@
 return [
     "documents"=>[
         "contact_related_folders"=>[
+            "22x3",
             "22x4",
             "22x5",
             "22x6",
