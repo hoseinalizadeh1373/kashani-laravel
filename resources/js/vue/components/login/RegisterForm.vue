@@ -76,7 +76,7 @@
                 @click="register"
                 :loading="data.loading"
                 :disabled="data.loading"
-                  size="large"
+                size="large"
               >
                 ثبت نام
               </v-btn>
@@ -88,6 +88,9 @@
         <v-container>
           <v-row justify="center">
             <v-col cols="12" sm="10" class="pa-0" hide-details>
+              <div class="mb-3 text-green font-weight-bold">
+                لطفا کد تایید ارسال شده به موبایل خود را وارد کنید:
+              </div>
               <v-text-field
                 :error-messages="data.formErrors.token"
                 label="کد تایید"
@@ -130,6 +133,64 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+    <v-card v-if="auth.isLogedIn" prepend-icon="mdi-account">
+      <template v-slot:title>
+        <v-container>
+          <v-row>
+            <v-col class="d-flex pa-0">
+              اطلاعات کاربر
+              <v-spacer> </v-spacer>
+              <v-btn
+                color="gray"
+                @click="auth.hideLoginform()"
+                fab
+                elevation="0"
+                icon="mdi-window-close"
+                class="ma-0 pa-0"
+                size="x-small"
+              >
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </template>
+      <v-divider></v-divider>
+      <v-card-text>
+        <v-container>
+          <v-row v-if="data.helloMessage">
+            <v-col>
+              <v-alert type="success">{{ data.helloMessage }} </v-alert>
+            </v-col>
+          </v-row>
+          <v-row justify="center">
+            <v-col cols="12" sm="10"> کاربر: {{ auth.user.name }} </v-col>
+            <v-col cols="12" sm="10"> موبایل: {{ auth.user.mobile }} </v-col>
+          </v-row>
+          <v-row justify="center">
+            <v-col cols="12" align="left">
+              <v-btn
+                color="green"
+                variant="tonal"
+                @click="auth.hideLoginform()"
+                :disabled="data.loading"
+                class="me-1"
+              >
+                بسیار خب
+              </v-btn>
+              <v-btn
+                color="primary"
+                variant="tonal"
+                @click="logout()"
+                :loading="data.loading"
+                :disabled="data.loading"
+              >
+                خروج کاربر
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-card-text>
+    </v-card>
   </div>
 </template>
 <script setup>
@@ -137,14 +198,15 @@ import { reactive, computed, onMounted, defineEmits } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useAuthStore } from "@/store/auth";
 
-const emit = defineEmits(['changeMode'])
-
+const emit = defineEmits(["changeMode"]);
+const router = useRouter();
 const auth = useAuthStore();
 
 const data = reactive({
   loading: false,
   mode: "enterData",
   formErrors: {},
+  helloMessage: null,
   user: {
     mobile: "",
     national_code: "",
@@ -161,7 +223,7 @@ function register() {
   auth
     .register(data.user)
     .then(async (res) => {
-      data.mode = "enterToken"
+      data.mode = "enterToken";
     })
     .catch((error) => {
       if (error.response.status == 422) {
@@ -173,18 +235,30 @@ function register() {
     });
 }
 
+function closeDialog(time) {
+  setTimeout(() => {
+    auth.hideLoginform();
+  }, time * 1000);
+}
+
 function loginWithToken() {
   data.loading = true;
   data.formErrors = {};
   auth
     .loginWithToken(data.user)
     .then(async (res) => {
+      console.log("loged in")
       const user = await auth.fetchUser();
+      data.helloMessage = "با موفقیت وارد شدید";
+      closeDialog(2);
+      
       if (intendedUrl !== "") {
-        router.push({ path: intendedUrl });
+        console.log("in", intendedUrl);
+        router.push({ path: "/" });
       }
-      alert("با موفقیت وارد شده اید");
-      auth.hideLoginform();
+      else{
+        router.push({ name: "home" });
+      }
     })
     .catch(function (error) {
       if (error.response) {
