@@ -68,6 +68,7 @@ export default {
       showDoc: false,
       selectedDoc: null,
       folders: {
+        "22x3": "گواهی بیمه",
         "22x4": "ریپورت هولتر ضربان",
         "22x5": "ریپورت نوار مغز",
         "22x6": "ریپورت هولتر فشار خون",
