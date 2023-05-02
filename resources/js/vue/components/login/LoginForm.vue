@@ -240,13 +240,13 @@ function loginWithToken() {
     .then(async (res) => {
       console.log("i2n", intendedUrl);
       const user = await auth.fetchUser();
+      closeDialog(2);
+      data.helloMessage = "با موفقیت وارد شدید";
       router.push({ path: "/" });
       if (intendedUrl !== "") {
         console.log("in", intendedUrl);
         router.push({ path: "/" });
       }
-      closeDialog(2);
-      data.helloMessage = "با موفقیت وارد شدید";
     })
     .catch(function (error) {
       if (error.response) {

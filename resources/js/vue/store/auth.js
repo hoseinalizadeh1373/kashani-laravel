@@ -77,7 +77,6 @@ export const useAuthStore = defineStore('auth', () => {
 
 
     function loginWithToken(user) {
-        console.log("user", user)
         return new Promise((resolve, reject) => {
             axios.post("/api/auth/loginWithToken", { mobile: user.mobile, token: user.token })
                 .then(res => {

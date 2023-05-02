@@ -1,5 +1,5 @@
 <template >
-  <v-form @submit.prevent="upload" ref="form">
+  <v-form @submit.prevent="upload" ref="uploadForm">
     <v-row justify="center">
       <v-col cols="8" sm="2" order="2">
         <v-img
@@ -126,16 +126,18 @@ export default {
           }
         );
         alert("بارگزاری شد.");
-        this.reset();
-
         this.$emit("uploaded");
+        this.reset();
       } catch (err) {}
       this.loading = false;
     },
     reset() {
-      this.$refs.form.reset();
+      this.image_url = null;
+      this.$refs.uploadForm.reset();
     },
   },
-  mounted() {},
+  mounted() {
+    
+  },
 };
 </script>

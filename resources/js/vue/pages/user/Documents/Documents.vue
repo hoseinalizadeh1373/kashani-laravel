@@ -3,27 +3,40 @@
     <v-row>
       <v-col>
         <card :loading="loading" title="اسناد">
-          <v-table>
-            <thead>
-              <th></th>
-            </thead>
-            <tbody>
-              <tr v-for="doc in documents" :key="doc">
-                <td>{{ doc.notes_title }}</td>
-                <td>{{ doc.createdtime }}</td>
-                <td>
-                  <v-btn
-                    @click="
-                      showDoc = true;
-                      selectedDoc = doc;
-                    "
-                    class="ml-1"
-                    >مشاهده</v-btn
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </v-table>
+          <v-list>
+            <v-list-group
+              v-for="(documentsGroup, folderid) in documents"
+              :key="folderid"
+            >
+              <template v-slot:activator="{ props }">
+                <v-list-item
+                  v-bind="props"
+                  prepend-icon="mdi-folder-multiple-outline"
+                  color="orange-darken-4"
+                  :title="folders[folderid]"
+                ></v-list-item>
+              </template>
+
+              <v-list-item
+                class="ps-10"
+                v-for="doc in documentsGroup"
+                :key="doc"
+                @click="
+                  showDoc = true;
+                  selectedDoc = doc;
+                "
+                border="bottom"
+              >
+                <v-list-item-title class="text-orange-darken-4">
+                  <v-icon size="x-small" color="orange-darken-4">mdi-file</v-icon>
+                  {{ doc.notes_title }}
+                </v-list-item-title>
+              </v-list-item>
+
+            </v-list-group>
+            
+          </v-list>
+          
         </card>
       </v-col>
     </v-row>
@@ -31,8 +44,12 @@
     <document
       v-if="showDoc"
       :document="selectedDoc"
-      @cancel="showDoc=false;selectedDoc=null"
-    >asdasd</document>
+      @cancel="
+        showDoc = false;
+        selectedDoc = null;
+      "
+      >asdasd</document
+    >
   </v-container>
 </template>
 
@@ -50,6 +67,17 @@ export default {
       documents: [],
       showDoc: false,
       selectedDoc: null,
+      folders: {
+        "22x3": "گواهی بیمه",
+        "22x4": "ریپورت هولتر ضربان",
+        "22x5": "ریپورت نوار مغز",
+        "22x6": "ریپورت هولتر فشار خون",
+        "22x7": "قرارداد مراقبت",
+        "22x10": "جواب آزمایشات",
+        "22x11": "جواب تصویربرداری",
+        "22x12": "معرفی نامه مراقب",
+        "22x14": "نسخه پزشک",
+      },
     };
   },
   computed: {
@@ -63,8 +91,12 @@ export default {
   methods: {
     async loadDocuments() {
       this.loading = true;
-      const { data } = await axios.get(`/api/users/${this.user.id}/documents`);
+      const { data } = await axios.get(
+        `/api/users/${this.user.id}/documents/related`
+      );
       this.documents = data;
+      this.documents = _.groupBy(this.documents, "folderid");
+      console.log(this.documents);
       this.loading = false;
     },
   },

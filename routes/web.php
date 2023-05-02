@@ -17,12 +17,17 @@ use Illuminate\Support\Facades\Log;
 }); */
 
 Route::get("installJwt", function () {
-    Artisan::call("jwt:secret");
+    if(! app()->isProduction()) {
+        Artisan::call("jwt:secret");
+    }
 });
 
 Route::get("migrate-fresh", function () {
-    define('STDIN',fopen("php://stdin","r"));
-    Artisan::call("migrate:fresh");
+    if(! app()->isProduction()) {
+        define('STDIN', fopen("php://stdin", "r"));
+        $res = Artisan::call("migrate:fresh");
+        dd($res);
+    }
 });
 
 Route::get("/testing", function () {
@@ -36,12 +41,6 @@ Route::get("/testing", function () {
 
 });
 
-
-Route::get("webGaurdLogin/{user}", function (User $user) {
-    Log::alert("gasadasdsad");
-    auth('web')->login($user);
-    return true;
-})->name('webGaurdLogin');
 
 // crm entrance
 Route::post("/crme/checkContact", [App\Http\Controllers\CrmEntranceController::class,"checkContact"])->middleware(["guest"]);
@@ -57,7 +56,6 @@ Route::middleware("auth")->prefix("client")->as("client.")->group(function () {
     });
 });
 
-Route::get("/test", "TestController@test");
 
 Route::middleware("throttle:sendVerifyCodeLimit")->group(function () {
     Route::get("/mobile/login", [SmsLoginController::class,"login"]);

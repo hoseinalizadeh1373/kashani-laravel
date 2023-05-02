@@ -25,13 +25,14 @@ class CrmUser
     }
 
 
-    public function uploadDocument($fileBase64, $filename, $title)
+    public function uploadDocument($fileBase64, $filename, $title ,$folderId=null)
     {
         $docid = $this->crmMethods->createDocument(
             $this->user->crm_contact_id,
             $fileBase64,
             $filename,
-            $title
+            $title,
+            $folderId
         );
 
         $this->crmMethods->addRelatedDoc($this->user->crm_contact_id, $docid);
