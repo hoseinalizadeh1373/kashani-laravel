@@ -4,14 +4,21 @@
       <v-col>
         <card :loading="loading" title="اسناد">
           <v-list>
-            <template
+            <v-list-group
               v-for="(documentsGroup, folderid) in documents"
               :key="folderid"
             >
-              <v-list-subheader>
-                {{ folders[folderid] }}
-              </v-list-subheader>
+              <template v-slot:activator="{ props }">
+                <v-list-item
+                  v-bind="props"
+                  prepend-icon="mdi-folder-multiple-outline"
+                  color="orange-darken-4"
+                  :title="folders[folderid]"
+                ></v-list-item>
+              </template>
+
               <v-list-item
+                class="ps-10"
                 v-for="doc in documentsGroup"
                 :key="doc"
                 @click="
@@ -20,41 +27,16 @@
                 "
                 border="bottom"
               >
-                <v-list-item-title>
+                <v-list-item-title class="text-orange-darken-4">
+                  <v-icon size="x-small" color="orange-darken-4">mdi-file</v-icon>
                   {{ doc.notes_title }}
                 </v-list-item-title>
-                <!-- <template v-slot:append>
-                  <v-btn
-                    color="grey-lighten-1"
-                    icon="mdi-information"
-                    variant="text"
-                  ></v-btn>
-                </template> -->
               </v-list-item>
-              <v-divider /> 
-            </template>
+
+            </v-list-group>
+            
           </v-list>
-          <v-table v-if="false">
-            <thead>
-              <th></th>
-            </thead>
-            <tbody>
-              <tr v-for="doc in documents" :key="doc">
-                <td>{{ doc.notes_title }}</td>
-                <td>{{ doc.createdtime }}</td>
-                <td>
-                  <v-btn
-                    @click="
-                      showDoc = true;
-                      selectedDoc = doc;
-                    "
-                    class="ml-1"
-                    >مشاهده</v-btn
-                  >
-                </td>
-              </tr>
-            </tbody>
-          </v-table>
+          
         </card>
       </v-col>
     </v-row>
@@ -92,6 +74,8 @@ export default {
         "22x7": "قرارداد مراقبت",
         "22x10": "جواب آزمایشات",
         "22x11": "جواب تصویربرداری",
+        "22x12": "معرفی نامه مراقب",
+        "22x14": "نسخه پزشک",
       },
     };
   },
