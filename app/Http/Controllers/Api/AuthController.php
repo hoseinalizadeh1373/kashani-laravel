@@ -26,7 +26,7 @@ class AuthController extends Controller
         $this->middleware('auth:api', ['except' => ['logout', 'requestToken', 'loginWithToken', 'register']]);
     }
 
-   
+
 
     /**
      *
@@ -36,8 +36,8 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $this->validate($request, [
-            "mobile"=>"required|unique:users",
-            "national_code"=>['required','unique:users',new BelongsToNationalCode()],
+            "mobile"=>"required|iran_mobile|unique:users",
+            "national_code"=>['required','unique:users','iran_national_code', new BelongsToNationalCode()],
             "firstname"=>"required",
             "lastname"=>"required",
         ]);
@@ -64,9 +64,9 @@ class AuthController extends Controller
         ]);
 
         $user=$this->getUserByMobile($request->mobile);
-        
+
         $user->checkCrmContactId();
-       
+
         $token = auth('api')->login($user);
 
         return $this->respondWithToken($token);
