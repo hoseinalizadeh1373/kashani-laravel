@@ -95,6 +95,7 @@ export default {
         contact_data: contact
       });
       this.storeContactLoading = false;
+      alert("ذخیره شد")
     },
   },
   mounted() {
