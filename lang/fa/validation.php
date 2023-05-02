@@ -158,5 +158,6 @@ return array(
         "secretaryId" => "کد منشی",
         "start_datetime" => "زمان شروع",
         "end_datetime" => "زمان پایان",
+        "national_code"=>"کد ملی"
     ),
 );
